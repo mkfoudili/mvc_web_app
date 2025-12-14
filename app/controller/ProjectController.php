@@ -23,7 +23,8 @@ class ProjectController {
                 return $p['name'];
             }, $partners));
         }
-
-        require __DIR__ . '/../view/project/index.php';
+        require_once __DIR__ . '/../view/ProjectView.php';
+        $view = new ProjectView();
+        $view->renderIndex($projects);
     }
 }

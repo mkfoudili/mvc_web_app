@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../model/EquipmentModel.php';
+require_once __DIR__ . '/../view/EquipmentView.php';
+
 
 Class EquipmentController{
     private $model;
@@ -21,7 +23,8 @@ Class EquipmentController{
         }
         
         $equipments = $this->model->getAll();
-        require __DIR__ . '/../view/equipment/index.php';
+        $view = new EquipmentView();
+        $view->renderIndex($equipments);
     }
     
     // GET or POST /equipment/addReservation/{id}
@@ -52,8 +55,8 @@ Class EquipmentController{
         if (!$equipment) {
             die('Equipment not found');
         }
-
-        require __DIR__ . '/../view/equipment/addResercation.php';
+        $view = new EquipmentView();
+        $view->renderAddReservation($equipment);
     }
 
     public function reportBreakdown()
@@ -78,8 +81,8 @@ Class EquipmentController{
 
         $equipment = $this->model->findById($equipmentId);
         if (!$equipment) die('Equipment not found');
-
-        require __DIR__ . '/../view/equipment/reportBreakdown.php';
+        $view = new EquipmentView();
+        $view->renderReportBreakdown($equipment);
     }
-
+    
 }
