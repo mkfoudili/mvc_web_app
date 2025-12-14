@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../Model/PublicationModel.php';
+require_once __DIR__ . '/../model/PublicationModel.php';
 
 echo "=== PublicationModel Test Script ===\n\n";
 

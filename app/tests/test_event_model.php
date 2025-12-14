@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once __DIR__ . '/../Model/EventModel.php';
+require_once __DIR__ . '/../model/EventModel.php';
 
 echo "<pre>";
 echo "=== EventModel Test Script ===\n\n";

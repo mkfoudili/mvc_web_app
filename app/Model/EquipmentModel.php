@@ -39,7 +39,7 @@ class EquipementModel {
         $stmt->execute([
             'name'        => $data['name'],
             'type'        => $data['type'] ?? null,
-            'state_id'    => $data['state_id'] ?? null,
+            'state_id'    => $data['state_id'] ?? 1,
             'description' => $data['description'] ?? null,
             'location'    => $data['location'] ?? null
         ]);
@@ -146,5 +146,62 @@ class EquipementModel {
             'id'       => $equipmentId,
             'state_id' => $stateId
         ]);
+    }
+
+    public function updateStateBasedOnReservations($equipmentId)
+    {
+        $now = date('Y-m-d H:i:s');
+
+        $sql = "
+            SELECT COUNT(*) 
+            FROM equipment_reservations
+            WHERE equipment_id = :id
+            AND :now BETWEEN reserved_from AND reserved_to
+            AND status = 'confirmed'
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id' => $equipmentId,
+            'now' => $now
+        ]);
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            $this->setState($equipmentId, 2);
+        } else {
+            $this->setState($equipmentId, 1);
+        }
+    }
+
+    public function archivePastReservations() {
+        $now = date('Y-m-d H:i:s');
+        $sql = "
+            SELECT r.*
+            FROM equipment_reservations r
+            WHERE r.reserved_to < :now
+              AND r.status = 'confirmed'
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['now' => $now]);
+        $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($reservations as $res) {
+            $insert = "
+                INSERT INTO equipment_history (equipment_id, member_id, event_time, note)
+                VALUES (:equipment_id, :member_id, :event_time, :note)
+            ";
+            $note = "Reservation from {$res['reserved_from']} to {$res['reserved_to']}";
+            $stmtInsert = $this->db->prepare($insert);
+            $stmtInsert->execute([
+                'equipment_id' => $res['equipment_id'],
+                'member_id'    => $res['member_id'],
+                'event_time'   => $res['reserved_to'],
+                'note'         => $note
+            ]);
+
+            $update = "UPDATE equipment_reservations SET status = 'archived' WHERE id = :id";
+            $stmtUpdate = $this->db->prepare($update);
+            $stmtUpdate->execute(['id' => $res['id']]);
+        }
     }
 }
