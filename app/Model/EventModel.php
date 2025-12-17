@@ -126,4 +126,35 @@ class EventModel {
             'member_id' => $memberId
         ]);
     }
+
+    public function getRequests($eventId)
+    {
+        $sql = "
+            SELECT er.*, 
+                COALESCE(CONCAT(m.first_name, ' ', m.last_name), er.name) AS display_name
+            FROM event_requests er
+            LEFT JOIN members m ON er.member_id = m.id
+            WHERE er.event_id = :event_id
+            ORDER BY er.submitted_at ASC
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['event_id' => $eventId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function submitRequest($eventId, $data)
+    {
+        $sql = "
+            INSERT INTO event_requests (event_id, member_id, name, email, message)
+            VALUES (:event_id, :member_id, :name, :email, :message)
+        ";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'event_id'  => $eventId,
+            'member_id' => $data['member_id'] ?? null,
+            'name'      => $data['name'] ?? null,
+            'email'     => $data['email'] ?? null,
+            'message'   => $data['message'] ?? null
+        ]);
+    }
 }
