@@ -132,7 +132,7 @@ class PublicationModel {
         return $stmt->execute([
             'publication_id' => $publicationId,
             'member_id'      => $author['member_id'] ?? null,
-            'author_name'    => $author['author_name'],
+            'author_name'    => $author['author_name'] ?? '',
             'author_order'   => $author['author_order'] ?? 0,
             'affiliation'    => $author['affiliation'] ?? null
         ]);
@@ -156,11 +156,21 @@ class PublicationModel {
     public function getAuthors($publicationId)
     {
         $sql = "
-            SELECT *
-            FROM publication_authors
-            WHERE publication_id = :publication_id
-            ORDER BY author_order ASC
+        SELECT
+            pa.id,
+            pa.author_order,
+            pa.affiliation,
+            pa.member_id,
+            COALESCE(
+                CONCAT(m.first_name, ' ', m.last_name),
+                pa.author_name
+            ) AS display_name
+        FROM publication_authors pa
+        LEFT JOIN members m ON pa.member_id = m.id
+        WHERE pa.publication_id = :publication_id
+        ORDER BY pa.author_order ASC
         ";
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['publication_id' => $publicationId]);
 
