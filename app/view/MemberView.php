@@ -1,7 +1,7 @@
 <?php
 
 class MemberView {
-    public function renderIndex(array $member): void{
+    public function renderIndex(array $member, array $publications): void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -12,7 +12,6 @@ class MemberView {
             </title>
         </head>
         <body>
-            <body>
 
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
 
@@ -60,8 +59,51 @@ class MemberView {
             <a href="/members">← Back to members</a>
         </p>
 
+        <h2>Publications</h2>
+        <?php $this->renderPublications($publications); ?>
         </body>
         </html>
+        <?php
+    }
+
+    public function renderPublications(array $publications): void{
+        ?>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Authors</th>
+                    <th>Date</th>
+                    <th>DOI</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($publications)): ?>
+                <tr>
+                    <td colspan="6">No publications</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($publications as $p): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($p['title']) ?></td>
+                        <td><?= htmlspecialchars($p['publication_type_id'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>
+                        <td>
+                            <?php if (!empty($p['url'])): ?>
+                                <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank">Link</a>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
         <?php
     }
 }

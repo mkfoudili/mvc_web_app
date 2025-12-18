@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/MemberModel.php';
+require_once __DIR__ . '/../model/PublicationModel.php';
 require_once __DIR__ . '/../view/MemberView.php';
 
 
@@ -27,7 +28,20 @@ Class MemberController{
             return;
         }
 
+        $publicationModel = new PublicationModel();
+        $publications = $this->model->getPublications($id);
+        foreach ($publications as &$pub) {
+            $authors = $publicationModel->getAuthors($pub['id']);
+
+            $authorNames = [];
+            foreach ($authors as $a) {
+                $authorNames[] = $a['display_name'];
+            }
+
+            $pub['authors'] = implode(', ', $authorNames);
+        }
+
         $view = new MemberView();
-        $view->renderIndex($member);
+        $view->renderIndex($member, $publications);
     }
 }
