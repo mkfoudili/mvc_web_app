@@ -14,8 +14,23 @@ class MemberView {
         <body>
 
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
+        <?php $this->renderMemberDetails($member); ?>
 
-        <?php if (!empty($member['photo_url'])): ?>
+        <h2>Publications</h2>
+        <?php $this->renderPublications($publications); ?>
+        <h2>Projects</h2>
+        <?php
+            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
+        ?>
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderMemberDetails(array $member): void {
+        ?>
+        <?php
+        if (!empty($member['photo_url'])): ?>
             <img src="<?= htmlspecialchars($member['photo_url']) ?>" alt="Member photo">
         <?php endif; ?>
 
@@ -54,19 +69,6 @@ class MemberView {
             <span class="label">Bio:</span><br>
             <?= nl2br(htmlspecialchars($member['bio'] ?? '-')) ?>
         </div>
-
-        <p>
-            <a href="/members">← Back to members</a>
-        </p>
-
-        <h2>Publications</h2>
-        <?php $this->renderPublications($publications); ?>
-        <h2>Projects</h2>
-        <?php
-            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
-        ?>
-        </body>
-        </html>
         <?php
     }
 
