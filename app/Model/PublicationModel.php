@@ -26,6 +26,12 @@ class PublicationModel {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getTypes()
+    {
+        $sql = "SELECT * FROM publication_types ORDER BY name ASC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getByTeam($teamId)
     {
         $sql = "
@@ -65,7 +71,7 @@ class PublicationModel {
         $stmt = $this->db->prepare($sql);
 
         $stmt->execute([
-            'title'               => $data['title'],
+            'title'               => $data['title'] ?? null,
             'team_id'             => $data['team_id'] ?? null,
             'publication_type_id' => $data['publication_type_id'] ?? null,
             'date_published'      => $data['date_published'] ?? null,

@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/../model/PublicationModel.php';
 require_once __DIR__ . '/../model/TeamModel.php';
+require_once __DIR__ . '/../model/MemberModel.php';
+require_once __DIR__ . '/../view/PublicationView.php';
+
 
 
 class PublicationController {
@@ -40,5 +43,40 @@ class PublicationController {
         require_once __DIR__ . '/../view/PublicationView.php';
         $view = new PublicationView();
         $view->renderIndex($data);
+    }
+
+    public function create()
+    {
+        $memberId = (int)($_GET['id'] ?? 0);
+
+        if ($memberId <= 0) {
+            die('Invalid member');
+        }
+
+        $memberModel = new MemberModel();
+
+        $members = $memberModel->getAll();
+        $types = $this->model->getTypes();
+
+        $view = new PublicationView();
+        $view->addPublication($memberId, $members, $types);
+    }
+
+    public function store()
+    {
+
+        $publication = array_map(function($value) {
+            return $value === '' ? null : $value;
+        }, $_POST);
+        if (empty($publication['date_published'])) {
+        $publication['date_published'] = date('Y-m-d');
+        }
+        $publicationId = $this->model->create($publication);
+        $authors = $_POST['authors'] ?? [];
+        foreach ($authors as &$a) {
+            $this->model->addAuthor($publicationId,$a);
+        }
+        header('Location: /member/index?id=' . (int)$_POST['member_id']);
+        exit;
     }
 }

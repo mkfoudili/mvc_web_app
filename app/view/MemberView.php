@@ -27,6 +27,40 @@ class MemberView {
         <?php
     }
 
+    public function renderMyProfile(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl): void{
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>My Profile</title>
+        </head>
+        <body>
+
+        <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
+        <?php $this->renderMemberDetails($member); ?>
+        <button disabled>Edit Profile</button>
+
+        <h2>My Publications</h2>
+        <?php $this->renderPublications($publications); ?>
+        <a href="/publication/create?id=<?= $member['id'] ?>">
+            <button>Add Publication</button>
+        </a>
+
+        <h2>My Projects</h2>
+        <?php
+            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
+        ?>
+        <button disabled>Add Project</button>
+
+        <h2>My Events</h2>
+        <h2>My Reservations</h2>
+
+        </body>
+        </html>
+        <?php
+    }
+
     public function renderMemberDetails(array $member): void {
         ?>
         <?php

@@ -60,6 +60,7 @@ Class MemberController{
 
         $view = new MemberView();
         $projectView = new ProjectView();
-        $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
+        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
+        // $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
     }
 }
