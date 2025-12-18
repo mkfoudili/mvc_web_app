@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/ProjectModel.php';
+require_once __DIR__ . '/../view/ProjectView.php';
 
 class ProjectController {
     private $model;
@@ -23,8 +24,32 @@ class ProjectController {
                 return $p['name'];
             }, $partners));
         }
-        require_once __DIR__ . '/../view/ProjectView.php';
         $view = new ProjectView();
         $view->renderIndex($projects);
+    }
+
+    public function show()
+    {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            http_response_code(400);
+            echo "Project id required";
+            return;
+        }
+
+        $project = $this->model->findById($id);
+
+        if (!$project) {
+            http_response_code(404);
+            echo "Project not found";
+            return;
+        }
+
+        $members  = $this->model->getMembers($id);
+        $partners = $this->model->getPartners($id);
+
+        $view = new ProjectView();
+        $view->renderShow($project, $members, $partners);
     }
 }
