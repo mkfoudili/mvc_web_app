@@ -52,4 +52,21 @@ class ProjectController {
         $view = new ProjectView();
         $view->renderShow($project, $members, $partners);
     }
+
+    public function cards(){
+        $allProjects = $this->model->getAll();
+
+        $perPage = 3;
+        $page = max(1, (int)($_GET['page'] ?? 1));
+
+        $totalProjects = count($allProjects);
+        $totalPages = (int) ceil($totalProjects / $perPage);
+
+        $offset = ($page - 1) * $perPage;
+        $projectsPage = array_slice($allProjects, $offset, $perPage);
+
+        require_once __DIR__ . '/../view/ProjectView.php';
+        $view = new ProjectView();
+        $view->renderCards($projectsPage, $page, $totalPages);
+    }
 }

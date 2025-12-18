@@ -125,4 +125,40 @@ class ProjectView {
         </html>
         <?php
     }
+
+    public function renderCards(array $projects, int $currentPage, int $totalPages): void{
+        ?>
+        <h1>Projects</h1>
+
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+            <?php foreach ($projects as $p): ?>
+                <div style="
+                    border:1px solid #ccc;
+                    padding:16px;
+                    width:220px;
+                ">
+                    <h3><?= htmlspecialchars($p['title']) ?></h3>
+
+                    <a href="/project/show?id=<?= (int)$p['id'] ?>">
+                        <button>View details</button>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div style="margin-top:20px;">
+            <?php if ($currentPage > 1): ?>
+                <a href="/project/cards?page=<?= $currentPage - 1 ?>">← Previous</a>
+            <?php endif; ?>
+
+            <span style="margin:0 10px;">
+                Page <?= $currentPage ?> / <?= $totalPages ?>
+            </span>
+
+            <?php if ($currentPage < $totalPages): ?>
+                <a href="/project/cards?page=<?= $currentPage + 1 ?>">Next →</a>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
 }
