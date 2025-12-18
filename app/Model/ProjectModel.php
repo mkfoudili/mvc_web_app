@@ -165,4 +165,18 @@ class ProjectModel {
         $stmt = $this->db->prepare("DELETE FROM project_partners WHERE id = :id");
         return $stmt->execute(['id' => $partnerId]);
     }
+
+    public function getByMember($memberId){
+        $sql = "
+            SELECT pr.*, pm.role_in_project
+            FROM projects pr
+            INNER JOIN project_members pm ON pr.id = pm.project_id
+            WHERE pm.member_id = :member_id
+            ORDER BY pr.created_at DESC
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['member_id' => $memberId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

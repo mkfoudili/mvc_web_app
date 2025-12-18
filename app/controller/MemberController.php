@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../model/MemberModel.php';
 require_once __DIR__ . '/../model/PublicationModel.php';
+require_once __DIR__ . '/../model/ProjectModel.php';
+require_once __DIR__ . '/../view/ProjectView.php';
 require_once __DIR__ . '/../view/MemberView.php';
 
 
@@ -41,7 +43,23 @@ Class MemberController{
             $pub['authors'] = implode(', ', $authorNames);
         }
 
+
+        $projectModel = new ProjectModel();
+        $allProjects = $projectModel->getByMember($id);
+        $perPage = 3;
+        $page = max(1, (int)($_GET['page'] ?? 1));
+        $totalPages = (int) ceil(count($allProjects) / $perPage);
+
+        $projectsPage = array_slice(
+            $allProjects,
+            ($page - 1) * $perPage,
+            $perPage
+        );
+
+        $baseurl = "/member/index?id=" . $id . "&";
+
         $view = new MemberView();
-        $view->renderIndex($member, $publications);
+        $projectView = new ProjectView();
+        $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
     }
 }

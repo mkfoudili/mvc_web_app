@@ -1,7 +1,7 @@
 <?php
 
 class MemberView {
-    public function renderIndex(array $member, array $publications): void{
+    public function renderIndex(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl): void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -61,6 +61,10 @@ class MemberView {
 
         <h2>Publications</h2>
         <?php $this->renderPublications($publications); ?>
+        <h2>Projects</h2>
+        <?php
+            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
+        ?>
         </body>
         </html>
         <?php

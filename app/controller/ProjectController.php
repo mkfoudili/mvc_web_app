@@ -65,8 +65,8 @@ class ProjectController {
         $offset = ($page - 1) * $perPage;
         $projectsPage = array_slice($allProjects, $offset, $perPage);
 
-        require_once __DIR__ . '/../view/ProjectView.php';
+        $baseurl = "/project/cards?";
         $view = new ProjectView();
-        $view->renderCards($projectsPage, $page, $totalPages);
+        $view->renderCards($projectsPage, $page, $totalPages,$baseurl);
     }
 }

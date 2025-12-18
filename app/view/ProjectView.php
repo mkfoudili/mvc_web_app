@@ -126,7 +126,7 @@ class ProjectView {
         <?php
     }
 
-    public function renderCards(array $projects, int $currentPage, int $totalPages): void{
+    public function renderCards(array $projects, int $currentPage, int $totalPages, string $baseurl): void{
         ?>
         <h1>Projects</h1>
 
@@ -148,7 +148,7 @@ class ProjectView {
 
         <div style="margin-top:20px;">
             <?php if ($currentPage > 1): ?>
-                <a href="/project/cards?page=<?= $currentPage - 1 ?>">← Previous</a>
+                <a href="<?= $baseurl ?>page=<?= $currentPage - 1 ?>">Previous</a>
             <?php endif; ?>
 
             <span style="margin:0 10px;">
@@ -156,7 +156,7 @@ class ProjectView {
             </span>
 
             <?php if ($currentPage < $totalPages): ?>
-                <a href="/project/cards?page=<?= $currentPage + 1 ?>">Next →</a>
+                <a href="<?= $baseurl ?>page=<?= $currentPage + 1 ?>">Next</a>
             <?php endif; ?>
         </div>
         <?php
