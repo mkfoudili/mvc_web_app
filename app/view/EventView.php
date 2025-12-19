@@ -36,7 +36,7 @@ class EventView {
                         <td><?= htmlspecialchars($event['description'] ?? '-') ?></td>
                         <td>
                             <?php if ($event['is_upcoming']): ?>
-                            <a href="/event/joinForm?id=<?= $event['id'] ?>">
+                            <a href="/event/joinForm?id=<?= $event['id'] ?>&return=/event/index">
                                 <button>Join</button>
                             </a> 
                             <?php else: ?>
@@ -54,7 +54,7 @@ class EventView {
         <?php
     }
 
-    public function renderJoinForm(array $event): void
+    public function renderJoinForm(array $event, string $returnUrl): void
     {
         ?>
         <!DOCTYPE html>
@@ -72,7 +72,7 @@ class EventView {
 
         <form method="post" action="/event/joinEvent">
             <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
-
+            <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
             <!-- ONLY DISPLAYS TO EXTERNAL MEMBERS NOT MEMBERS -->
             <input type="hidden" name="member_id" value="">
 
@@ -133,6 +133,43 @@ class EventView {
             <?php endif; ?>
             </tbody>
         </table>
+        <?php
+    }
+    public function renderCards(array $events, int $currentPage, int $totalPages, string $baseurl): void {
+        ?>
+        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+            <?php foreach ($events as $event): ?>
+                <div style="
+                    border:1px solid #ccc;
+                    padding:16px;
+                    width:220px;
+                ">
+                    <h3><?= htmlspecialchars($event['name']) ?></h3>
+
+                    <?php if (!empty($event['is_upcoming']) && $event['is_upcoming']): ?>
+                        <a href="/event/joinForm?id=<?= $event['id'] ?>&return=/event/cards">
+                        <button>Join</button>
+                        </a>
+                    <?php else: ?>
+                        <button disabled>Closed</button>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div style="margin-top:20px;">
+            <?php if ($currentPage > 1): ?>
+                <a href="<?= $baseurl ?>page=<?= $currentPage - 1 ?>">Previous</a>
+            <?php endif; ?>
+
+            <span style="margin:0 10px;">
+                Page <?= $currentPage ?> / <?= $totalPages ?>
+            </span>
+
+            <?php if ($currentPage < $totalPages): ?>
+                <a href="<?= $baseurl ?>page=<?= $currentPage + 1 ?>">Next</a>
+            <?php endif; ?>
+        </div>
         <?php
     }
 }
