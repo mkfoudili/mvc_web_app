@@ -3,8 +3,11 @@ require_once __DIR__ . '/../model/MemberModel.php';
 require_once __DIR__ . '/../model/PublicationModel.php';
 require_once __DIR__ . '/../model/ProjectModel.php';
 require_once __DIR__ . '/../model/TeamModel.php';
+require_once __DIR__ . '/../model/EventModel.php';
 require_once __DIR__ . '/../view/ProjectView.php';
 require_once __DIR__ . '/../view/MemberView.php';
+require_once __DIR__ . '/../view/EventView.php';
+
 
 
 Class MemberController{
@@ -70,9 +73,14 @@ Class MemberController{
 
         $baseurl = "/member/index?id=" . $id . "&";
 
+        //only used in my profile rendering
+        $eventModel = new EventModel();
+        $events = $eventModel->getUpcomingEventsByMember($id);
+
         $view = new MemberView();
         $projectView = new ProjectView();
-        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
+        $eventView = new EventView();
+        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl, $eventView, $events);
         // $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
     }
     public function edit()

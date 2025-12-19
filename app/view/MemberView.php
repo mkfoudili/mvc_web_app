@@ -27,7 +27,7 @@ class MemberView {
         <?php
     }
 
-    public function renderMyProfile(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl): void{
+    public function renderMyProfile(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl, EventView $eventView, array $events): void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -56,6 +56,9 @@ class MemberView {
         <button disabled>Add Project</button>
 
         <h2>My Events</h2>
+        <?php
+            $eventView->renderMyEvents($events);
+        ?>
         <h2>My Reservations</h2>
 
         </body>

@@ -157,4 +157,22 @@ class EventModel {
             'message'   => $data['message'] ?? null
         ]);
     }
+
+    public function getUpcomingEventsByMember($memberId)
+    {
+        $sql = "
+            SELECT e.*, et.name AS event_type_name
+            FROM events e
+            INNER JOIN event_participants ep ON e.id = ep.event_id
+            LEFT JOIN event_types et ON e.event_type_id = et.id
+            WHERE ep.member_id = :member_id
+            AND e.event_date IS NOT NULL
+            AND e.event_date >= NOW()
+            ORDER BY e.event_date ASC
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['member_id' => $memberId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
