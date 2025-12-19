@@ -75,18 +75,22 @@ Class MemberController{
 
         $baseurl = "/member/index?id=" . $id . "&page=";
 
-        //only used in my profile rendering
-        $eventModel = new EventModel();
-        $events = $eventModel->getUpcomingEventsByMember($id);
-        $reservationModel = new ReservationModel();
-        $reservations = $reservationModel->getByMember($id);
-
+        session_start();
+        $loggedInMemberId = $_SESSION['member_id'] ?? null;
         $view = new MemberView();
         $projectView = new ProjectView();
-        $eventView = new EventView();
-        $equipmentView = new EquipmentView();
-        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl, $eventView, $events,$equipmentView, $reservations);
-        // $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
+
+        if ($loggedInMemberId && (int)$loggedInMemberId === $id) {
+            $eventView = new EventView();
+            $equipmentView = new EquipmentView();
+            $eventModel = new EventModel();
+            $events = $eventModel->getUpcomingEventsByMember($id);
+            $reservationModel = new ReservationModel();
+            $reservations = $reservationModel->getByMember($id);
+            $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl, $eventView, $events,$equipmentView, $reservations);
+        }else{
+            $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
+        }
     }
     public function edit()
     {
