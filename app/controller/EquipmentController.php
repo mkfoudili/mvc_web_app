@@ -31,15 +31,24 @@ Class EquipmentController{
     // GET or POST /equipment/addReservation/{id}
     public function addReservation()
     {
+        session_start();
         $equipmentId = $_GET['id'] ?? null;
 
         if (!$equipmentId) {
+            http_response_code(400);
             die('Equipment ID is required');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $memberId = $_SESSION['member_id'] ?? null;
+            if (!$memberId) {
+                http_response_code(403);
+                die('You must be logged in to reserve equipment.');
+            }
+
             $data = [
-                'equipment_id'   => $equipmentId,
+                'equipment_id'   => (int)$equipmentId,
+                'member_id'      => (int)$memberId,
                 'reserved_from'  => $_POST['reserved_from'],
                 'reserved_to'    => $_POST['reserved_to'],
                 'purpose'        => $_POST['purpose'] ?? null,
@@ -54,6 +63,7 @@ Class EquipmentController{
         $equipment = $this->model->findById($equipmentId);
 
         if (!$equipment) {
+            http_response_code(404);
             die('Equipment not found');
         }
         $view = new EquipmentView();
