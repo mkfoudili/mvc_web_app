@@ -8,7 +8,7 @@ class NavbarView {
             <a href="/project/index">Projects</a>
             <a href="/publication/index">Publications</a>
             <a href="/event/index">Events</a>
-            <a href="/team/index">Members</a>
+            <a href="/team/index">Teams</a>
             <a href="/news/index">News</a>
             <a href="/contact/index">Contact</a>
         </nav>
@@ -25,7 +25,7 @@ class NavbarView {
             <a href="/project/index">Projects</a>
             <a href="/publication/index">Publications</a>
             <a href="/event/index">Events</a>
-            <a href="/team/index">Members</a>
+            <a href="/team/index">Teams</a>
             <a href="/news/index">News</a>
             <a href="/equipment/index">Equipment</a>
         </nav>
