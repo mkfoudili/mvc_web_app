@@ -133,9 +133,6 @@ class EventView {
             <?php endif; ?>
             </tbody>
         </table>
-
-        </body>
-        </html>
         <?php
     }
 }
