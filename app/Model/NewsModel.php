@@ -30,7 +30,7 @@ class NewsModel {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLatest($limit)
+    public function getLatest($limit = 4)
     {
         $limit = (int) $limit;
 

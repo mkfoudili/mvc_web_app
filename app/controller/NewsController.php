@@ -15,4 +15,12 @@ CLass NewsController{
         $view = new NewsView();
         $view->renderIndex($news);
     }
+
+    public function latest()
+    {
+        $news = $this->model->getLatest(4);
+
+        $view = new NewsView();
+        $view->renderDiaporama($news);
+    }
 }
