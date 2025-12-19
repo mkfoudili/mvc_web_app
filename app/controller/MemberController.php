@@ -4,9 +4,11 @@ require_once __DIR__ . '/../model/PublicationModel.php';
 require_once __DIR__ . '/../model/ProjectModel.php';
 require_once __DIR__ . '/../model/TeamModel.php';
 require_once __DIR__ . '/../model/EventModel.php';
+require_once __DIR__ . '/../model/ReservationModel.php';
 require_once __DIR__ . '/../view/ProjectView.php';
 require_once __DIR__ . '/../view/MemberView.php';
 require_once __DIR__ . '/../view/EventView.php';
+require_once __DIR__ . '/../view/EquipmentView.php';
 
 
 
@@ -76,11 +78,14 @@ Class MemberController{
         //only used in my profile rendering
         $eventModel = new EventModel();
         $events = $eventModel->getUpcomingEventsByMember($id);
+        $reservationModel = new ReservationModel();
+        $reservations = $reservationModel->getByMember($id);
 
         $view = new MemberView();
         $projectView = new ProjectView();
         $eventView = new EventView();
-        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl, $eventView, $events);
+        $equipmentView = new EquipmentView();
+        $view->renderMyProfile($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl, $eventView, $events,$equipmentView, $reservations);
         // $view->renderIndex($member, $publications, $projectsPage, $page, $totalPages, $projectView, $baseurl);
     }
     public function edit()

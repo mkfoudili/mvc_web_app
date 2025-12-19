@@ -27,7 +27,7 @@ class MemberView {
         <?php
     }
 
-    public function renderMyProfile(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl, EventView $eventView, array $events): void{
+    public function renderMyProfile(array $member, array $publications, array $projects, int $page, int $totalPages, ProjectView $projectView, $baseurl, EventView $eventView, array $events, EquipmentView $equipmentView, array $reservations): void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -60,7 +60,9 @@ class MemberView {
             $eventView->renderMyEvents($events);
         ?>
         <h2>My Reservations</h2>
-
+        <?php
+            $equipmentView->renderReservations($reservations);
+        ?>
         </body>
         </html>
         <?php

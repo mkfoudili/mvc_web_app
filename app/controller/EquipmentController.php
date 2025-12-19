@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/EquipmentModel.php';
+require_once __DIR__ . '/../model/ReservationModel.php';
 require_once __DIR__ . '/../view/EquipmentView.php';
 
 
@@ -85,4 +86,26 @@ Class EquipmentController{
         $view->renderReportBreakdown($equipment);
     }
     
+    public function cancel()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $reservationModel = new ReservationModel();
+
+        $reservationModel->cancel($id);
+        $reservation = $reservationModel->findById($id);
+        $memberId = $reservation['member_id'] ?? null;
+
+        if ($memberId) {
+            header("Location: /member/index?id=" . $memberId);
+        } else {
+            header("Location: /member/index");
+        }
+        exit;
+    }
 }

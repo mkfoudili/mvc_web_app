@@ -145,4 +145,55 @@ class EquipmentView{
         </html>
         <?php
     }
+
+    public function renderReservations(array $reservations): void
+    {
+        ?>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Equipment</th>
+                    <th>Type</th>
+                    <th>State</th>
+                    <th>Location</th>
+                    <th>Reserved From</th>
+                    <th>Reserved To</th>
+                    <th>Purpose</th>
+                    <th>Status</th>
+                    <th>َAction</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($reservations)): ?>
+                <tr>
+                    <td colspan="8">No reservations found</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($reservations as $r): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($r['equipment_name']) ?></td>
+                        <td><?= htmlspecialchars($r['equipment_type'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['equipment_state'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['equipment_location'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['reserved_from']) ?></td>
+                        <td><?= htmlspecialchars($r['reserved_to']) ?></td>
+                        <td><?= htmlspecialchars($r['purpose'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['status'] ?? '-') ?></td>
+                        <td>
+                        <?php if ($r['status'] === 'confirmed'): ?>
+                            <form method="post" action="/equipment/cancel" style="display:inline;">
+                                <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
+                                <button type="submit">Cancel</button>
+                            </form>
+                        <?php else: ?>
+                            -
+                        <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        <?php
+    }
 }

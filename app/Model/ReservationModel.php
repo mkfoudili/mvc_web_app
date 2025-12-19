@@ -1,7 +1,7 @@
 <?php
 require_once "Db.php";
 
-class ReservationtionModel {
+class ReservationModel {
     private $db;
 
     public function __construct() {
@@ -52,17 +52,23 @@ class ReservationtionModel {
 
     public function getByMember($memberId)
     {
-        $sql = "
-            SELECT r.*, e.name AS equipment_name
-            FROM equipment_reservations r
-            INNER JOIN equipment e ON r.equipment_id = e.id
-            WHERE r.member_id = :member_id
-            ORDER BY r.reserved_from DESC
-        ";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['member_id' => $memberId]);
+    $sql = "
+        SELECT r.*, 
+               e.name AS equipment_name,
+               e.type AS equipment_type,
+               e.description AS equipment_description,
+               e.location AS equipment_location,
+               s.name AS equipment_state
+        FROM equipment_reservations r
+        INNER JOIN equipment e ON r.equipment_id = e.id
+        LEFT JOIN equipment_states s ON e.state_id = s.id
+        WHERE r.member_id = :member_id
+        ORDER BY r.reserved_from DESC
+    ";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute(['member_id' => $memberId]);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function create($data)
