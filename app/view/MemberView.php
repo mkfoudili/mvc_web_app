@@ -18,9 +18,9 @@ class MemberView {
 
         <h2>Publications</h2>
         <?php $this->renderPublications($publications); ?>
-        <h2>Projects</h2>
+        <h2 id="projects">Projects</h2>
         <?php
-            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
+            $projectView->renderCards($projects, $page, $totalPages, $baseurl,"#projects");
         ?>
         </body>
         </html>
@@ -49,9 +49,9 @@ class MemberView {
             <button>Add Publication</button>
         </a>
 
-        <h2>My Projects</h2>
+        <h2 id="projects">My Projects</h2>
         <?php
-            $projectView->renderCards($projects, $page, $totalPages, $baseurl);
+            $projectView->renderCards($projects, $page, $totalPages, $baseurl,"#projects");
         ?>
         <a href="/project/create?member_id=<?= $member['id'] ?>">
             <button>Add Project</button>

@@ -73,7 +73,7 @@ Class MemberController{
             $perPage
         );
 
-        $baseurl = "/member/index?id=" . $id . "&";
+        $baseurl = "/member/index?id=" . $id . "&page=";
 
         //only used in my profile rendering
         $eventModel = new EventModel();

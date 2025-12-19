@@ -93,8 +93,8 @@ Class EventController{
         $offset = ($page - 1) * $perPage;
         $eventsPage = array_slice($allEvents, $offset, $perPage);
 
-        $baseurl = "/event/cards?";
+        $baseurl = "/event/cards?page=";
         $view = new EventView();
-        $view->renderCards($eventsPage, $page, $totalPages, $baseurl);
+        $view->renderCards($eventsPage, $page, $totalPages, $baseurl,"#");
     }
 }

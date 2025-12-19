@@ -70,9 +70,9 @@ class ProjectController {
         $offset = ($page - 1) * $perPage;
         $projectsPage = array_slice($allProjects, $offset, $perPage);
 
-        $baseurl = "/project/cards?";
+        $baseurl = "/project/cards?page=";
         $view = new ProjectView();
-        $view->renderCards($projectsPage, $page, $totalPages,$baseurl);
+        $view->renderCards($projectsPage, $page, $totalPages,$baseurl,"#");
     }
     public function create()
     {
