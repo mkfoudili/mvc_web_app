@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../model/ProjectModel.php';
+require_once __DIR__ . '/../model/MemberModel.php';
 require_once __DIR__ . '/../view/ProjectView.php';
 
 class ProjectController {
@@ -49,6 +50,10 @@ class ProjectController {
         $members  = $this->model->getMembers($id);
         $partners = $this->model->getPartners($id);
 
+        $members = array_filter($members, function($m) use ($project) {
+            return $m['member_id'] != $project['leader_member_id'];
+        });
+
         $view = new ProjectView();
         $view->renderShow($project, $members, $partners);
     }
@@ -68,5 +73,69 @@ class ProjectController {
         $baseurl = "/project/cards?";
         $view = new ProjectView();
         $view->renderCards($projectsPage, $page, $totalPages,$baseurl);
+    }
+    public function create()
+    {
+        $memberId = $_GET['member_id'] ?? null;
+
+        $memberModel = new MemberModel();
+        $members = $memberModel->getAll();
+
+        $fundingTypes = $this->model->getFundingTypes();
+
+        $view = new ProjectView();
+        $view->renderCreateForm($members, $fundingTypes, $memberId);
+    }
+
+    public function store()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $data = [
+            'title'            => $_POST['title'],
+            'leader_member_id' => $_POST['leader_member_id'],
+            'theme'            => $_POST['theme'],
+            'funding_type_id'  => $_POST['funding_type_id'],
+            'project_page_url' => $_POST['project_page_url'] ?? null,
+            'poster_url'       => $_POST['poster_url'] ?? null,
+            'description'      => $_POST['description'] ?? null
+        ];
+
+        $projectId = $this->model->create($data);
+
+       if (!empty($_POST['members'])) {
+        foreach ($_POST['members'] as $m) {
+            $memberId = (int)($m['member_id'] ?? 0);
+
+            if ($memberId === $data['leader_member_id']) {
+                continue;
+            }
+
+            if ($memberId > 0) {
+                $this->model->addMember($projectId, $memberId, 'participant');
+            }
+        }
+    }
+
+    if (!empty($_POST['partners'])) {
+        foreach ($_POST['partners'] as $partner) {
+            $partnerData = [
+                'name'             => trim($partner['name'] ?? ''),
+                'contact_info'     => trim($partner['contact_info'] ?? ''),
+                'role_description' => trim($partner['role_description'] ?? '')
+            ];
+
+            if (!empty($partnerData['name'])) {
+                $this->model->addPartner($projectId, $partnerData);
+            }
+        }
+    }
+
+        header("Location: /project/show?id=" . $projectId);
+        exit;
     }
 }

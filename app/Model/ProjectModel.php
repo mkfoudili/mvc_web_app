@@ -32,6 +32,17 @@ class ProjectModel {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getFundingTypes()
+    {
+        $sql = "
+            SELECT *
+            FROM funding_types
+            ORDER BY name ASC
+        ";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function create($data)
     {
         $sql = "
@@ -51,7 +62,13 @@ class ProjectModel {
             'description'       => $data['description'] ?? null
         ]);
 
-        return $this->db->lastInsertId();
+        $projectId = $this->db->lastInsertId();
+
+        if (!empty($data['leader_member_id'])) {
+        $this->addMember($projectId, $data['leader_member_id'], 'Leader');
+        }
+
+        return $projectId;
     }
 
     public function update($id, $data)
@@ -102,17 +119,18 @@ class ProjectModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addMember($projectId, $memberId)
+    public function addMember($projectId, $memberId, $role = 'Participant')
     {
         $sql = "
             INSERT INTO project_members (project_id, member_id, role_in_project)
-            VALUES (:project_id, :member_id, 'participant')
+            VALUES (:project_id, :member_id, :role_in_project)
         ";
         $stmt = $this->db->prepare($sql);
 
         return $stmt->execute([
-            'project_id' => $projectId,
-            'member_id'  => $memberId
+            'project_id'      => $projectId,
+            'member_id'       => $memberId,
+            'role_in_project' => $role
         ]);
     }
 

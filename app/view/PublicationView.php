@@ -140,7 +140,7 @@ Class PublicationView {
                     author_name: '',
                     label: text
                 });
-
+                select.remove(select.selectedIndex);
                 select.value = '';
             }
 

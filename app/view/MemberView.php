@@ -53,8 +53,9 @@ class MemberView {
         <?php
             $projectView->renderCards($projects, $page, $totalPages, $baseurl);
         ?>
-        <button disabled>Add Project</button>
-
+        <a href="/project/create?member_id=<?= $member['id'] ?>">
+            <button>Add Project</button>
+        </a>
         <h2>My Events</h2>
         <?php
             $eventView->renderMyEvents($events);
