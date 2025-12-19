@@ -39,7 +39,9 @@ class MemberView {
 
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
         <?php $this->renderMemberDetails($member); ?>
-        <button disabled>Edit Profile</button>
+        <a href="/member/edit?id=<?= $member['id'] ?>">
+            <button>Edit Profil</button>
+        </a>
 
         <h2>My Publications</h2>
         <?php $this->renderPublications($publications); ?>
@@ -80,12 +82,12 @@ class MemberView {
 
         <div class="block">
             <span class="label">Specialty:</span>
-            <?= htmlspecialchars($member['specialty_id'] ?? '-') ?>
+            <?= htmlspecialchars($member['specialty_name'] ?? '-') ?>
         </div>
 
         <div class="block">
-            <span class="label">Team:</span>
-            <?= htmlspecialchars($member['team_id'] ?? '-') ?>
+                <span class="label">Team:</span>
+                <?= htmlspecialchars($member['team_name'] ?? '-') ?>
         </div>
 
         <div class="block">
@@ -144,6 +146,105 @@ class MemberView {
             <?php endif; ?>
             </tbody>
         </table>
+        <?php
+    }
+
+    public function renderEditProfile(array $member, array $specialties, array $teams): void {
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit Profile</title>
+        </head>
+        <body>
+
+        <h1>Edit Profile</h1>
+
+        <form method="post" action="/member/update" enctype="multipart/form-data">
+
+            <input type="hidden" name="id" value="<?= htmlspecialchars($member['id']) ?>">
+            <input type="hidden" name="login" value="<?= htmlspecialchars($member['login']) ?>">
+
+            <div class="block">
+                <label>First Name:</label><br>
+                <input type="text" name="first_name" 
+                       value="<?= htmlspecialchars($member['first_name']) ?>" required>
+            </div>
+
+            <div class="block">
+                <label>Last Name:</label><br>
+                <input type="text" name="last_name" 
+                       value="<?= htmlspecialchars($member['last_name']) ?>" required>
+            </div>
+
+            <div class="block">
+                <label>Profile Photo:</label><br>
+                <input type="file" name="photo" accept="image/*">
+                <?php if (!empty($member['photo_url'])): ?>
+                    <br>
+                    <img src="<?= htmlspecialchars($member['photo_url']) ?>" alt="Current photo" width="120">
+                    <br>
+                    <button type="submit" name="delete_photo" value="1">Delete Photo</button>
+                <?php endif; ?>
+            </div>
+
+            <div class="block">
+                <label>Role:</label><br>
+                <input type="text" name="role_in_lab" 
+                       value="<?= htmlspecialchars($member['role_in_lab'] ?? '') ?>">
+            </div>
+
+            <div class="block">
+                <label>Specialty:</label><br>
+                <select name="specialty_id">
+                    <option value="">-- Select Specialty --</option>
+                    <?php foreach ($specialties as $s): ?>
+                        <option value="<?= $s['id'] ?>"
+                            <?= ($member['specialty_id'] == $s['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($s['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <label>Or add new specialty:</label><br>
+                <input type="text" name="new_specialty" placeholder="New specialty name">
+            </div>
+
+            <div class="block">
+                <label>Team:</label><br>
+                <select name="team_id">
+                    <option value="">-- Select Team --</option>
+                    <?php foreach ($teams as $t): ?>
+                        <option value="<?= $t['id'] ?>"
+                            <?= ($member['team_id'] == $t['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($t['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="block">
+                <label>Website:</label><br>
+                <input type="url" name="website" 
+                       value="<?= htmlspecialchars($member['website'] ?? '') ?>">
+            </div>
+
+            <div class="block">
+                <label>Bio:</label><br>
+                <textarea name="bio" rows="5" cols="50"><?= htmlspecialchars($member['bio'] ?? '') ?></textarea>
+            </div>
+
+            <br>
+            <button type="submit">Save Changes</button>
+            <a href="/member/index?id=<?= htmlspecialchars($member['id']) ?>">
+                <button type="button">Cancel</button>
+            </a>
+
+        </form>
+
+        </body>
+        </html>
         <?php
     }
 }

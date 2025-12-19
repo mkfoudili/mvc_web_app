@@ -32,6 +32,20 @@ class TeamModel {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getByMemberId($memberId)
+    {
+        $sql = "
+            SELECT t.*
+            FROM teams t
+            INNER JOIN members m ON m.team_id = t.id
+            WHERE m.id = :member_id
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['member_id' => $memberId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function create($data)
     {
         $sql = "

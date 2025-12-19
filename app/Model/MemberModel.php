@@ -43,6 +43,30 @@ class MemberModel {
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getSpecialties()
+    {
+        $sql = "
+            SELECT *
+            FROM specialties
+            ORDER BY name ASC
+        ";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getSpecialtyById($memberId)
+    {
+        $sql = "
+            SELECT *
+            FROM specialties, members
+            WHERE members.id = :member_id
+              AND members.specialty_id = specialties.id
+        ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['member_id' => $memberId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    
     public function getByTeam($teamId)
     {
         $sql = "
@@ -78,6 +102,15 @@ class MemberModel {
             'team_id'       => $data['team_id'] ?? null,
             'bio'           => $data['bio'] ?? null
         ]);
+
+        return $this->db->lastInsertId();
+    }
+
+    public function addSpeciality(string $name)
+    {
+        $sql = "INSERT INTO specialties (name) VALUES (:name)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['name' => $name]);
 
         return $this->db->lastInsertId();
     }
