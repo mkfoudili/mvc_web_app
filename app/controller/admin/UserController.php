@@ -103,4 +103,33 @@ Class UserController {
         header("Location: /admin/user/index");
         exit;
     }
+
+    public function toggleStatus(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header("Location: /admin/user/index");
+            exit;
+        }
+
+        $user = $this->model->findById($id);
+        if (!$user) {
+            header("Location: /admin/user/index");
+            exit;
+        }
+
+        $newStatus = ($user['status'] === 'active') ? 'suspended' : 'active';
+
+        $this->model->update($id, [
+            'login'         => $user['login'],
+            'email'         => $user['email'],
+            'password_hash' => $user['password_hash'], // keep existing hash
+            'role_id'       => $user['role_id'],
+            'permissions'   => json_decode($user['permissions'], true),
+            'specialty_id'  => $user['specialty_id'],
+            'status'        => $newStatus
+        ]);
+
+        header("Location: /admin/user/index");
+        exit;
+    }
 }

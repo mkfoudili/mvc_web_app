@@ -53,6 +53,11 @@ Class UserView {
                             <a href="/admin/user/edit?id=<?= $user['id'] ?>">
                                 <button>Update</button>
                             </a>
+                            <a href="/admin/user/toggleStatus?id=<?= $user['id'] ?>">
+                                <button>
+                                    <?= $user['status'] === 'active' ? 'Suspend' : 'Activate' ?>
+                                </button>
+                            </a>
                             <a href="/admin/user/delete?id=<?= $user['id'] ?>" onclick="return confirm('Are you sure you want to delete this user?');">
                                 <button>Delete</button>
                             </a>
