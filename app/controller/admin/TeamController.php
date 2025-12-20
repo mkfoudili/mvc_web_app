@@ -57,4 +57,56 @@ Class TeamController{
         header("Location: /admin/team/index");
         exit;
     }
+
+        public function edit(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Team id required";
+            return;
+        }
+
+        $team = $this->model->findById((int)$id);
+        if (!$team) {
+            http_response_code(404);
+            echo "Team not found";
+            return;
+        }
+        $memberModel = new MemberModel();
+        $members     = $memberModel->getAll();
+        $teamMembers = $this->model->getMembers((int)$id);
+
+        $view = new TeamView();
+        $view->renderEditForm($team, $members, $teamMembers);
+    }
+
+    public function update(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $data = [
+            'name'             => $_POST['name'],
+            'leader_member_id' => $_POST['leader_member_id'] ?? null,
+            'domain'           => $_POST['domain'] ?? null,
+            'description'      => $_POST['description'] ?? null
+        ];
+
+        $this->model->update($id, $data);
+
+        $members = $_POST['members'] ?? [];
+        if (!empty($data['leader_member_id'])) {
+            $members[] = (int)$data['leader_member_id'];
+        }
+        $memberModel = new MemberModel();
+        foreach ($members as $member) {
+            $memberModel->assignToTeam($member,$id);
+        }
+        $this->model->resetMembers($id, array_unique(array_map('intval', $members)));
+        header("Location: /admin/team/index");
+        exit;
+    }
 }

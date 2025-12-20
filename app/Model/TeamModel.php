@@ -76,6 +76,20 @@ class TeamModel {
         ]);
     }
 
+    public function resetMembers(int $teamId, array $memberIds): void {
+        $this->db->prepare("DELETE FROM team_members WHERE team_id = :team_id")
+                 ->execute(['team_id' => $teamId]);
+
+        $sql = "INSERT INTO team_members (team_id, member_id, joined_at) VALUES (:team_id, :member_id, NOW())";
+        $stmt = $this->db->prepare($sql);
+        foreach ($memberIds as $memberId) {
+            $stmt->execute([
+                'team_id'   => $teamId,
+                'member_id' => $memberId
+            ]);
+        }
+    }
+
     public function update($id, $data)
     {
         $sql = "
