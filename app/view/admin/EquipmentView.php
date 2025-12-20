@@ -1,7 +1,7 @@
 <?php
 
 Class EquipmentView {
-    public function renderIndex($equipments):void{
+    public function renderIndex(array $equipments, array $reservations = []):void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -48,7 +48,7 @@ Class EquipmentView {
             <?php endif; ?>
             </tbody>
         </table>
-
+            <?php $this->renderReservationsTable($reservations); ?>
         </body>
         </html>
         <?php
@@ -140,6 +140,50 @@ Class EquipmentView {
 
         </body>
         </html>
+        <?php
+    }
+
+    public function renderReservationsTable(array $reservations): void {
+        ?>
+        <h2>Reservations</h2>
+        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Equipment Name</th>
+                    <th>Member Login</th>
+                    <th>Reserved From</th>
+                    <th>Reserved To</th>
+                    <th>Purpose</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($reservations)): ?>
+                <tr><td colspan="7">No reservations found</td></tr>
+            <?php else: ?>
+                <?php foreach ($reservations as $r): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($r['equipment_name']) ?></td>
+                        <td><?= htmlspecialchars($r['member_login'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['reserved_from']) ?></td>
+                        <td><?= htmlspecialchars($r['reserved_to']) ?></td>
+                        <td><?= htmlspecialchars($r['purpose'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['status']) ?></td>
+                        <td>
+                            <?php if (strtotime($r['reserved_from']) > time()): ?>
+                                <a href="/admin/equipment/editReservation?id=<?= (int)$r['id'] ?>">
+                                    <button>Update</button>
+                                </a>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
         <?php
     }
 }

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/../../model/EquipmentModel.php";
+require_once __DIR__ . "/../../model/ReservationModel.php";
 require_once __DIR__ . "/../../view/admin/EquipmentView.php";
 
 Class EquipmentController {
@@ -18,8 +19,11 @@ Class EquipmentController {
         }
         
         $equipments = $this->model->getAll();
+
+        $reservationModel = new ReservationModel();
+        $reservations = $reservationModel->getAll();
         $view = new EquipmentView();
-        $view->renderIndex($equipments);
+        $view->renderIndex($equipments,$reservations);
     }
 
     public function add(): void {
@@ -86,5 +90,27 @@ Class EquipmentController {
 
         header("Location: /admin/equipment/index");
         exit;
+    }
+
+    public function reservations(): void {
+        $equipmentId = $_GET['id'] ?? null;
+        if (!$equipmentId) {
+            http_response_code(400);
+            echo "Equipment id required";
+            return;
+        }
+
+        $reservationModel = new ReservationModel();
+        $reservations = $reservationModel->getByEquipment($equipmentId);
+
+        $equipment = $this->model->findById($equipmentId);
+        if (!$equipment) {
+            http_response_code(404);
+            echo "Equipment not found";
+            return;
+        }
+
+        $view = new EquipmentView();
+        $view->renderReservations($equipment, $reservations);
     }
 }
