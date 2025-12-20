@@ -148,6 +148,23 @@ class ProjectModel {
             'member_id'  => $memberId
         ]);
     }
+    public function deleteMembers(int $projectId): bool {
+        $sql = "DELETE FROM project_members WHERE project_id = :project_id";
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            'project_id' => $projectId
+        ]);
+    }
+
+    public function deletePartners(int $projectId): bool {
+        $sql = "DELETE FROM project_partners WHERE project_id = :project_id";
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            'project_id' => $projectId
+        ]);
+    }
 
     public function getPartners($projectId)
     {

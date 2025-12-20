@@ -98,4 +98,67 @@ Class ProjectController{
         header("Location: /admin/project/index");
         exit;
     }
+
+    public function edit(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Project id required";
+            return;
+        }
+
+        $project = $this->model->findById($id);
+        if (!$project) {
+            http_response_code(404);
+            echo "Project not found";
+            return;
+        }
+
+        $members  = $this->model->getMembers($id);
+        $partners = $this->model->getPartners($id);
+
+        $memberModel = new MemberModel();
+        $allMembers = $memberModel->getAll();
+
+        $fundingTypes = $this->model->getFundingTypes();
+
+        $view = new ProjectView();
+        $view->renderEditForm($project, $allMembers, $fundingTypes, $members, $partners);
+    }
+
+    public function update(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+
+        $data = [];
+        foreach ($_POST as $key => $value) {
+            if ($value === '') {
+                $data[$key] = null;
+            } else {
+                $data[$key] = $value;
+            }
+        }
+
+        $this->model->update($id, $data);
+
+        $this->model->deleteMembers($id);
+        $members = $_POST['members'] ?? [];
+        foreach ($members as $m) {
+            $this->model->addMember($id, (int)$m['member_id'], $m['role_in_project'] ?? null);
+        }
+
+        $this->model->deletePartners($id);
+        $partners = $_POST['partners'] ?? [];
+        foreach ($partners as $p) {
+            $this->model->addPartner($id, $p);
+        }
+
+        header("Location: /admin/project/index");
+        exit;
+    }
 }

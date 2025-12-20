@@ -54,7 +54,9 @@ Class ProjectView{
                     </td>
                     <td><?= htmlspecialchars($p['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
-                        <button disabled="disabled">Edit</button>
+                        <a href="/admin/project/edit?id=<?=$p['id'] ?>">
+                            <button>Edit</button>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -245,6 +247,144 @@ Class ProjectView{
                 partnerOrder++;
                 document.getElementById('partnerName').value = '';
             }
+        </script>
+
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderEditForm(array $project, array $members, array $fundingTypes, array $currentMembers, array $currentPartners, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit Project</title>
+        </head>
+        <body>
+
+        <h1>Edit Project</h1>
+        <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+
+        <form method="post" action="/admin/project/update">
+            <input type="hidden" name="id" value="<?= (int)$project['id'] ?>">
+
+            <label>Title</label><br>
+            <input type="text" name="title" value="<?= htmlspecialchars($project['title']) ?>" required><br><br>
+
+            <label>Leader</label><br>
+            <select name="leader_member_id" required>
+                <option value="">-- Select Leader --</option>
+                <?php foreach ($members as $m): ?>
+                    <option value="<?= $m['id'] ?>" <?= $m['id']==$project['leader_member_id']?'selected':'' ?>>
+                        <?= htmlspecialchars($m['first_name'].' '.$m['last_name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br><br>
+
+            <label>Theme</label><br>
+            <input type="text" name="theme" value="<?= htmlspecialchars($project['theme'] ?? '') ?>"><br><br>
+
+            <label>Funding</label><br>
+            <select name="funding_type_id">
+                <option value="">-- Select Funding --</option>
+                <?php foreach ($fundingTypes as $f): ?>
+                    <option value="<?= $f['id'] ?>" <?= $f['id']==$project['funding_type_id']?'selected':'' ?>>
+                        <?= htmlspecialchars($f['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br><br>
+
+            <label>Project Page URL</label><br>
+            <input type="url" name="project_page_url" value="<?= htmlspecialchars($project['project_page_url'] ?? '') ?>"><br><br>
+
+            <label>Poster URL</label><br>
+            <input type="url" name="poster_url" value="<?= htmlspecialchars($project['poster_url'] ?? '') ?>"><br><br>
+
+            <label>Description</label><br>
+            <textarea name="description" rows="5" cols="50"><?= htmlspecialchars($project['description'] ?? '') ?></textarea><br><br>
+
+            <hr>
+            <h3>Members</h3>
+            <select id="memberSelect">
+                <option value="">Select member</option>
+                <?php foreach ($members as $m): ?>
+                    <?php if (!in_array($m['id'], array_column($currentMembers, 'member_id'))): ?>
+                        <option value="<?= $m['id'] ?>"><?= htmlspecialchars($m['first_name'].' '.$m['last_name']) ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+            <button type="button" onclick="addMember()">Add</button>
+            <div id="members"></div>
+
+            <hr>
+            <h3>Partners</h3>
+            <input type="text" id="partnerName" placeholder="Partner name">
+            <button type="button" onclick="addPartner()">Add</button>
+            <div id="partners"></div>
+
+            <br>
+            <button type="submit">Update Project</button>
+            <a href="/admin/project/index"><button type="button">Cancel</button></a>
+        </form>
+
+        <script>
+            let memberOrder = 1;
+            let partnerOrder = 1;
+
+            function addMember() {
+                const select = document.getElementById('memberSelect');
+                if (!select.value) return;
+                const text = select.options[select.selectedIndex].text;
+                const container = document.getElementById('members');
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    ${text}
+                    <input type="hidden" name="members[${memberOrder}][member_id]" value="${select.value}">
+                    <input type="text" name="members[${memberOrder}][role_in_project]" placeholder="Role">
+                    <button type="button" onclick="this.parentElement.remove()">Remove</button>
+                `;
+                container.appendChild(div);
+                memberOrder++;
+                select.remove(select.selectedIndex);
+            }
+
+            function addPartner() {
+                const name = document.getElementById('partnerName').value.trim();
+                if (!name) return;
+                const container = document.getElementById('partners');
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    ${name}
+                    <input type="hidden" name="partners[${partnerOrder}][name]" value="${name}">
+                    <input type="text" name="partners[${partnerOrder}][role_description]" placeholder="Role">
+                    <button type="button" onclick="this.parentElement.remove()">Remove</button>
+                `;
+                container.appendChild(div);
+                partnerOrder++;
+                document.getElementById('partnerName').value = '';
+            }
+
+            <?php foreach ($currentMembers as $m): ?>
+                addMember();
+                document.getElementById('members').lastChild.querySelector('input[name*="[member_id]"]').value = "<?= $m['member_id'] ?>";
+                document.getElementById('members').lastChild.querySelector('input[name*="[role_in_project]"]').value = "<?= htmlspecialchars($m['role_in_project'] ?? '') ?>";
+                document.getElementById('members').lastChild.firstChild.textContent = "<?= htmlspecialchars($m['first_name'].' '.$m['last_name']) ?>";
+            <?php endforeach; ?>
+
+            <?php foreach ($currentPartners as $p): ?>
+                const container = document.getElementById('partners');
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <?= htmlspecialchars($p['name']) ?>
+                    <input type="hidden" name="partners[${partnerOrder}][name]" value="<?= htmlspecialchars($p['name']) ?>">
+                    <input type="text" name="partners[${partnerOrder}][role_description]" value="<?= htmlspecialchars($p['role_description'] ?? '') ?>">
+                    <button type="button" onclick="this.parentElement.remove()">Remove</button>
+                `;
+                container.appendChild(div);
+                partnerOrder++;
+            <?php endforeach; ?>
         </script>
 
         </body>
