@@ -49,6 +49,9 @@ class PublicationView {
                             <a href="/admin/publication/edit?id=<?= $p['id'] ?>">
                                 <button>Update</button>
                             </a>
+                            <a href="/admin/publication/delete?id=<?= $p['id'] ?>" onclick="return confirm('Are you sure you want to delete this publication?');">
+                                <button>Delete</button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

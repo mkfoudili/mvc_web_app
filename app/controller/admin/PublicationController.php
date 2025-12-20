@@ -114,4 +114,17 @@ class PublicationController {
         header("Location: /admin/publication/index");
         exit;
     }
+    public function delete(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Publication id required";
+            return;
+        }
+
+        $this->model->delete($id);
+
+        header("Location: /admin/publication/index");
+        exit;
+    }
 }
