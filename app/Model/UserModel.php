@@ -52,6 +52,17 @@ class UserModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUnassignedUsers() {
+        $sql = "
+            SELECT u.id, u.login
+            FROM users u
+            LEFT JOIN members m ON u.id = m.user_id
+            WHERE m.user_id IS NULL
+            ORDER BY u.login ASC
+        ";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function create($data)
     {
         $sql = "

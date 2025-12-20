@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../model/MemberModel.php';
 require_once __DIR__ . '/../../model/TeamModel.php';
+require_once __DIR__ . '/../../model/UserModel.php';
 require __DIR__ . '/../../view/admin/MemberView.php';
 
 
@@ -89,6 +90,68 @@ Class MemberController{
         }
 
         $this->model->update($id, $data);
+
+        header("Location: /admin/member/index");
+        exit;
+    }
+    public function addForm(): void {
+        $specialties = $this->model->getSpecialties();
+        $teamModel = new TeamModel();
+        $teams = $teamModel->getAll();
+        $userModel = new UserModel();
+        $users = $userModel->getUnassignedUsers();
+
+        $view = new MemberView();
+        $view->renderAddForm($specialties, $teams, $users);
+    }
+
+    public function create(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $userModel = new UserModel();
+
+        $userId = $_POST['user_id'] ?? null;
+        if (!$userId) {
+            $specialties = $this->model->getSpecialties();
+            $teamModel = new TeamModel();
+            $teams = $teamModel->getAll();
+            $users = $userModel->getUnassignedUsers();
+            $view = new MemberView();
+            $view->renderAddForm($specialties, $teams, $users, "You must select a user login.");
+            return;
+        }
+
+        $user = $userModel->findById($userId);
+        if (!$user) {
+            header("Location: /admin/member/addForm");
+            exit;
+        }
+
+        $data = $_POST;
+        $data['user_id'] = $user['id'];
+        $data['login']   = $user['login'];
+
+        if (!empty($_POST['new_specialty'])) {
+            $newId = $this->model->addSpeciality($_POST['new_specialty']);
+            $data['specialty_id'] = $newId;
+        }
+
+        if (!empty($_FILES['photo']['tmp_name'])) {
+            $login = $user['login'];
+            $targetDir = __DIR__ . "/../../../public/assets/members/";
+            $targetPath = $targetDir . $login . ".png";
+            if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetPath)) {
+                $data['photo_url'] = "/assets/members/" . $login . ".png";
+            }
+        } else {
+            $data['photo_url'] = "/assets/members/default.jpg";
+        }
+
+        $this->model->create($data);
 
         header("Location: /admin/member/index");
         exit;

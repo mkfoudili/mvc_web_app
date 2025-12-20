@@ -11,7 +11,9 @@ Class MemberView{
         </head>
         <body>
             <h1>Members</h1>
-            <button disabled>Add Member</button>
+            <a href="/admin/member/addForm">
+                <button>Add Member</button>
+            </a>
             <br><br>
             <?php $this->renderMembersList($members); ?>
         </body>
@@ -148,6 +150,94 @@ Class MemberView{
 
             <br>
             <button type="submit">Save Changes</button>
+            <a href="/admin/member/index"><button type="button">Cancel</button></a>
+        </form>
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderAddForm(array $specialties, array $teams, array $users, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Add Member</title>
+        </head>
+        <body>
+        <h1>Add Member</h1>
+
+        <?php if ($error): ?>
+            <div class="error"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <form method="post" action="/admin/member/create" enctype="multipart/form-data">
+            <div>
+                <label>First Name:</label><br>
+                <input type="text" name="first_name" required>
+            </div>
+
+            <div>
+                <label>Last Name:</label><br>
+                <input type="text" name="last_name" required>
+            </div>
+
+            <div>
+                <label>Login (choose from users):</label><br>
+                <select name="user_id" required>
+                    <option value="">-- Select User --</option>
+                    <?php foreach ($users as $u): ?>
+                        <option value="<?= $u['id'] ?>"><?= htmlspecialchars($u['login']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label>Profile Photo:</label><br>
+                <input type="file" name="photo" accept="image/*">
+            </div>
+
+            <div>
+                <label>Role:</label><br>
+                <input type="text" name="role_in_lab">
+            </div>
+
+            <div>
+                <label>Specialty:</label><br>
+                <select name="specialty_id">
+                    <option value="">-- Select Specialty --</option>
+                    <?php foreach ($specialties as $s): ?>
+                        <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <label>Or add new specialty:</label><br>
+                <input type="text" name="new_specialty" placeholder="New specialty name">
+            </div>
+
+            <div>
+                <label>Team:</label><br>
+                <select name="team_id">
+                    <option value="">-- Select Team --</option>
+                    <?php foreach ($teams as $t): ?>
+                        <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label>Website:</label><br>
+                <input type="url" name="website">
+            </div>
+
+            <div>
+                <label>Bio:</label><br>
+                <textarea name="bio" rows="5" cols="50"></textarea>
+            </div>
+
+            <br>
+            <button type="submit">Create Member</button>
             <a href="/admin/member/index"><button type="button">Cancel</button></a>
         </form>
         </body>
