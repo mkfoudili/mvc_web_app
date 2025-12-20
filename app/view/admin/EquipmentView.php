@@ -39,7 +39,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($equipment['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($equipment['location'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/equipment/edit?=<?=$equipment['id'] ?>">
+                            <a href="/admin/equipment/edit?id=<?=$equipment['id'] ?>">
                                 <button>Edit</button>
                             </a>
                         </td>
@@ -89,6 +89,52 @@ Class EquipmentView {
             <input type="text" name="location"><br><br>
 
             <button type="submit">Save Equipment</button>
+            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+        </form>
+
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderEditForm(array $equipment, array $states, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit Equipment</title>
+        </head>
+        <body>
+
+        <h1>Edit Equipment</h1>
+        <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+
+        <form method="post" action="/admin/equipment/update">
+            <input type="hidden" name="id" value="<?= (int)$equipment['id'] ?>">
+
+            <label>Name</label><br>
+            <input type="text" name="name" value="<?= htmlspecialchars($equipment['name']) ?>" required><br><br>
+
+            <label>Type</label><br>
+            <input type="text" name="type" value="<?= htmlspecialchars($equipment['type'] ?? '') ?>"><br><br>
+
+            <label>State</label><br>
+            <select name="state_id">
+                <?php foreach ($states as $s): ?>
+                    <option value="<?= $s['id'] ?>" <?= $s['id']==$equipment['state_id']?'selected':'' ?>>
+                        <?= htmlspecialchars($s['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select><br><br>
+
+            <label>Description</label><br>
+            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($equipment['description'] ?? '') ?></textarea><br><br>
+
+            <label>Location</label><br>
+            <input type="text" name="location" value="<?= htmlspecialchars($equipment['location'] ?? '') ?>"><br><br>
+
+            <button type="submit">Update Equipment</button>
             <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
         </form>
 

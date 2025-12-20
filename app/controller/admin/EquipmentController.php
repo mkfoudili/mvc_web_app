@@ -47,5 +47,44 @@ Class EquipmentController {
         exit;
     }
 
-    
+    public function edit(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Equipment id required";
+            return;
+        }
+
+        $equipment = $this->model->findById($id);
+        if (!$equipment) {
+            http_response_code(404);
+            echo "Equipment not found";
+            return;
+        }
+
+        $states = $this->model->getEquipmentStates();
+
+        $view = new EquipmentView();
+        $view->renderEditForm($equipment, $states);
+    }
+
+    public function update(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+
+        $data = [];
+        foreach ($_POST as $key => $value) {
+            $data[$key] = $value === '' ? null : $value;
+        }
+
+        $this->model->update($id, $data);
+
+        header("Location: /admin/equipment/index");
+        exit;
+    }
 }
