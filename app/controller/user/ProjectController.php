@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../model/ProjectModel.php';
-require_once __DIR__ . '/../model/MemberModel.php';
-require_once __DIR__ . '/../view/ProjectView.php';
+require_once __DIR__ . '/../../model/ProjectModel.php';
+require_once __DIR__ . '/../../model/MemberModel.php';
+require_once __DIR__ . '/../../view/user/ProjectView.php';
 
 class ProjectController {
     private $model;

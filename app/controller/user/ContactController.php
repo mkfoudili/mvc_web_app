@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../view/ContactView.php';
+require_once __DIR__ . '/../../view/user/ContactView.php';
 
 class ContactController {
     private $labEmail = "mk_foudili@esi.dz"; // !! remndder to replace with lab email later

@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../model/EquipmentModel.php';
-require_once __DIR__ . '/../model/ReservationModel.php';
-require_once __DIR__ . '/../view/EquipmentView.php';
+require_once __DIR__ . '/../../model/EquipmentModel.php';
+require_once __DIR__ . '/../../model/ReservationModel.php';
+require_once __DIR__ . '/../../view/user/EquipmentView.php';
 
 
 Class EquipmentController{

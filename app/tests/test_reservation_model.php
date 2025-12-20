@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once __DIR__ . '/../model/ReservationModel.php';
+require_once __DIR__ . '/../../model/ReservationModel.php';
 
 echo "<pre>";
 echo "=== ReservationtionModel Test Script ===\n\n";

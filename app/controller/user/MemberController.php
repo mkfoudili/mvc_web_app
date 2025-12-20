@@ -1,14 +1,14 @@
 <?php
-require_once __DIR__ . '/../model/MemberModel.php';
-require_once __DIR__ . '/../model/PublicationModel.php';
-require_once __DIR__ . '/../model/ProjectModel.php';
-require_once __DIR__ . '/../model/TeamModel.php';
-require_once __DIR__ . '/../model/EventModel.php';
-require_once __DIR__ . '/../model/ReservationModel.php';
-require_once __DIR__ . '/../view/ProjectView.php';
-require_once __DIR__ . '/../view/MemberView.php';
-require_once __DIR__ . '/../view/EventView.php';
-require_once __DIR__ . '/../view/EquipmentView.php';
+require_once __DIR__ . '/../../model/MemberModel.php';
+require_once __DIR__ . '/../../model/PublicationModel.php';
+require_once __DIR__ . '/../../model/ProjectModel.php';
+require_once __DIR__ . '/../../model/TeamModel.php';
+require_once __DIR__ . '/../../model/EventModel.php';
+require_once __DIR__ . '/../../model/ReservationModel.php';
+require_once __DIR__ . '/../../view/user/ProjectView.php';
+require_once __DIR__ . '/../../view/user/MemberView.php';
+require_once __DIR__ . '/../../view/user/EventView.php';
+require_once __DIR__ . '/../../view/user/EquipmentView.php';
 
 
 

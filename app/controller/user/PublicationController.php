@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../model/PublicationModel.php';
-require_once __DIR__ . '/../model/TeamModel.php';
-require_once __DIR__ . '/../model/MemberModel.php';
-require_once __DIR__ . '/../view/PublicationView.php';
+require_once __DIR__ . '/../../model/PublicationModel.php';
+require_once __DIR__ . '/../../model/TeamModel.php';
+require_once __DIR__ . '/../../model/MemberModel.php';
+require_once __DIR__ . '/../../view/user/PublicationView.php';
 
 
 
@@ -40,7 +40,7 @@ class PublicationController {
             ];
         }
 
-        require_once __DIR__ . '/../view/PublicationView.php';
+        require_once __DIR__ . '/../../view/user/PublicationView.php';
         $view = new PublicationView();
         $view->renderIndex($data);
     }

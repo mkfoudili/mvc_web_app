@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . './../model/NewsModel.php';
-require_once __DIR__ . './../view/NewsView.php';
+require_once __DIR__ . '/../../model/NewsModel.php';
+require_once __DIR__ . '/../../view/user/NewsView.php';
 
 CLass NewsController{
     private $model;

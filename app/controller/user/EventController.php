@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../model/EventModel.php';
-require_once __DIR__ . '/../view/EventView.php';
+require_once __DIR__ . '/../../model/EventModel.php';
+require_once __DIR__ . '/../../view/user/EventView.php';
 
 
 Class EventController{

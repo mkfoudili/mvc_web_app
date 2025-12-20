@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../model/UserModel.php';
+require_once __DIR__ . '/../../model/UserModel.php';
 
 echo "=== UserModel Test Script ===\n\n";
 

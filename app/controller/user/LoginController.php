@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . './../model/UserModel.php';
-require_once __DIR__ . './../model/MemberModel.php';
-require_once __DIR__ . './../view/LoginView.php';
+require_once __DIR__ . '/../../model/UserModel.php';
+require_once __DIR__ . '/../../model/MemberModel.php';
+require_once __DIR__ . '/../../view/user/LoginView.php';
 
 
 Class LoginController{

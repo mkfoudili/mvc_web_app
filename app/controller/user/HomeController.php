@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../model/NewsModel.php';
-require_once __DIR__ . '/../model/TeamModel.php';
-require_once __DIR__ . '/../model/EventModel.php';
-require_once __DIR__ . '/../model/ProjectModel.php';
-require_once __DIR__ . './../view/HomeView.php';
+require_once __DIR__ . '/../../model/NewsModel.php';
+require_once __DIR__ . '/../../model/TeamModel.php';
+require_once __DIR__ . '/../../model/EventModel.php';
+require_once __DIR__ . '/../../model/ProjectModel.php';
+require_once __DIR__ . '/../../view/user/HomeView.php';
 
 class HomeController {
     public function index(): void
