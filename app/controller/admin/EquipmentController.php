@@ -134,4 +134,46 @@ Class EquipmentController {
         header("Location: /admin/equipment/index");
         exit;
     }
+
+    public function scheduleMaintenance(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Maintenance id required";
+            return;
+        }
+
+        $maintenanceModel = new MaintenanceModel();
+        $maintenance = $maintenanceModel->findById((int)$id);
+        if (!$maintenance) {
+            http_response_code(404);
+            echo "Maintenance not found";
+            return;
+        }
+
+        $maintenance['description'] = '';
+
+        $view = new EquipmentView();
+        $view->renderScheduleMaintenanceForm($maintenance);
+    }
+
+    public function saveScheduledMaintenance(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $data = [
+            'scheduled_at' => $_POST['scheduled_at'] ?? null,
+            'description'  => $_POST['description'] ?? null,
+        ];
+
+        $maintenanceModel = new MaintenanceModel();
+        $maintenanceModel->update($id, $data);
+
+        header("Location: /admin/equipment/index");
+        exit;
+    }
 }
