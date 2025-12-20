@@ -135,9 +135,10 @@ class PublicationModel {
         ";
         $stmt = $this->db->prepare($sql);
 
+        $memberId = !empty($author['member_id']) ? (int)$author['member_id'] : null;
         return $stmt->execute([
             'publication_id' => $publicationId,
-            'member_id'      => $author['member_id'] ?? null,
+            'member_id'      => $memberId,
             'author_name'    => $author['author_name'] ?? '',
             'author_order'   => $author['author_order'] ?? 0,
             'affiliation'    => $author['affiliation'] ?? null
