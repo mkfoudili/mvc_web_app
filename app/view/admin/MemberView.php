@@ -49,7 +49,9 @@ Class MemberView{
                         <td><?= htmlspecialchars($member['role_in_lab'] ?? '-') ?></td>
                         <td>
                             <button disabled>Update</button>
-                            <button disabled>Delete</button>
+                            <a href="/admin/member/delete?id=<?= $member['id'] ?>" onclick="return confirm('Are you sure you want to delete this member?');">
+                                <button>Delete</button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

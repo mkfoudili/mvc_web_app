@@ -21,4 +21,19 @@ Class MemberController{
         $view = new MemberView();
         $view->renderIndex($members);
     }
+    public function delete(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header("Location: /admin/member/index");
+            exit;
+        }
+        $member = $this->model->findById($id);
+        if (!$member) {
+            header("Location: /admin/member/index");
+            exit;
+        }
+        $this->model->delete($id);
+        header("Location: /admin/member/index");
+        exit;
+    }
 }
