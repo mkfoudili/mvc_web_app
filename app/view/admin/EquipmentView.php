@@ -256,4 +256,36 @@ Class EquipmentView {
         </table>
         <?php
     }
+
+    public function renderEditMaintenanceForm(array $maintenance, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit Maintenance</title>
+        </head>
+        <body>
+
+        <h1>Edit Maintenance for <?= htmlspecialchars($maintenance['equipment_name']) ?></h1>
+        <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+
+        <form method="post" action="/admin/equipment/updateMaintenance">
+            <input type="hidden" name="id" value="<?= (int)$maintenance['id'] ?>">
+
+            <label>Scheduled At</label><br>
+            <input type="datetime-local" name="scheduled_at"
+                value="<?= $maintenance['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($maintenance['scheduled_at'])) : '' ?>"><br><br>
+
+            <label>Description</label><br>
+            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($maintenance['description'] ?? '') ?></textarea><br><br>
+
+            <button type="submit">Update Maintenance</button>
+            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+        </form>
+
+        </body>
+        </html>
+        <?php
+    }
 }

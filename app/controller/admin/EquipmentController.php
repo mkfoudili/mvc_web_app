@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../model/EquipmentModel.php";
 require_once __DIR__ . "/../../model/ReservationModel.php";
+require_once __DIR__ . "/../../model/MaintenanceModel.php";
 require_once __DIR__ . "/../../view/admin/EquipmentView.php";
 
 Class EquipmentController {
@@ -89,6 +90,46 @@ Class EquipmentController {
         }
 
         $this->model->update($id, $data);
+
+        header("Location: /admin/equipment/index");
+        exit;
+    }
+
+    public function editMaintenance(): void {
+        $id = $_GET['id'] ?? null;
+        $maintenanceModel = new MaintenanceModel();
+        if (!$id) {
+            http_response_code(400);
+            echo "Maintenance id required";
+            return;
+        }
+
+        $maintenance = $maintenanceModel->findById((int)$id);
+        if (!$maintenance) {
+            http_response_code(404);
+            echo "Maintenance not found";
+            return;
+        }
+
+        $view = new EquipmentView();
+        $view->renderEditMaintenanceForm($maintenance);
+    }
+
+    public function updateMaintenance(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $data = [
+            'scheduled_at' => $_POST['scheduled_at'] ?? null,
+            'description'  => $_POST['description'] ?? null,
+        ];
+
+        $maintenanceModel = new MaintenanceModel();
+        $maintenanceModel->update($id, $data);
 
         header("Location: /admin/equipment/index");
         exit;
