@@ -64,4 +64,72 @@ Class UserController {
             exit;
         }
     }
+    public function edit(): void {
+    $id = $_GET['id'] ?? null;
+    if (!$id) {
+        header("Location: /admin/user/index");
+        exit;
+    }
+
+    $user = $this->model->findById($id);
+    if (!$user) {
+        header("Location: /admin/user/index");
+        exit;
+    }
+
+    $roles = $this->model->getRoles();
+    $specialties = $this->model->getSpecialties();
+
+    $view = new UserView();
+    $view->renderEditForm($user, $roles, $specialties);
+}
+
+public function update(): void {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id     = $_POST['id'];
+        $login  = trim($_POST['login']);
+        $email  = trim($_POST['email']);
+        $password = $_POST['password'] ?? null;
+
+        $existingLogin = $this->model->findByLogin($login);
+        if ($existingLogin && $existingLogin['id'] != $id) {
+            $error = "Login already exists.";
+        }
+        $existingEmail = $this->model->findByEmail($email);
+        if ($existingEmail && $existingEmail['id'] != $id) {
+            $error = "Email already exists.";
+        }
+
+        if (!empty($error)) {
+            $user = $this->model->findById($id);
+            $roles = $this->model->getRoles();
+            $specialties = $this->model->getSpecialties();
+
+            $view = new UserView();
+            $view->renderEditForm($user, $roles, $specialties, $error);
+            return;
+        }
+
+        $data = [
+            'login'       => $login,
+            'email'       => $email,
+            'password'    => $password ?: null,
+            'status'      => 'active',
+            'role_id'     => $_POST['role_id'] ?: null,
+            'specialty_id'=> $_POST['specialty_id'] ?: null,
+            'permissions' => []
+        ];
+
+        if (!empty($_POST['new_role'])) {
+            $data['role_id'] = $this->model->createRole(['name' => $_POST['new_role']]);
+        }
+        if (!empty($_POST['new_specialty'])) {
+            $data['specialty_id'] =  $this->model->createSpecialty(['name' => $_POST['new_specialty']]);
+        }
+
+        $this->model->update($id, $data);
+        header("Location: /admin/user/index");
+        exit;
+    }
+}
 }

@@ -50,7 +50,9 @@ Class UserView {
                         <td><?= htmlspecialchars($user['specialty_id'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($user['status'] ?? '-') ?></td>
                         <td>
-                            <button disabled>Update</button>
+                            <a href="/admin/user/edit?id=<?= $user['id'] ?>">
+                                <button>Update</button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -125,6 +127,69 @@ Class UserView {
                 <br><br>
 
                 <button type="submit">Create User</button>
+                <a href="/admin/user/index"><button type="button">Cancel</button></a>
+            </form>
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderEditForm(array $user, array $roles, array $specialties, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit User</title>
+        </head>
+        <body>
+            <h1>Edit User</h1>
+
+            <?php if ($error): ?>
+                <div class="error"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+
+            <form method="post" action="/admin/user/update">
+                <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                <input type="hidden" name="status" value="active">
+
+                <label>Login:
+                    <input type="text" name="login" value="<?= htmlspecialchars($user['login']) ?>" required>
+                </label><br><br>
+
+                <label>Email:
+                    <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                </label><br><br>
+
+                <label>Password (leave blank to keep current):
+                    <input type="password" name="password">
+                </label><br><br>
+
+                <label>Role:
+                    <select name="role_id">
+                        <option value="">-- Select Role --</option>
+                        <?php foreach ($roles as $role): ?>
+                            <option value="<?= $role['id'] ?>" <?= $role['id']==$user['role_id']?'selected':'' ?>>
+                                <?= htmlspecialchars($role['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    or add new: <input type="text" name="new_role">
+                </label><br><br>
+
+                <label>Specialty:
+                    <select name="specialty_id">
+                        <option value="">-- Select Specialty --</option>
+                        <?php foreach ($specialties as $spec): ?>
+                            <option value="<?= $spec['id'] ?>" <?= $spec['id']==$user['specialty_id']?'selected':'' ?>>
+                                <?= htmlspecialchars($spec['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    or add new: <input type="text" name="new_specialty">
+                </label><br><br>
+
+                <button type="submit">Update User</button>
                 <a href="/admin/user/index"><button type="button">Cancel</button></a>
             </form>
         </body>
