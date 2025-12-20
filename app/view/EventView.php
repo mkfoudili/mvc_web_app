@@ -54,7 +54,7 @@ class EventView {
         <?php
     }
 
-    public function renderJoinForm(array $event, string $returnUrl): void
+    public function renderJoinForm(array $event, string $returnUrl, int $memberId): void
     {
         ?>
         <!DOCTYPE html>
@@ -73,27 +73,31 @@ class EventView {
         <form method="post" action="/event/joinEvent">
             <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
             <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
-            <!-- ONLY DISPLAYS TO EXTERNAL MEMBERS NOT MEMBERS -->
-            <input type="hidden" name="member_id" value="">
-
-            <label>
-                Your Name :
-                <input type="text" name="name" required>
-            </label>
-            <br><br>
-
-            <label>
-                Your Email :
-                <input type="email" name="email" required>
-            </label>
-            <br><br>
-
-            <label>
-                Message:
-                <br>
-                <textarea name="message" rows="4" cols="50" required></textarea>
-            </label>
-            <br><br>
+            <?php if ($memberId): ?>
+                <input type="hidden" name="member_id" value="<?= (int)$memberId ?>">
+                <label>
+                    Message:
+                    <br>
+                    <textarea name="message" rows="4" cols="50" required></textarea>
+                </label>
+                <?php else: ?>
+                    <input type="hidden" name="member_id" value="">
+                    <label>
+                        Your Name:
+                        <input type="text" name="name" required>
+                    </label>
+                    <br><br>
+                    <label>
+                        Your Email:
+                        <input type="email" name="email" required>
+                    </label>
+                    <br><br>
+                    <label>
+                        Message:
+                        <br>
+                        <textarea name="message" rows="4" cols="50" required></textarea>
+                    </label>
+                <?php endif; ?>
 
             <button type="submit">Submit Request</button>
             <a href="/event"><button type="button">Cancel</button></a>

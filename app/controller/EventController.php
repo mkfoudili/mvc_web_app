@@ -43,9 +43,11 @@ Class EventController{
         }
         
         $returnUrl = $_GET['return'] ?? '/event/index';
+        session_start();
+        $memberId = $_SESSION['member_id'] ?? null;
 
         $view = new EventView();
-        $view->renderJoinForm($event, $returnUrl);
+        $view->renderJoinForm($event, $returnUrl, (int)$memberId);
     }
 
     public function joinEvent()
