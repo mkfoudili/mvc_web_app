@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../model/ProjectModel.php';
+require_once __DIR__ . '/../../model/MemberModel.php';
 require_once __DIR__ . '/../../view/admin/ProjectView.php';
 
 
@@ -55,5 +56,46 @@ Class ProjectController{
 
         $view = new ProjectView();
         $view->renderShow($project, $members, $partners);
+    }
+    public function create(): void {
+        $memberModel = new MemberModel();
+        $members = $memberModel->getAll();
+
+        $fundingTypes = $this->model->getFundingTypes();
+
+        $view = new ProjectView();
+        $view->renderAddForm($members, $fundingTypes);
+    }
+
+    public function store(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $data = [];
+        foreach ($_POST as $key => $value) {
+            if ($value === '') {
+                $data[$key] = null;
+            } else {
+                $data[$key] = $value;
+            }
+        }
+
+        $projectId = $this->model->create($data);
+
+        $members = $_POST['members'] ?? [];
+        foreach ($members as $m) {
+            $this->model->addMember($projectId, (int)$m['member_id'], $m['role_in_project'] ?? null);
+        }
+
+        $partners = $_POST['partners'] ?? [];
+        foreach ($partners as $p) {
+            $this->model->addPartner($projectId, $p);
+        }
+
+        header("Location: /admin/project/index");
+        exit;
     }
 }
