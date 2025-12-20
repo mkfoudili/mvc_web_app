@@ -58,4 +58,60 @@ class PublicationController {
         header('Location: /admin/publication/index');
         exit;
     }
+
+    public function edit(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            header("Location: /admin/publication/index");
+            exit;
+        }
+
+        $publication = $this->model->findById($id);
+        if (!$publication) {
+            header("Location: /admin/publication/index");
+            exit;
+        }
+
+        $authors = $this->model->getAuthors($id);
+        $memberModel = new MemberModel();
+        $members = $memberModel->getAll();
+        $types = $this->model->getTypes();
+
+        $authorMemberIds = array_filter(array_column($authors, 'member_id'));
+        $filteredMembers = [];
+        foreach ($members as $m) {
+            if (!in_array($m['id'], $authorMemberIds)) {
+                $filteredMembers[] = $m;
+            }
+        }
+        $members = $filteredMembers;        
+        $view = new PublicationView();
+        $view->renderEditForm($publication, $members, $types, $authors);
+    }
+
+    public function update(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+        $publication = $_POST;
+
+        if (empty($publication['date_published'])) {
+            $publication['date_published'] = date('Y-m-d');
+        }
+
+        $this->model->update($id, $publication);
+
+        $this->model->deleteAuthors($id);
+        $authors = $_POST['authors'] ?? [];
+        foreach ($authors as $a) {
+            $this->model->addAuthor($id, $a);
+        }
+
+        header("Location: /admin/publication/index");
+        exit;
+    }
 }

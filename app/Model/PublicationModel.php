@@ -160,6 +160,18 @@ class PublicationModel {
         ]);
     }
 
+    public function deleteAuthors($publicationId)
+    {
+        $sql = "
+            DELETE FROM publication_authors
+            WHERE publication_id = :publication_id
+        ";
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            'publication_id' => $publicationId
+        ]);
+    }
     public function getAuthors($publicationId)
     {
         $sql = "
