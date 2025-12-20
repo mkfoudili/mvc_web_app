@@ -40,7 +40,6 @@ class PublicationController {
             ];
         }
 
-        require_once __DIR__ . '/../../view/user/PublicationView.php';
         $view = new PublicationView();
         $view->renderIndex($data);
     }
