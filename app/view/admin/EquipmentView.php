@@ -1,7 +1,7 @@
 <?php
 
 Class EquipmentView {
-    public function renderIndex(array $equipments, array $reservations = []):void{
+    public function renderIndex(array $equipments, array $reservations, array $reports):void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -49,6 +49,7 @@ Class EquipmentView {
             </tbody>
         </table>
             <?php $this->renderReservationsTable($reservations); ?>
+            <?php $this->renderReportsTable($reports); ?>
         </body>
         </html>
         <?php
@@ -178,6 +179,40 @@ Class EquipmentView {
                             <?php else: ?>
                                 -
                             <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
+    public function renderReportsTable(array $reports): void {
+        ?>
+        <h2>Breakdown Reports</h2>
+        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Equipment Name</th>
+                    <th>Description</th>
+                    <th>Reported At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($reports)): ?>
+                <tr><td colspan="4">No breakdown reports found</td></tr>
+            <?php else: ?>
+                <?php foreach ($reports as $r): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($r['equipment_name']) ?></td>
+                        <td><?= htmlspecialchars($r['description'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($r['created_at'] ?? '-') ?></td>
+                        <td>
+                            <a href="/admin/equipment/scheduleMaintenance?id=<?= (int)$r['id'] ?>">
+                                <button>Schedule Maintenance</button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -34,6 +34,16 @@ class EquipementModel {
         $sql = "SELECT * FROM equipment_states ORDER BY id";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getBreakdownReports(): array {
+        $sql = "
+            SELECT m.*, e.name AS equipment_name
+            FROM equipment_maintenance m
+            INNER JOIN equipment e ON m.equipment_id = e.id
+            WHERE m.scheduled_at IS NULL
+            ORDER BY m.id DESC
+        ";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($data){
         $sql = "
             INSERT INTO equipment (name, type, state_id, description, location)

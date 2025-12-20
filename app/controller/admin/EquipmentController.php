@@ -23,7 +23,8 @@ Class EquipmentController {
         $reservationModel = new ReservationModel();
         $reservations = $reservationModel->getAll();
         $view = new EquipmentView();
-        $view->renderIndex($equipments,$reservations);
+        $reports = $this->model->getBreakdownReports();
+        $view->renderIndex($equipments,$reservations,$reports);
     }
 
     public function add(): void {
@@ -90,27 +91,5 @@ Class EquipmentController {
 
         header("Location: /admin/equipment/index");
         exit;
-    }
-
-    public function reservations(): void {
-        $equipmentId = $_GET['id'] ?? null;
-        if (!$equipmentId) {
-            http_response_code(400);
-            echo "Equipment id required";
-            return;
-        }
-
-        $reservationModel = new ReservationModel();
-        $reservations = $reservationModel->getByEquipment($equipmentId);
-
-        $equipment = $this->model->findById($equipmentId);
-        if (!$equipment) {
-            http_response_code(404);
-            echo "Equipment not found";
-            return;
-        }
-
-        $view = new EquipmentView();
-        $view->renderReservations($equipment, $reservations);
     }
 }
