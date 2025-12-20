@@ -109,4 +109,25 @@ Class TeamController{
         header("Location: /admin/team/index");
         exit;
     }
+
+    public function delete(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Team id required";
+            return;
+        }
+
+        $team = $this->model->findById((int)$id);
+        if (!$team) {
+            http_response_code(404);
+            echo "Team not found";
+            return;
+        }
+
+        $this->model->delete((int)$id);
+
+        header("Location: /admin/team/index");
+        exit;
+    }
 }
