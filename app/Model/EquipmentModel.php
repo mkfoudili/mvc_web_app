@@ -30,6 +30,10 @@ class EquipementModel {
         ";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getEquipmentStates(): array {
+        $sql = "SELECT * FROM equipment_states ORDER BY id";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($data){
         $sql = "
             INSERT INTO equipment (name, type, state_id, description, location)
