@@ -48,7 +48,9 @@ Class MemberView{
                         </td>
                         <td><?= htmlspecialchars($member['role_in_lab'] ?? '-') ?></td>
                         <td>
-                            <button disabled>Update</button>
+                            <a href="/admin/member/edit?id=<?= $member['id'] ?>">
+                                <button>Update</button>
+                            </a>
                             <a href="/admin/member/delete?id=<?= $member['id'] ?>" onclick="return confirm('Are you sure you want to delete this member?');">
                                 <button>Delete</button>
                             </a>
@@ -58,6 +60,98 @@ Class MemberView{
             <?php endif; ?>
             </tbody>
         </table>
+        <?php
+    }
+    public function renderEditForm(array $member, array $specialties, array $teams): void {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Edit Member</title>
+        </head>
+        <body>
+        <h1>Edit Member</h1>
+
+        <form method="post" action="/admin/member/update" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?= htmlspecialchars($member['id']) ?>">
+            <input type="hidden" name="login" value="<?= htmlspecialchars($member['login']) ?>">
+
+            <div>
+                <label>First Name:</label><br>
+                <input type="text" name="first_name"
+                       value="<?= htmlspecialchars($member['first_name']) ?>" required>
+            </div>
+
+            <div>
+                <label>Last Name:</label><br>
+                <input type="text" name="last_name"
+                       value="<?= htmlspecialchars($member['last_name']) ?>" required>
+            </div>
+
+            <div>
+                <label>Profile Photo:</label><br>
+                <input type="file" name="photo" accept="image/*">
+                <?php if (!empty($member['photo_url'])): ?>
+                    <br>
+                    <img src="<?= htmlspecialchars($member['photo_url']) ?>" alt="Current photo" width="120">
+                    <br>
+                    <button type="submit" name="delete_photo" value="1">Delete Photo</button>
+                <?php endif; ?>
+            </div>
+
+            <div>
+                <label>Role:</label><br>
+                <input type="text" name="role_in_lab"
+                       value="<?= htmlspecialchars($member['role_in_lab'] ?? '') ?>">
+            </div>
+
+            <div>
+                <label>Specialty:</label><br>
+                <select name="specialty_id">
+                    <option value="">-- Select Specialty --</option>
+                    <?php foreach ($specialties as $s): ?>
+                        <option value="<?= $s['id'] ?>"
+                            <?= ($member['specialty_id'] == $s['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($s['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <label>Or add new specialty:</label><br>
+                <input type="text" name="new_specialty" placeholder="New specialty name">
+            </div>
+
+            <div>
+                <label>Team:</label><br>
+                <select name="team_id">
+                    <option value="">-- Select Team --</option>
+                    <?php foreach ($teams as $t): ?>
+                        <option value="<?= $t['id'] ?>"
+                            <?= ($member['team_id'] == $t['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($t['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div>
+                <label>Website:</label><br>
+                <input type="url" name="website"
+                       value="<?= htmlspecialchars($member['website'] ?? '') ?>">
+            </div>
+
+            <div>
+                <label>Bio:</label><br>
+                <textarea name="bio" rows="5" cols="50"><?= htmlspecialchars($member['bio'] ?? '') ?></textarea>
+            </div>
+
+            <br>
+            <button type="submit">Save Changes</button>
+            <a href="/admin/member/index"><button type="button">Cancel</button></a>
+        </form>
+        </body>
+        </html>
         <?php
     }
 }
