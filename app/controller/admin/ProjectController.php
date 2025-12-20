@@ -161,4 +161,17 @@ Class ProjectController{
         header("Location: /admin/project/index");
         exit;
     }
+    public function delete(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Project id required";
+            return;
+        }
+
+        $this->model->delete($id);
+
+        header("Location: /admin/project/index");
+        exit;
+    }
 }

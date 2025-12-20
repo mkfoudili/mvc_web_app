@@ -57,6 +57,9 @@ Class ProjectView{
                         <a href="/admin/project/edit?id=<?=$p['id'] ?>">
                             <button>Edit</button>
                         </a>
+                        <a href="/admin/project/delete?id=<?= (int)$p['id'] ?>" onclick="return confirm('Are you sure you want to delete this project?');">
+                            <button>Delete</button>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
