@@ -64,6 +64,18 @@ class TeamModel {
         return $this->db->lastInsertId();
     }
 
+    public function addMemberToTeam(int $teamId, int $memberId): bool {
+        $sql = "
+            INSERT INTO team_members (team_id, member_id, joined_at)
+            VALUES (:team_id, :member_id, NOW())
+        ";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'team_id'   => $teamId,
+            'member_id' => $memberId
+        ]);
+    }
+
     public function update($id, $data)
     {
         $sql = "
