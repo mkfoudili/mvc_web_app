@@ -7,7 +7,7 @@ class UserModel {
     public function __construct() {
         $this->db = DB::conn();
     }
-public function findById($id)
+    public function findById($id)
     {
         $sql = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->db->prepare($sql);
@@ -16,9 +16,30 @@ public function findById($id)
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function findByEmail($email)
+    {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['email' => $email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getAll()
     {
         $sql = "SELECT * FROM users ORDER BY login ASC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getSpecialties()
+    {
+        $sql = "SELECT * FROM specialties ORDER BY name ASC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRoles()
+    {
+        $sql = "SELECT * FROM roles ORDER BY name ASC";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -119,5 +140,21 @@ public function findById($id)
             'user_id'     => $userId,
             'permissions' => json_encode($permissions)
         ]);
+    }
+
+    public function createRole(array $data)
+    {
+        $sql = "INSERT INTO roles (name) VALUES (:name)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['name' => $data['name']]);
+        return $this->db->lastInsertId();
+    }
+
+    public function createSpecialty(array $data)
+    {
+        $sql = "INSERT INTO specialties (name) VALUES (:name)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['name' => $data['name']]);
+        return $this->db->lastInsertId();
     }
 }

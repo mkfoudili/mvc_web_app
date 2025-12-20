@@ -11,7 +11,9 @@ Class UserView {
         </head>
         <body>
             <h1>Users</h1>
-            <button disabled>Add User</button>
+            <a href="/admin/user/addForm">
+                <button>Add User</button>
+            </a>
             <br><br>
             <?php $this->renderUserList($users); ?>
         </body>
@@ -55,6 +57,78 @@ Class UserView {
             <?php endif; ?>
             </tbody>
         </table>
+        <?php
+    }
+
+    public function renderAddForm(array $roles, array $specialties, string $error = null): void {
+        ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Add User</title>
+        </head>
+        <body>
+            <h1>Add User</h1>
+            <?php if ($error): ?>
+                <div class="error"><?= htmlspecialchars($error) ?></div>
+            <?php endif; ?>
+            <form method="post" action="/admin/user/create">
+                <label>
+                    Login:
+                    <input type="text" name="login" required>
+                </label>
+                <br><br>
+
+                <label>
+                    Email:
+                    <input type="email" name="email" required>
+                </label>
+                <br><br>
+
+                <label>
+                    Password:
+                    <input type="password" name="password" required>
+                </label>
+                <br><br>
+
+                <input type="hidden" name="status" value="active">
+
+                <label>
+                    Role:
+                    <select name="role_id">
+                        <option value="">-- Select Role --</option>
+                        <?php foreach ($roles as $role): ?>
+                            <option value="<?= $role['id'] ?>">
+                                <?= htmlspecialchars($role['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    or add new:
+                    <input type="text" name="new_role">
+                </label>
+                <br><br>
+
+                <label>
+                    Specialty:
+                    <select name="specialty_id">
+                        <option value="">-- Select Specialty --</option>
+                        <?php foreach ($specialties as $spec): ?>
+                            <option value="<?= $spec['id'] ?>">
+                                <?= htmlspecialchars($spec['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                    or add new:
+                    <input type="text" name="new_specialty">
+                </label>
+                <br><br>
+
+                <button type="submit">Create User</button>
+                <a href="/admin/user/index"><button type="button">Cancel</button></a>
+            </form>
+        </body>
+        </html>
         <?php
     }
 }
