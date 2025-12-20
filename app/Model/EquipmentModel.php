@@ -44,6 +44,16 @@ class EquipementModel {
         ";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getScheduledMaintenances(): array {
+        $sql = "
+            SELECT m.*, e.name AS equipment_name
+            FROM equipment_maintenance m
+            INNER JOIN equipment e ON m.equipment_id = e.id
+            WHERE m.scheduled_at IS NOT NULL
+            ORDER BY m.scheduled_at ASC
+        ";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($data){
         $sql = "
             INSERT INTO equipment (name, type, state_id, description, location)

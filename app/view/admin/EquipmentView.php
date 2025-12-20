@@ -1,7 +1,7 @@
 <?php
 
 Class EquipmentView {
-    public function renderIndex(array $equipments, array $reservations, array $reports):void{
+    public function renderIndex(array $equipments, array $reservations, array $reports, array $maintenances):void{
         ?>
         <!DOCTYPE html>
         <html>
@@ -50,6 +50,7 @@ Class EquipmentView {
         </table>
             <?php $this->renderReservationsTable($reservations); ?>
             <?php $this->renderReportsTable($reports); ?>
+            <?php $this->renderMaintenancesTable($maintenances); ?>
         </body>
         </html>
         <?php
@@ -212,6 +213,40 @@ Class EquipmentView {
                         <td>
                             <a href="/admin/equipment/scheduleMaintenance?id=<?= (int)$r['id'] ?>">
                                 <button>Schedule Maintenance</button>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
+    public function renderMaintenancesTable(array $maintenances): void {
+        ?>
+        <h2>Scheduled Maintenances</h2>
+        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Equipment Name</th>
+                    <th>Description</th>
+                    <th>Scheduled At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($maintenances)): ?>
+                <tr><td colspan="4">No scheduled maintenances found</td></tr>
+            <?php else: ?>
+                <?php foreach ($maintenances as $m): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($m['equipment_name']) ?></td>
+                        <td><?= htmlspecialchars($m['description'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($m['scheduled_at']) ?></td>
+                        <td>
+                            <a href="/admin/equipment/editMaintenance?id=<?= (int)$m['id'] ?>">
+                                <button>Edit</button>
                             </a>
                         </td>
                     </tr>

@@ -24,7 +24,8 @@ Class EquipmentController {
         $reservations = $reservationModel->getAll();
         $view = new EquipmentView();
         $reports = $this->model->getBreakdownReports();
-        $view->renderIndex($equipments,$reservations,$reports);
+        $maintenances = $this->model->getScheduledMaintenances();
+        $view->renderIndex($equipments,$reservations,$reports,$maintenances);
     }
 
     public function add(): void {
