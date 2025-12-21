@@ -58,7 +58,7 @@ class EventModel {
                 event_type_id = :event_type_id,
                 event_date = :event_date,
                 description = :description,
-                link = :link,
+                link = :link
             WHERE id = :id
         ";
         $stmt = $this->db->prepare($sql);
@@ -120,7 +120,10 @@ class EventModel {
             'member_id' => $memberId
         ]);
     }
-
+    public function deleteParticipants(int $eventId): void {
+        $stmt = $this->db->prepare("DELETE FROM event_participants WHERE event_id = :event_id");
+        $stmt->execute(['event_id' => $eventId]);
+    }
     public function getRequests($eventId)
     {
         $sql = "

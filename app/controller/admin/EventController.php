@@ -50,4 +50,59 @@ Class EventController {
         header("Location: /admin/event/index");
         exit;
     }
+
+    public function edit(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Event id required";
+            return;
+        }
+
+        $event = $this->model->findById((int)$id);
+        if (!$event) {
+            http_response_code(404);
+            echo "Event not found";
+            return;
+        }
+
+        $eventTypes = $this->model->getEventTypes();
+
+        $memberModel = new MemberModel();
+        $members = $memberModel->getAll();
+
+        $participants = $this->model->getParticipants((int)$id);
+
+        $view = new EventView();
+        $view->renderEditForm($event, $eventTypes, $members, $participants, null);
+    }
+
+    public function update(): void {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo "Method not allowed";
+            return;
+        }
+
+        $id = (int)$_POST['id'];
+
+        $data = [
+            'name'          => $_POST['name'],
+            'event_type_id' => $_POST['event_type_id'] ?? null,
+            'event_date'    => $_POST['event_date'] ?? null,
+            'description'   => $_POST['description'] ?? null,
+            'link'          => $_POST['link'] ?? null
+        ];
+
+        $this->model->update($id, $data);
+
+        $this->model->deleteParticipants($id);
+        $participants = $_POST['participants'] ?? [];
+        foreach ($participants as $memberId) {
+            $this->model->addParticipant($id, (int)$memberId);
+        }
+
+        header("Location: /admin/event/index");
+        exit;
+    }
 }
