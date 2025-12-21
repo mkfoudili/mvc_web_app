@@ -105,4 +105,24 @@ Class EventController {
         header("Location: /admin/event/index");
         exit;
     }
+    public function delete(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Event id required";
+            return;
+        }
+
+        $event = $this->model->findById((int)$id);
+        if (!$event) {
+            http_response_code(404);
+            echo "Event not found";
+            return;
+        }
+
+        $this->model->delete((int)$id);
+
+        header("Location: /admin/event/index");
+        exit;
+    }
 }
