@@ -29,11 +29,15 @@ class EventModel {
         ";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getEventTypes(): array {
+        $sql = "SELECT id, name FROM event_types ORDER BY name ASC";
+        return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function create($data){
         $sql = "
             INSERT INTO events
-            (name, event_type_id, event_date, description, link, participation_requests, participation_requests_json)
-            VALUES (:name, :event_type_id, :event_date, :description, :link, :participation_requests, :participation_requests_json)
+            (name, event_type_id, event_date, description, link)
+            VALUES (:name, :event_type_id, :event_date, :description, :link)
         ";
         $stmt = $this->db->prepare($sql);
 
@@ -43,10 +47,6 @@ class EventModel {
             'event_date'                  => $data['event_date'] ?? null,
             'description'                 => $data['description'] ?? null,
             'link'                        => $data['link'] ?? null,
-            'participation_requests'      => $data['participation_requests'] ?? null,
-            'participation_requests_json' => isset($data['participation_requests_json'])
-                ? json_encode($data['participation_requests_json'])
-                : null
         ]);
 
         return $this->db->lastInsertId();
@@ -59,8 +59,6 @@ class EventModel {
                 event_date = :event_date,
                 description = :description,
                 link = :link,
-                participation_requests = :participation_requests,
-                participation_requests_json = :participation_requests_json
             WHERE id = :id
         ";
         $stmt = $this->db->prepare($sql);
@@ -72,10 +70,6 @@ class EventModel {
             'event_date'                  => $data['event_date'] ?? null,
             'description'                 => $data['description'] ?? null,
             'link'                        => $data['link'] ?? null,
-            'participation_requests'      => $data['participation_requests'] ?? null,
-            'participation_requests_json' => isset($data['participation_requests_json'])
-                ? json_encode($data['participation_requests_json'])
-                : null
         ]);
     }
     public function delete($id){
