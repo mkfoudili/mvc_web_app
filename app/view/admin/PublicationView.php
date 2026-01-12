@@ -58,7 +58,7 @@ class PublicationView {
                 </tbody>
             </table>
         <?php endif; ?>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -175,7 +175,7 @@ class PublicationView {
                 }
             }
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -315,7 +315,7 @@ class PublicationView {
                 });
             <?php endforeach; ?>
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

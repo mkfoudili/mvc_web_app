@@ -1,6 +1,6 @@
 <?php
 class FooterView {
-    public function render(): void {
+    public function renderIndex(): void {
         ?>
         <footer>
             <p>&copy; <?= date('Y') ?> University Research Lab</p>

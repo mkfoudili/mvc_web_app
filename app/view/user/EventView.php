@@ -48,7 +48,7 @@ class EventView {
             <?php endif; ?>
             </tbody>
         </table>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -103,7 +103,7 @@ class EventView {
             <button type="submit">Submit Request</button>
             <a href="<?= base('event') ?>"><button type="button">Cancel</button></a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

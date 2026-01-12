@@ -31,7 +31,7 @@ class ContactView {
             <br>
             <button type="submit">Send</button>
         </form>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

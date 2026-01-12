@@ -17,6 +17,7 @@ Class UserView {
             </a>
             <br><br>
             <?php $this->renderUserList($users); ?>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -139,6 +140,7 @@ Class UserView {
                 <button type="submit">Create User</button>
                 <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
             </form>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -203,6 +205,7 @@ Class UserView {
                 <button type="submit">Update User</button>
                 <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
             </form>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

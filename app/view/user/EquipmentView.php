@@ -53,7 +53,7 @@ class EquipmentView{
             <?php endif; ?>
             </tbody>
         </table>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -107,7 +107,7 @@ class EquipmentView{
             <button type="submit">Save reservation</button>
             <a href="<?= base('equipment') ?>">Cancel</a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -140,7 +140,7 @@ class EquipmentView{
             <button type="submit">Report</button>
             <a href="<?= base('equipment') ?>">Cancel</a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

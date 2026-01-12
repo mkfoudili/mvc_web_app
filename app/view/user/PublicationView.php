@@ -53,7 +53,7 @@ Class PublicationView {
             <?php endif; ?>
 
         <?php endforeach; ?>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -179,7 +179,7 @@ Class PublicationView {
                 label: "You"
             });
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php   

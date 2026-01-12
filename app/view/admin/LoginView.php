@@ -21,6 +21,7 @@ Class LoginView{
                 <br>
                 <button type="submit">Log In</button>
             </form>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -37,6 +38,7 @@ Class LoginView{
             <p>You are now logged in.</p>
             <a href="<?= base('admin/home/index') ?>">Go to Home</a> |
             <a href="<?= base('admin/login/logout') ?>">Log out</a>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -52,6 +54,7 @@ Class LoginView{
             <h1>Login Failed</h1>
             <p><?= htmlspecialchars($message) ?></p>
             <a href="<?= base('admin/login/index') ?>">Try again</a>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -68,6 +71,7 @@ Class LoginView{
             <form method="GET" action="<?= base('admin/login/logout') ?>">
                 <button type="submit">Log Out</button>
             </form>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

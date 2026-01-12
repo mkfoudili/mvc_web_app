@@ -85,7 +85,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
             <h2>Contact Us</h2>
             <a href="<?= base('contact/index') ?>"><button>Contact the Lab</button></a>
         </section>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

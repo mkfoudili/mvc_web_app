@@ -51,6 +51,7 @@ Class EquipmentView {
             <?php $this->renderReservationsTable($reservations); ?>
             <?php $this->renderReportsTable($reports); ?>
             <?php $this->renderMaintenancesTable($maintenances); ?>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -93,7 +94,7 @@ Class EquipmentView {
             <button type="submit">Save Equipment</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -139,7 +140,7 @@ Class EquipmentView {
             <button type="submit">Update Equipment</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -283,7 +284,7 @@ Class EquipmentView {
             <button type="submit">Update Maintenance</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -315,7 +316,7 @@ Class EquipmentView {
             <button type="submit">Save Maintenance</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

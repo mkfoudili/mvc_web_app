@@ -22,6 +22,7 @@ class MemberView {
         <?php
             $projectView->renderCards($projects, $page, $totalPages, $baseurl,"#projects");
         ?>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -64,6 +65,7 @@ class MemberView {
         <?php
             $equipmentView->renderReservations($reservations);
         ?>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -248,7 +250,7 @@ class MemberView {
             </a>
 
         </form>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

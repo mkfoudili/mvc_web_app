@@ -55,7 +55,7 @@ Class TeamView{
             <?php endif; ?>
             </tbody>
         </table>
-
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -142,7 +142,7 @@ Class TeamView{
                 }
             });
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -244,7 +244,7 @@ Class TeamView{
                 }
             });
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

@@ -64,6 +64,7 @@ Class EventView {
             <?php endif; ?>
             </tbody>
         </table>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -136,6 +137,7 @@ Class EventView {
                 select.remove(select.selectedIndex);
             }
         </script>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -227,6 +229,7 @@ Class EventView {
                 select.remove(select.selectedIndex);
             }
         </script>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

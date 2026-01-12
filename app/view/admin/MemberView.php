@@ -17,6 +17,7 @@ Class MemberView{
             </a>
             <br><br>
             <?php $this->renderMembersList($members); ?>
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -154,6 +155,7 @@ Class MemberView{
             <button type="submit">Save Changes</button>
             <a href="<?= base('admin/member/index') ?>"><button type="button">Cancel</button></a>
         </form>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -243,6 +245,7 @@ Class MemberView{
             <button type="submit">Create Member</button>
             <a href="<?= base('admin/member/index') ?>"><button type="button">Cancel</button></a>
         </form>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

@@ -13,6 +13,7 @@ Class NewsView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>News</h1>
         <?php $this->renderNews($news); ?>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -128,7 +129,6 @@ Class NewsView {
             diaporama.addEventListener('mouseenter', () => clearInterval(interval));
             diaporama.addEventListener('mouseleave', () => interval = setInterval(nextSlide, 5000));
         </script>
-
         </body>
         </html>
         <?php

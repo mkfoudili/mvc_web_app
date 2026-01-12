@@ -66,6 +66,7 @@ Class ProjectView{
             <?php endforeach; ?>
             </tbody>
         </table>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -140,6 +141,7 @@ Class ProjectView{
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -252,7 +254,7 @@ Class ProjectView{
                 document.getElementById('partnerName').value = '';
             }
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
@@ -390,7 +392,7 @@ Class ProjectView{
                 partnerOrder++;
             <?php endforeach; ?>
         </script>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php

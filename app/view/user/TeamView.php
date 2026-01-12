@@ -48,7 +48,7 @@ public function renderIndex(array $teams): void {
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-
+        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
         <?php
