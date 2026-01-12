@@ -10,7 +10,7 @@ class EquipmentView{
             <title>Equipments</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Equipments</h1>
 
         <table border="1" cellpadding="5" cellspacing="0">
@@ -68,7 +68,7 @@ class EquipmentView{
             <title>Add reservation</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add reservation</h1>
 
         <p>
@@ -122,7 +122,7 @@ class EquipmentView{
             <title>Report Breakdown</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Report Breakdown</h1>
 
         <p>

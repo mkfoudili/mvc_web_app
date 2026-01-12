@@ -62,7 +62,7 @@ class ProjectView {
             <title><?= htmlspecialchars($project['title']) ?></title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1><?= htmlspecialchars($project['title']) ?></h1>
 
         <p><strong>Leader:</strong>
@@ -169,7 +169,7 @@ class ProjectView {
             <title>Add Project</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Project</h1>
 
         <form method="post" action="/project/store">

@@ -1,7 +1,6 @@
 <?php
 class NavbarView {
     public function renderIndex(): void {
-        session_start();
         $isLoggedIn = !empty($_SESSION['user_id']);
         ?>
         <img src="assets/logo/lab_logo.png" alt="Lab Logo">

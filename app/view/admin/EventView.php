@@ -9,7 +9,7 @@ Class EventView {
             <title>Admin - Events</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Events</h1>
         <a href="/admin/event/add">
             <button>Add Event</button>
@@ -77,6 +77,7 @@ Class EventView {
             <title>Add Event</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Event</h1>
         <?php if ($error): ?>
             <div style="color:red;"><?= htmlspecialchars($error) ?></div>
@@ -148,6 +149,7 @@ Class EventView {
             <title>Edit Event</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Event</h1>
         <?php if ($error): ?>
             <div style="color:red;"><?= htmlspecialchars($error) ?></div>

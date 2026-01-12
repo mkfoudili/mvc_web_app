@@ -12,7 +12,7 @@ class MemberView {
             </title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
         <?php $this->renderMemberDetails($member); ?>
 
@@ -36,7 +36,7 @@ class MemberView {
             <title>My Profile</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
         <?php $this->renderMemberDetails($member); ?>
         <a href="/member/edit?id=<?= $member['id'] ?>">
@@ -164,7 +164,7 @@ class MemberView {
             <title>Edit Profile</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Profile</h1>
 
         <form method="post" action="/member/update" enctype="multipart/form-data">

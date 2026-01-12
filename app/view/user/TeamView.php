@@ -11,7 +11,7 @@ public function renderIndex(array $teams): void {
             <title>Teams</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Teams</h1>
 
         <?php if (empty($teams)): ?>

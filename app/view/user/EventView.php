@@ -9,7 +9,7 @@ class EventView {
             <title>Events</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Events</h1>
 
         <table border="1" cellpadding="5" cellspacing="0">
@@ -64,6 +64,7 @@ class EventView {
             <title>Join Event</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Join Event</h1>
 
         <p><strong>Event:</strong> <?= htmlspecialchars($event['name']) ?></p>

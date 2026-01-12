@@ -10,6 +10,7 @@ Class UserView {
             <title>Admin - Users</title>
         </head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Users</h1>
             <a href="/admin/user/addForm">
                 <button>Add User</button>
@@ -79,6 +80,7 @@ Class UserView {
             <title>Add User</title>
         </head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Add User</h1>
             <?php if ($error): ?>
                 <div class="error"><?= htmlspecialchars($error) ?></div>
@@ -151,6 +153,7 @@ Class UserView {
             <title>Edit User</title>
         </head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Edit User</h1>
 
             <?php if ($error): ?>

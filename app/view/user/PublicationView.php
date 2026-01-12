@@ -11,7 +11,7 @@ Class PublicationView {
             <title>Publications</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Publications</h1>
 
         <?php foreach ($teams as $team): ?>
@@ -68,7 +68,7 @@ Class PublicationView {
             <title>Add Publication</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Publication</h1>
 
         <form method="post" action="/publication/store">

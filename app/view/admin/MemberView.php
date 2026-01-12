@@ -10,6 +10,7 @@ Class MemberView{
             <title>Admin - Members</title>
         </head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Members</h1>
             <a href="/admin/member/addForm">
                 <button>Add Member</button>
@@ -73,6 +74,7 @@ Class MemberView{
             <title>Edit Member</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Member</h1>
 
         <form method="post" action="/admin/member/update" enctype="multipart/form-data">
@@ -166,6 +168,7 @@ Class MemberView{
             <title>Add Member</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Member</h1>
 
         <?php if ($error): ?>

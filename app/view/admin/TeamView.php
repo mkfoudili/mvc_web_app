@@ -10,7 +10,7 @@ Class TeamView{
             <title>Teams</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Teams</h1>
         <a href="/admin/team/create">
             <button>Add Team</button>
@@ -70,7 +70,7 @@ Class TeamView{
             <title>Add Team</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Team</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -163,7 +163,7 @@ Class TeamView{
             <title>Edit Team</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Team</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 

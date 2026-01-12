@@ -8,6 +8,7 @@ $basePath   = rtrim(dirname($scriptName), '/');
 
 define('BASE_PATH', $basePath === '/' ? '' : $basePath);
 
+session_start();
 require_once __DIR__ . '/../app/core/Router.php';
 
 // Get the URI without query string

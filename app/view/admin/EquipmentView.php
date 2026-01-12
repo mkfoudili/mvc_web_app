@@ -9,7 +9,7 @@ Class EquipmentView {
             <title>Admin - Equipments</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Equipments</h1>
         <a href="/admin/equipment/add">
             <button>Add Equipment</button>
@@ -65,7 +65,7 @@ Class EquipmentView {
             <title>Add Equipment</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Equipment</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -108,7 +108,7 @@ Class EquipmentView {
             <title>Edit Equipment</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Equipment</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -266,7 +266,7 @@ Class EquipmentView {
             <title>Edit Maintenance</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Maintenance for <?= htmlspecialchars($maintenance['equipment_name']) ?></h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -298,7 +298,7 @@ Class EquipmentView {
             <title>Schedule Maintenance</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Schedule Maintenance for <?= htmlspecialchars($maintenance['equipment_name']) ?></h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 

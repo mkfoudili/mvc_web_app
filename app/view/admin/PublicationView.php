@@ -9,7 +9,7 @@ class PublicationView {
             <title>Admin - Publications</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Publications</h1>
         <a href="/admin/publication/create">
             <button>Add Publication</button>
@@ -73,7 +73,7 @@ class PublicationView {
             <title>Add Publication (Admin)</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Publication</h1>
 
         <?php if ($error): ?>
@@ -190,7 +190,7 @@ class PublicationView {
             <title>Edit Publication</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Publication</h1>
 
         <?php if ($error): ?>

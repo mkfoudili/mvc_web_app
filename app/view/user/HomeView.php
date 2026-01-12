@@ -18,7 +18,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
             <title>Research Lab Home</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>University Research Lab</h1>
         <p>
             <a href="https://www.uni-website.example" target="_blank">University Website</a>

@@ -11,6 +11,7 @@ Class ProjectView{
             <title>Admin - Projects</title>
         </head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Projects</h1>
         <a href="/admin/project/create">
             <button>Add Project</button>
@@ -80,7 +81,7 @@ Class ProjectView{
             <title><?= htmlspecialchars($project['title']) ?></title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1><?= htmlspecialchars($project['title']) ?></h1>
 
         <p><strong>Leader:</strong>
@@ -153,7 +154,7 @@ Class ProjectView{
             <title>Add Project</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Project</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
@@ -266,7 +267,7 @@ Class ProjectView{
             <title>Edit Project</title>
         </head>
         <body>
-
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Project</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 

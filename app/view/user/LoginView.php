@@ -11,6 +11,7 @@ Class LoginView{
             <title>Login</title>
         </head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Login</h2>
             <form method="POST" action="/login/login">
                 <label for="username">Login:</label>
@@ -32,6 +33,7 @@ Class LoginView{
         <html>
         <head><meta charset="UTF-8"><title>Login Success</title></head>
         <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($user['login']) ?>!</h1>
             <p>You are now logged in.</p>
             <a href="/home/index">Go to Home</a> |
@@ -47,6 +49,7 @@ Class LoginView{
         <html>
         <head><meta charset="UTF-8"><title>Login Error</title></head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Login Failed</h1>
             <p><?= htmlspecialchars($message) ?></p>
             <a href="/login/index">Try again</a>
@@ -60,6 +63,7 @@ Class LoginView{
         <html>
         <head><meta charset="UTF-8"><title>Logged In</title></head>
         <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($user['login']) ?>!</h1>
             <p>You are already logged in.</p>
             <form method="GET" action="/login/logout">
