@@ -4,7 +4,17 @@ class NavLoader
 {
     public static function render(): void
     {
-        $isAdmin = str_starts_with($_SERVER['REQUEST_URI'], '/admin');
+        $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
+        $basePath   = rtrim(dirname($scriptName), '/') === '/' ? '' : rtrim(dirname($scriptName), '/');
+
+        $uri = $_SERVER['REQUEST_URI'];
+        if ($basePath && str_starts_with($uri, $basePath)) {
+            $uri = substr($uri, strlen($basePath));
+        }
+
+        $uri = '/' . trim($uri, '/');
+
+        $isAdmin = str_starts_with($uri, '/admin');
 
         if ($isAdmin) {
             require_once __DIR__ . '/../admin/NavBarView.php';
@@ -14,7 +24,7 @@ class NavLoader
             $navbar = new NavBarView();
         }
 
-        echo '<header style="position:sticky;top:0;background:#fff;z-index:1000;border-bottom:1px solid #ccc;padding:10px;">';
+        echo '<header>';
         $navbar->renderIndex();
         echo '</header>';
     }

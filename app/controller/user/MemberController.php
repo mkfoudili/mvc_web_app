@@ -155,7 +155,7 @@ Class MemberController{
     
         $this->model->update($id, $data);
 
-        header("Location: /member/index?id=" . $id);
+        redirect('member/index', ['id' => $id]);
         exit;
     }
 }

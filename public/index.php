@@ -10,6 +10,14 @@ define('BASE_PATH', $basePath === '/' ? '' : $basePath);
 function base(string $path = ''): string {
     return BASE_PATH . '/' . ltrim($path, '/');
 }
+function redirect(string $path, array $params = []): void {
+    if ($params) {
+        $path .= '?' . http_build_query($params);
+    }
+    $url = BASE_PATH . '/' . ltrim($path, '/');
+    redirect($url);
+    exit;
+}
 
 session_start();
 require_once __DIR__ . '/../app/core/Router.php';

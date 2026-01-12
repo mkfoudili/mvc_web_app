@@ -95,7 +95,7 @@ Class ProjectController{
             $this->model->addPartner($projectId, $p);
         }
 
-        header("Location: /admin/project/index");
+        redirect("/admin/project/index");
         exit;
     }
 
@@ -158,7 +158,7 @@ Class ProjectController{
             $this->model->addPartner($id, $p);
         }
 
-        header("Location: /admin/project/index");
+        redirect("/admin/project/index");
         exit;
     }
     public function delete(): void {
@@ -171,7 +171,7 @@ Class ProjectController{
 
         $this->model->delete($id);
 
-        header("Location: /admin/project/index");
+        redirect("/admin/project/index");
         exit;
     }
 }

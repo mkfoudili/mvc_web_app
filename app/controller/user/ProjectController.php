@@ -135,7 +135,7 @@ class ProjectController {
         }
     }
 
-        header("Location: /project/show?id=" . $projectId);
+        redirect('project/show', ['id' => $projectId]);
         exit;
     }
 }

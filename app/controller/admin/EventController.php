@@ -47,7 +47,7 @@ Class EventController {
         foreach ($participants as $memberId) {
             $this->model->addParticipant($eventId, (int)$memberId);
         }
-        header("Location: /admin/event/index");
+        redirect("/admin/event/index");
         exit;
     }
 
@@ -102,7 +102,7 @@ Class EventController {
             $this->model->addParticipant($id, (int)$memberId);
         }
 
-        header("Location: /admin/event/index");
+        redirect("/admin/event/index");
         exit;
     }
     public function delete(): void {
@@ -122,7 +122,7 @@ Class EventController {
 
         $this->model->delete((int)$id);
 
-        header("Location: /admin/event/index");
+        redirect("/admin/event/index");
         exit;
     }
 }

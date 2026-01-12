@@ -32,13 +32,13 @@ Class EventController{
     {
         $eventId = $_GET['id'] ?? null;
         if (!$eventId) {
-            header("Location: /event");
+            redirect("/event");
             exit;
         }
 
         $event = $this->model->findById($eventId);
         if (!$event) {
-            header("Location: /event");
+            redirect("/event");
             exit;
         }
         
@@ -70,7 +70,7 @@ Class EventController{
             ]);
 
             $returnUrl = $_POST['return_url'] ?? '/event/index';
-            header("Location: " . $returnUrl);
+            redirect($returnUrl);
             exit;
         }
     }

@@ -1,10 +1,10 @@
 <?php
 class NavbarView {
     public function renderIndex(): void {
-        $isLoggedIn = !empty($_SESSION['admin_id']);
         ?>
         <img src="assets/logo/lab_logo.png" alt="Lab Logo">
-        <?php if (!$isLoggedIn): ?>
+        <?php $isLoggedIn = !empty($_SESSION['admin_id']);  ?>
+        <?php if ($isLoggedIn): ?>
         <nav>
             <a href="<?= base('admin/project/index') ?>">Projects</a>
             <a href="<?= base('admin/publication/index') ?>">Publications</a>
@@ -20,7 +20,7 @@ class NavbarView {
                 <button>Log In</button>
             </a>
         <?php else: ?>
-            <form method="GET" action="<?= base('admin/logout') ?>" style="display:inline;">
+            <form method="GET" action="<?= base('admin/login/logout') ?>" style="display:inline;">
                 <button type="submit">Log Out</button>
             </form>
         <?php endif; ?>

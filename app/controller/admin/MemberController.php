@@ -26,28 +26,28 @@ Class MemberController{
     public function delete(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            header("Location: /admin/member/index");
+            redirect("/admin/member/index");
             exit;
         }
         $member = $this->model->findById($id);
         if (!$member) {
-            header("Location: /admin/member/index");
+            redirect("/admin/member/index");
             exit;
         }
         $this->model->delete($id);
-        header("Location: /admin/member/index");
+        redirect("/admin/member/index");
         exit;
     }
     public function edit(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            header("Location: /admin/member/index");
+            redirect("/admin/member/index");
             exit;
         }
 
         $member = $this->model->findById($id);
         if (!$member) {
-            header("Location: /admin/member/index");
+            redirect("/admin/member/index");
             exit;
         }
 
@@ -91,7 +91,7 @@ Class MemberController{
 
         $this->model->update($id, $data);
 
-        header("Location: /admin/member/index");
+        redirect("/admin/member/index");
         exit;
     }
     public function addForm(): void {
@@ -127,7 +127,7 @@ Class MemberController{
 
         $user = $userModel->findById($userId);
         if (!$user) {
-            header("Location: /admin/member/addForm");
+            redirect("/admin/member/addForm");
             exit;
         }
 
@@ -153,7 +153,7 @@ Class MemberController{
 
         $this->model->create($data);
 
-        header("Location: /admin/member/index");
+        redirect("/admin/member/index");
         exit;
     }
 }
