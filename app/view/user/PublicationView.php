@@ -71,7 +71,7 @@ Class PublicationView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Publication</h1>
 
-        <form method="post" action="/publication/store">
+        <form method="post" action="<?= base('publication/store') ?>">
 
             <input type="hidden" name="member_id" value="<?= $memberId ?>">
 

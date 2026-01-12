@@ -11,7 +11,7 @@ Class EquipmentView {
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Equipments</h1>
-        <a href="/admin/equipment/add">
+        <a href="<?= base('admin/equipment/add') ?>">
             <button>Add Equipment</button>
         </a>
         <table border="1" cellpadding="5" cellspacing="0">
@@ -39,7 +39,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($equipment['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($equipment['location'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/equipment/edit?id=<?=$equipment['id'] ?>">
+                            <a href="<?= base('admin/equipment/edit?id=.' . $equipment['id'] . '') ?>">
                                 <button>Edit</button>
                             </a>
                         </td>
@@ -69,7 +69,7 @@ Class EquipmentView {
         <h1>Add Equipment</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/equipment/store">
+        <form method="post" action="<?= base('admin/equipment/store') ?>">
 
             <label>Name</label><br>
             <input type="text" name="name" required><br><br>
@@ -91,7 +91,7 @@ Class EquipmentView {
             <input type="text" name="location"><br><br>
 
             <button type="submit">Save Equipment</button>
-            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         </body>
@@ -112,7 +112,7 @@ Class EquipmentView {
         <h1>Edit Equipment</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/equipment/update">
+        <form method="post" action="<?= base('admin/equipment/update') ?>">
             <input type="hidden" name="id" value="<?= (int)$equipment['id'] ?>">
 
             <label>Name</label><br>
@@ -137,7 +137,7 @@ Class EquipmentView {
             <input type="text" name="location" value="<?= htmlspecialchars($equipment['location'] ?? '') ?>"><br><br>
 
             <button type="submit">Update Equipment</button>
-            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         </body>
@@ -174,7 +174,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($r['status']) ?></td>
                         <td>
                             <?php if (strtotime($r['reserved_from']) > time()): ?>
-                                <a href="/admin/equipment/editReservation?id=<?= (int)$r['id'] ?>">
+                                <a href="<?= base('admin/equipment/editReservation?id=' . (int)$r['id']) ?>">
                                     <button>Update</button>
                                 </a>
                             <?php else: ?>
@@ -211,7 +211,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($r['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($r['created_at'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/equipment/scheduleMaintenance?id=<?= (int)$r['id'] ?>">
+                            <a href="<?= base('admin/equipment/scheduleMaintenance?id=' . (int)$r['id']) ?>">
                                 <button>Schedule Maintenance</button>
                             </a>
                         </td>
@@ -245,7 +245,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($m['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($m['scheduled_at']) ?></td>
                         <td>
-                            <a href="/admin/equipment/editMaintenance?id=<?= (int)$m['id'] ?>">
+                            <a href="<?= base('admin/equipment/editMaintenance?id=' . (int)$m['id']) ?>">
                                 <button>Edit</button>
                             </a>
                         </td>
@@ -270,7 +270,7 @@ Class EquipmentView {
         <h1>Edit Maintenance for <?= htmlspecialchars($maintenance['equipment_name']) ?></h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/equipment/updateMaintenance">
+        <form method="post" action="<?= base('admin/equipment/updateMaintenance') ?>">
             <input type="hidden" name="id" value="<?= (int)$maintenance['id'] ?>">
 
             <label>Scheduled At</label><br>
@@ -281,7 +281,7 @@ Class EquipmentView {
             <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($maintenance['description'] ?? '') ?></textarea><br><br>
 
             <button type="submit">Update Maintenance</button>
-            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         </body>
@@ -302,7 +302,7 @@ Class EquipmentView {
         <h1>Schedule Maintenance for <?= htmlspecialchars($maintenance['equipment_name']) ?></h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/equipment/saveScheduledMaintenance">
+        <form method="post" action="<?= base('admin/equipment/saveScheduledMaintenance') ?>">
             <input type="hidden" name="id" value="<?= (int)$maintenance['id'] ?>">
 
             <label>Scheduled At</label><br>
@@ -313,7 +313,7 @@ Class EquipmentView {
             <textarea name="description" rows="4" cols="50"></textarea><br><br>
 
             <button type="submit">Save Maintenance</button>
-            <a href="/admin/equipment/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         </body>

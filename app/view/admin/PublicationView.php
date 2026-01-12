@@ -11,7 +11,7 @@ class PublicationView {
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Publications</h1>
-        <a href="/admin/publication/create">
+        <a href="<?= base('admin/publication/create') ?>">
             <button>Add Publication</button>
         </a>
 
@@ -46,10 +46,10 @@ class PublicationView {
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="/admin/publication/edit?id=<?= $p['id'] ?>">
+                            <a href="<?= base('admin/publication/edit?id=' . $p['id']) ?>">
                                 <button>Update</button>
                             </a>
-                            <a href="/admin/publication/delete?id=<?= $p['id'] ?>" onclick="return confirm('Are you sure you want to delete this publication?');">
+                            <a href="<?= base('admin/publication/delete?id=' . $p['id']) ?>" onclick="return confirm('Are you sure you want to delete this publication?');">
                                 <button>Delete</button>
                             </a>
                         </td>
@@ -80,7 +80,7 @@ class PublicationView {
             <div style="color:#b00;"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form method="post" action="/admin/publication/store">
+        <form method="post" action="<?= base('admin/publication/store') ?>">
 
             <label>Title</label><br>
             <input type="text" name="title" required><br><br>
@@ -126,7 +126,7 @@ class PublicationView {
 
             <br>
             <button type="submit">Save Publication</button>
-            <a href="/admin/publication/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/publication/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>
@@ -197,7 +197,7 @@ class PublicationView {
             <div style="color:#b00;"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form method="post" action="/admin/publication/update" enctype="multipart/form-data">
+        <form method="post" action="<?= base('admin/publication/update') ?>" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= htmlspecialchars($publication['id']) ?>">
 
             <label>Title</label><br>
@@ -244,7 +244,7 @@ class PublicationView {
 
             <br>
             <button type="submit">Update Publication</button>
-            <a href="/admin/publication/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/publication/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>

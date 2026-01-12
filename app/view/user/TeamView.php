@@ -35,7 +35,7 @@ public function renderIndex(array $teams): void {
                         <ul>
                             <?php foreach ($team['members'] as $member): ?>
                                 <li>
-                                    <a href="/member/index?id=<?= (int)$member['id'] ?>">
+                                    <a href="<?= base('member/index?id=' . (int)$member['id']) ?>">
                                         <?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?>
                                     </a>
                                     <?php if (!empty($member['role_in_team'])): ?>

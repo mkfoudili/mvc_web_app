@@ -39,13 +39,13 @@ class MemberView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
         <?php $this->renderMemberDetails($member); ?>
-        <a href="/member/edit?id=<?= $member['id'] ?>">
+        <a href="<?= base('member/edit?id=' . $member['id']) ?>">
             <button>Edit Profil</button>
         </a>
 
         <h2>My Publications</h2>
         <?php $this->renderPublications($publications); ?>
-        <a href="/publication/create?id=<?= $member['id'] ?>">
+        <a href="<?= base('publication/create?id=' . $member['id']) ?>">
             <button>Add Publication</button>
         </a>
 
@@ -53,7 +53,7 @@ class MemberView {
         <?php
             $projectView->renderCards($projects, $page, $totalPages, $baseurl,"#projects");
         ?>
-        <a href="/project/create?member_id=<?= $member['id'] ?>">
+        <a href="<?= base('project/create?member_id=' . $member['id']) ?>">
             <button>Add Project</button>
         </a>
         <h2>My Events</h2>
@@ -167,7 +167,7 @@ class MemberView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Profile</h1>
 
-        <form method="post" action="/member/update" enctype="multipart/form-data">
+        <form method="post" action="<?= base('member/update') ?>" enctype="multipart/form-data">
 
             <input type="hidden" name="id" value="<?= htmlspecialchars($member['id']) ?>">
             <input type="hidden" name="login" value="<?= htmlspecialchars($member['login']) ?>">
@@ -243,7 +243,7 @@ class MemberView {
 
             <br>
             <button type="submit">Save Changes</button>
-            <a href="/member/index?id=<?= htmlspecialchars($member['id']) ?>">
+            <a href="<?= base('member/index?id=' . htmlspecialchars($member['id'])) ?>">
                 <button type="button">Cancel</button>
             </a>
 

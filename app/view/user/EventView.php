@@ -36,7 +36,7 @@ class EventView {
                         <td><?= htmlspecialchars($event['description'] ?? '-') ?></td>
                         <td>
                             <?php if ($event['is_upcoming']): ?>
-                            <a href="/event/joinForm?id=<?= $event['id'] ?>&return=/event/index">
+                            <a href="<?= base('event/joinForm?id=' . $event['id'] . '&return=/event/index') ?>">
                                 <button>Join</button>
                             </a> 
                             <?php else: ?>
@@ -71,7 +71,7 @@ class EventView {
         <p><strong>Date:</strong> <?= htmlspecialchars($event['event_date'] ?? '-') ?></p>
         <p><strong>Description:</strong> <?= htmlspecialchars($event['description'] ?? '-') ?></p>
 
-        <form method="post" action="/event/joinEvent">
+        <form method="post" action="<?= base('event/joinEvent') ?>">
             <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
             <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
             <?php if ($memberId): ?>
@@ -101,7 +101,7 @@ class EventView {
                 <?php endif; ?>
 
             <button type="submit">Submit Request</button>
-            <a href="/event"><button type="button">Cancel</button></a>
+            <a href="<?= base('event') ?>"><button type="button">Cancel</button></a>
         </form>
 
         </body>
@@ -152,7 +152,7 @@ class EventView {
                     <h3><?= htmlspecialchars($event['name']) ?></h3>
 
                     <?php if (!empty($event['is_upcoming']) && $event['is_upcoming']): ?>
-                        <a href="/event/joinForm?id=<?= $event['id'] ?>&return=/event/cards">
+                        <a href="<?= base('event/joinForm?id=' . $event['id'] . '&return=/event/cards') ?>">
                         <button>Join</button>
                         </a>
                     <?php else: ?>

@@ -11,7 +11,7 @@ Class EventView {
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Events</h1>
-        <a href="/admin/event/add">
+        <a href="<?= base('admin/event/add') ?>">
             <button>Add Event</button>
         </a>
         <table border="1" cellpadding="5" cellspacing="0">
@@ -49,13 +49,13 @@ Class EventView {
                             <?php endif; ?>
                         </td>
                         <td>
-                            <a href="/admin/event/edit?id=<?= $event['id'] ?>&return=/admin/event/index">
+                            <a href="<?= base('admin/event/edit?id=' . $event['id'] . '&return=/admin/event/index') ?>">
                                 <button>Edit</button>
                             </a> 
-                            <a href="/admin/event/cancel?id=<?= $event['id'] ?>&return=/admin/event/index">
+                            <a href="<?= base('admin/event/cancel?id=' . $event['id'] . '&return=/admin/event/index') ?>">
                                 <button>Request Cancellation</button>
                             </a>
-                            <a href="/admin/event/delete?id=<?= $event['id'] ?>&return=/admin/event/index">
+                            <a href="<?= base('admin/event/delete?id=' . $event['id'] . '&return=/admin/event/index') ?>">
                                 <button>Delete</button>
                             </a>
                         </td>
@@ -83,7 +83,7 @@ Class EventView {
             <div style="color:red;"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="/admin/event/store">
+        <form method="POST" action="<?= base('admin/event/store') ?>">
             <label for="name">Name:</label><br>
             <input type="text" id="name" name="name" required><br><br>
 
@@ -118,7 +118,7 @@ Class EventView {
             <div id="participants"></div>
 
             <button type="submit">Save Event</button>
-            <a href="/admin/event/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/event/index') ?>"><button type="button">Cancel</button></a>
         </form>
         <script>
             function addParticipant() {
@@ -155,7 +155,7 @@ Class EventView {
             <div style="color:red;"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="/admin/event/update">
+        <form method="POST" action="<?= base('admin/event/update') ?>">
             <input type="hidden" name="id" value="<?= (int)$event['id'] ?>">
 
             <label for="name">Name:</label><br>
@@ -208,7 +208,7 @@ Class EventView {
 
             <br>
             <button type="submit">Update Event</button>
-            <a href="/admin/event/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/event/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>

@@ -12,7 +12,7 @@ Class TeamView{
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Teams</h1>
-        <a href="/admin/team/create">
+        <a href="<?= base('admin/team/create') ?>">
             <button>Add Team</button>
         </a>
 
@@ -42,10 +42,10 @@ Class TeamView{
                         <td><?= htmlspecialchars($team['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($team['members_list'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/team/edit?id=<?= (int)$team['id'] ?>">
+                            <a href="<?= base('admin/team/edit?id=' . (int)$team['id']) ?>">
                                 <button>Edit</button>
                             </a>
-                            <a href="/admin/team/delete?id=<?= (int)$team['id'] ?>"
+                            <a href="<?= base('admin/team/delete?id=' . (int)$team['id']) ?>"
                                onclick="return confirm('Are you sure you want to delete this team?');">
                                 <button>Delete</button>
                             </a>
@@ -74,7 +74,7 @@ Class TeamView{
         <h1>Add Team</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/team/store">
+        <form method="post" action="<?= base('admin/team/store') ?>">
 
             <label>Team Name</label><br>
             <input type="text" name="name" required><br><br>
@@ -110,7 +110,7 @@ Class TeamView{
 
             <br>
             <button type="submit">Save Team</button>
-            <a href="/admin/team/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/team/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>
@@ -167,7 +167,7 @@ Class TeamView{
         <h1>Edit Team</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/team/update">
+        <form method="post" action="<?= base('admin/team/update') ?>">
             <input type="hidden" name="id" value="<?= (int)$team['id'] ?>">
 
             <label>Team Name</label><br>
@@ -214,7 +214,7 @@ Class TeamView{
 
             <br>
             <button type="submit">Update Team</button>
-            <a href="/admin/team/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/team/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>

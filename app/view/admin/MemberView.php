@@ -12,7 +12,7 @@ Class MemberView{
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Members</h1>
-            <a href="/admin/member/addForm">
+            <a href="<?= base('admin/member/addForm') ?>">
                 <button>Add Member</button>
             </a>
             <br><br>
@@ -51,10 +51,10 @@ Class MemberView{
                         </td>
                         <td><?= htmlspecialchars($member['role_in_lab'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/member/edit?id=<?= $member['id'] ?>">
+                            <a href="<?= base('admin/member/edit?id=' . $member['id']) ?>">
                                 <button>Update</button>
                             </a>
-                            <a href="/admin/member/delete?id=<?= $member['id'] ?>" onclick="return confirm('Are you sure you want to delete this member?');">
+                            <a href="<?= base('admin/member/delete?id=' . $member['id']) ?>" onclick="return confirm('Are you sure you want to delete this member?');">
                                 <button>Delete</button>
                             </a>
                         </td>
@@ -77,7 +77,7 @@ Class MemberView{
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Edit Member</h1>
 
-        <form method="post" action="/admin/member/update" enctype="multipart/form-data">
+        <form method="post" action="<?= base('admin/member/update') ?>" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= htmlspecialchars($member['id']) ?>">
             <input type="hidden" name="login" value="<?= htmlspecialchars($member['login']) ?>">
 
@@ -152,7 +152,7 @@ Class MemberView{
 
             <br>
             <button type="submit">Save Changes</button>
-            <a href="/admin/member/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/member/index') ?>"><button type="button">Cancel</button></a>
         </form>
         </body>
         </html>
@@ -175,7 +175,7 @@ Class MemberView{
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
-        <form method="post" action="/admin/member/create" enctype="multipart/form-data">
+        <form method="post" action="<?= base('admin/member/create') ?>" enctype="multipart/form-data">
             <div>
                 <label>First Name:</label><br>
                 <input type="text" name="first_name" required>
@@ -241,7 +241,7 @@ Class MemberView{
 
             <br>
             <button type="submit">Create Member</button>
-            <a href="/admin/member/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/member/index') ?>"><button type="button">Cancel</button></a>
         </form>
         </body>
         </html>

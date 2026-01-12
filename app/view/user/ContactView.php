@@ -12,7 +12,7 @@ class ContactView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Contact the Lab</h1>
 
-        <form method="post" action="/contact/send">
+        <form method="post" action="<?= base('contact/send') ?>">
             <div>
                 <label>Your Email:</label><br>
                 <input type="email" name="email" required>

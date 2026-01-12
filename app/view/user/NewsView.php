@@ -4,6 +4,23 @@ Class NewsView {
     public function renderIndex(array $news):void
     {
         ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Admin - Equipments</title>
+        </head>
+        <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
+        <h1>News</h1>
+        <?php $this->renderNews($news); ?>
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderNews(array $news):void
+    {
+        ?>
         <?php foreach($news as $newsItem): ?>
             <div>
                 <img src="<?= htmlspecialchars($newsItem['photo_url']) ?>" alt="News Image">

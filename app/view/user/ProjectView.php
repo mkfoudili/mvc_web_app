@@ -4,7 +4,13 @@ class ProjectView {
     public function renderIndex(array $projects): void
     {
         ?>
-
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Projects</title>
+        </head>
+        <body>
+        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Projects</h1>
 
         <table border="1" cellpadding="6">
@@ -23,7 +29,7 @@ class ProjectView {
             <?php foreach ($projects as $p): ?>
                 <tr>
                     <td>
-                        <a href="/project/show?id=<?= (int)$p['id'] ?>">
+                        <a href="<?= base('project/show?id=' . (int)$p['id']) ?>">
                             <?= htmlspecialchars($p['title']) ?>
                         </a>
                     </td>
@@ -137,7 +143,7 @@ class ProjectView {
                 ">
                     <h3><?= htmlspecialchars($p['title']) ?></h3>
 
-                    <a href="/project/show?id=<?= (int)$p['id'] ?>">
+                    <a href="<?= base('project/show?id=' . (int)$p['id']) ?>">
                         <button>View details</button>
                     </a>
                 </div>
@@ -172,7 +178,7 @@ class ProjectView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Add Project</h1>
 
-        <form method="post" action="/project/store">
+        <form method="post" action="<?= base('project/store') ?>">
             <input type="hidden" name="current_member_id" value="<?= htmlspecialchars($currentMemberId) ?>">
 
             <div>
@@ -247,7 +253,7 @@ class ProjectView {
 
             <br>
             <button type="submit">Save Project</button>
-            <a href="/member/index?id=<?= htmlspecialchars($currentMemberId) ?>">
+            <a href="<?= base('member/index?id=' . htmlspecialchars($currentMemberId)) ?>">
                 <button type="button">Cancel</button>
             </a>
         </form>

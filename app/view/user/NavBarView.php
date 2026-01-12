@@ -5,24 +5,24 @@ class NavbarView {
         ?>
         <img src="assets/logo/lab_logo.png" alt="Lab Logo">
         <nav>
-            <a href="/home">Home</a>
-            <a href="/project/index">Projects</a>
-            <a href="/publication/index">Publications</a>
-            <a href="/event/index">Events</a>
-            <a href="/team/index">Teams</a>
-            <a href="/news/index">News</a>
+            <a href="<?= base('home') ?>">Home</a>
+            <a href="<?= base('project/index') ?>">Projects</a>
+            <a href="<?= base('publication/index') ?>">Publications</a>
+            <a href="<?= base('event/index') ?>">Events</a>
+            <a href="<?= base('team/index') ?>">Teams</a>
+            <a href="<?= base('news/index') ?>">News</a>
             <?php if ($isLoggedIn): ?>
-                <a href="/equipment/index">Equipment</a>
+                <a href="<?= base('equipment/index') ?>">Equipment</a>
             <?php else: ?>
-                <a href="/contact/index">Contact</a>
+                <a href="<?= base('contact/index') ?>">Contact</a>
             <?php endif; ?>
         </nav>
         <?php if (!$isLoggedIn): ?>
-            <a href="/login/index">
+            <a href="<?= base('login/index') ?>">
                 <button>Log In</button>
             </a>
         <?php else: ?>
-            <form method="GET" action="/login/logout" style="display:inline;">
+            <form method="GET" action="<?= base('login/logout') ?>" style="display:inline;">
                 <button type="submit">Log Out</button>
             </form>
         <?php endif; ?>

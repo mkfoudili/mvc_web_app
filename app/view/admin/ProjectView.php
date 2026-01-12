@@ -13,7 +13,7 @@ Class ProjectView{
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Projects</h1>
-        <a href="/admin/project/create">
+        <a href="<?= base('admin/project/create') ?>">
             <button>Add Project</button>
         </a>
         <table border="1" cellpadding="6">
@@ -33,7 +33,7 @@ Class ProjectView{
             <?php foreach ($projects as $p): ?>
                 <tr>
                     <td>
-                        <a href="/admin/project/show?id=<?= (int)$p['id'] ?>">
+                        <a href="<?= base('admin/project/show?id=' . (int)$p['id']) ?>">
                             <?= htmlspecialchars($p['title']) ?>
                         </a>
                     </td>
@@ -55,10 +55,10 @@ Class ProjectView{
                     </td>
                     <td><?= htmlspecialchars($p['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
-                        <a href="/admin/project/edit?id=<?=$p['id'] ?>">
+                        <a href="<?= base('admin/project/edit?id=' . $p['id']) ?>">
                             <button>Edit</button>
                         </a>
-                        <a href="/admin/project/delete?id=<?= (int)$p['id'] ?>" onclick="return confirm('Are you sure you want to delete this project?');">
+                        <a href="<?= base('admin/project/delete?id=' . (int)$p['id']) ?>" onclick="return confirm('Are you sure you want to delete this project?');">
                             <button>Delete</button>
                         </a>
                     </td>
@@ -158,7 +158,7 @@ Class ProjectView{
         <h1>Add Project</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/project/store">
+        <form method="post" action="<?= base('admin/project/store') ?>">
 
             <label>Title</label><br>
             <input type="text" name="title" required><br><br>
@@ -212,7 +212,7 @@ Class ProjectView{
 
             <br>
             <button type="submit">Save Project</button>
-            <a href="/admin/project/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/project/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>
@@ -271,7 +271,7 @@ Class ProjectView{
         <h1>Edit Project</h1>
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
-        <form method="post" action="/admin/project/update">
+        <form method="post" action="<?= base('admin/project/update') ?>">
             <input type="hidden" name="id" value="<?= (int)$project['id'] ?>">
 
             <label>Title</label><br>
@@ -330,7 +330,7 @@ Class ProjectView{
 
             <br>
             <button type="submit">Update Project</button>
-            <a href="/admin/project/index"><button type="button">Cancel</button></a>
+            <a href="<?= base('admin/project/index') ?>"><button type="button">Cancel</button></a>
         </form>
 
         <script>

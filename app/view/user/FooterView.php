@@ -13,7 +13,7 @@ class FooterView {
             </p>
             <p>
                 <small>
-                    For inquiries, please <a href="/contact/index">contact the lab</a>.
+                    For inquiries, please <a href="<?= base('contact/index') ?>">contact the lab</a>.
                 </small>
             </p>
         </footer>

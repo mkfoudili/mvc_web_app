@@ -33,7 +33,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
 
         <section>
             <h2>Latest News</h2>
-            <?php $newsView->renderIndex($news); ?>
+            <?php $newsView->renderNews($news); ?>
         </section>
 
         <section>
@@ -51,39 +51,39 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
 
         <section>
             <h2>Organigramme</h2>
-            <img src="/assets/organigramme/default.png" alt="Lab Organigramme">
+            <img src="<?= base('assets/organigramme/default.png') ?>" alt="Lab Organigramme">
         </section>
 
         <section>
             <h2>Publications</h2>
             <p>Explore our published articles and research contributions.</p>
-            <a href="/publication/index"><button>View Publications</button></a>
+            <a href="<?= base('publication/index') ?>"><button>View Publications</button></a>
         </section>
 
         <section id="events">
             <h2>Events</h2>
             <?php $eventView->renderCards($eventsPage, $pageEvents, $totalPagesEvents, "/home/index?event_page=","#events"); ?>
-            <a href="/event/index"><button>Details Events</button></a>
+            <a href="<?= base('event/index') ?>"><button>Details Events</button></a>
         </section>
 
         <section id="projects">
             <h2>Projects</h2>
             <?php $projectView->renderCards($projectsPage, $pageProjects, $totalPagesProjects, "/home/index?project_page=","#projects"); ?>
-            <a href="/project/index"><button>Details Projects</button></a>
+            <a href="<?= base('project/index') ?>"><button>Details Projects</button></a>
         </section>
 
         <section>
             <h2>Partners</h2>
             <div style="display:flex; gap:20px;">
-                <img src="/assets/partners/default.png" alt="Partner 1" width="120">
-                <img src="/assets/partners/default.png" alt="Partner 2" width="120">
-                <img src="/assets/partners/default.png" alt="Partner 3" width="120">
+                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 1" width="120">
+                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 2" width="120">
+                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 3" width="120">
             </div>
         </section>
 
         <section>
             <h2>Contact Us</h2>
-            <a href="/contact/index"><button>Contact the Lab</button></a>
+            <a href="<?= base('contact/index') ?>"><button>Contact the Lab</button></a>
         </section>
 
         </body>

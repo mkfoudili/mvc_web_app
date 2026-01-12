@@ -39,12 +39,12 @@ class EquipmentView{
                         <td><?= htmlspecialchars($equipment['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($equipment['location'] ?? '-') ?></td>
                         <td>
-                            <a href="/equipment/addReservation?id=<?= $equipment['id'] ?>">
+                            <a href="<?= base('equipment/addReservation?id=' . $equipment['id']) ?>">
                                 <button>Add reservation</button>
                             </a>
                         </td>
                         <td>
-                            <a href="/equipment/reportBreakdown?id=<?= $equipment['id'] ?>">
+                            <a href="<?= base('equipment/reportBreakdown?id=' . $equipment['id']) ?>">
                                 <button>Report breakdown</button>
                             </a>
                         </td>
@@ -105,7 +105,7 @@ class EquipmentView{
             <br><br>
 
             <button type="submit">Save reservation</button>
-            <a href="/equipment">Cancel</a>
+            <a href="<?= base('equipment') ?>">Cancel</a>
         </form>
 
         </body>
@@ -138,7 +138,7 @@ class EquipmentView{
             <br><br>
 
             <button type="submit">Report</button>
-            <a href="/equipment">Cancel</a>
+            <a href="<?= base('equipment') ?>">Cancel</a>
         </form>
 
         </body>
@@ -181,7 +181,7 @@ class EquipmentView{
                         <td><?= htmlspecialchars($r['status'] ?? '-') ?></td>
                         <td>
                         <?php if ($r['status'] === 'confirmed'): ?>
-                            <form method="post" action="/equipment/cancel" style="display:inline;">
+                            <form method="post" action="<?= base('equipment/cancel') ?>" style="display:inline;">
                                 <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
                                 <button type="submit">Cancel</button>
                             </form>

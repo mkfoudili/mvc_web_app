@@ -7,6 +7,9 @@ $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME']);
 $basePath   = rtrim(dirname($scriptName), '/');
 
 define('BASE_PATH', $basePath === '/' ? '' : $basePath);
+function base(string $path = ''): string {
+    return BASE_PATH . '/' . ltrim($path, '/');
+}
 
 session_start();
 require_once __DIR__ . '/../app/core/Router.php';

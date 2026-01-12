@@ -12,7 +12,7 @@ Class UserView {
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Users</h1>
-            <a href="/admin/user/addForm">
+            <a href="<?= base('admin/user/addForm') ?>">
                 <button>Add User</button>
             </a>
             <br><br>
@@ -51,15 +51,15 @@ Class UserView {
                         <td><?= htmlspecialchars($user['specialty_id'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($user['status'] ?? '-') ?></td>
                         <td>
-                            <a href="/admin/user/edit?id=<?= $user['id'] ?>">
+                            <a href="<?= base('admin/user/edit?id=' . $user['id']) ?>">
                                 <button>Update</button>
                             </a>
-                            <a href="/admin/user/toggleStatus?id=<?= $user['id'] ?>">
+                            <a href="<?= base('admin/user/toggleStatus?id=' . $user['id']) ?>">
                                 <button>
                                     <?= $user['status'] === 'active' ? 'Suspend' : 'Activate' ?>
                                 </button>
                             </a>
-                            <a href="/admin/user/delete?id=<?= $user['id'] ?>" onclick="return confirm('Are you sure you want to delete this user?');">
+                            <a href="<?= base('admin/user/delete?id=' . $user['id']) ?>" onclick="return confirm('Are you sure you want to delete this user?');">
                                 <button>Delete</button>
                             </a>
                         </td>
@@ -85,7 +85,7 @@ Class UserView {
             <?php if ($error): ?>
                 <div class="error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
-            <form method="post" action="/admin/user/create">
+            <form method="post" action="<?= base('admin/user/create') ?>">
                 <label>
                     Login:
                     <input type="text" name="login" required>
@@ -137,7 +137,7 @@ Class UserView {
                 <br><br>
 
                 <button type="submit">Create User</button>
-                <a href="/admin/user/index"><button type="button">Cancel</button></a>
+                <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
             </form>
         </body>
         </html>
@@ -160,7 +160,7 @@ Class UserView {
                 <div class="error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
 
-            <form method="post" action="/admin/user/update">
+            <form method="post" action="<?= base('admin/user/update') ?>">
                 <input type="hidden" name="id" value="<?= $user['id'] ?>">
                 <input type="hidden" name="status" value="active">
 
@@ -201,7 +201,7 @@ Class UserView {
                 </label><br><br>
 
                 <button type="submit">Update User</button>
-                <a href="/admin/user/index"><button type="button">Cancel</button></a>
+                <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
             </form>
         </body>
         </html>

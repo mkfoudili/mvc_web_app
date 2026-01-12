@@ -12,7 +12,7 @@ Class LoginView{
         </head>
         <body>
             <h1>Login</h2>
-            <form method="POST" action="/admin/login/login">
+            <form method="POST" action="<?= base('admin/login/login') ?>">
                 <label for="username">Login:</label>
                 <input type="text" id="login" name="login" required>
                 <br>
@@ -35,8 +35,8 @@ Class LoginView{
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($admin['login']) ?>!</h1>
             <p>You are now logged in.</p>
-            <a href="/admin/home/index">Go to Home</a> |
-            <a href="/admin/login/logout">Log out</a>
+            <a href="<?= base('admin/home/index') ?>">Go to Home</a> |
+            <a href="<?= base('admin/login/logout') ?>">Log out</a>
         </body>
         </html>
         <?php
@@ -51,7 +51,7 @@ Class LoginView{
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Login Failed</h1>
             <p><?= htmlspecialchars($message) ?></p>
-            <a href="/admin/login/index">Try again</a>
+            <a href="<?= base('admin/login/index') ?>">Try again</a>
         </body>
         </html>
         <?php
@@ -65,7 +65,7 @@ Class LoginView{
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($admin['login']) ?>!</h1>
             <p>You are already logged in.</p>
-            <form method="GET" action="/admin/login/logout">
+            <form method="GET" action="<?= base('admin/login/logout') ?>">
                 <button type="submit">Log Out</button>
             </form>
         </body>
