@@ -7,6 +7,7 @@ Class EquipmentView {
         <html>
         <head>
             <title>Admin - Equipments</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -64,6 +65,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Add Equipment</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -107,6 +109,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Equipment</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -265,6 +268,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Maintenance</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -297,6 +301,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Schedule Maintenance</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

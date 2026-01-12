@@ -8,6 +8,7 @@ Class MemberView{
         <head>
             <meta charset="UTF-8">
             <title>Admin - Members</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -73,6 +74,7 @@ Class MemberView{
         <head>
             <meta charset="UTF-8">
             <title>Edit Member</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -168,6 +170,7 @@ Class MemberView{
         <head>
             <meta charset="UTF-8">
             <title>Add Member</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

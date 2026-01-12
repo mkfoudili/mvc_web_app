@@ -8,6 +8,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Equipments</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -66,6 +67,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Add reservation</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -120,6 +122,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Report Breakdown</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

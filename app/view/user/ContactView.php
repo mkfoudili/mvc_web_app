@@ -7,6 +7,7 @@ class ContactView {
         <head>
             <meta charset="UTF-8">
             <title>Contact the Lab</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

@@ -9,6 +9,7 @@ Class LoginView{
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Admin - Login</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
             <h1>Login</h2>
@@ -31,7 +32,11 @@ Class LoginView{
         ?>
         <!DOCTYPE html>
         <html>
-        <head><meta charset="UTF-8"><title>Login Success</title></head>
+        <head>
+            <meta charset="UTF-8">
+            <title>Login Success</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
+        </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($admin['login']) ?>!</h1>
@@ -48,7 +53,11 @@ Class LoginView{
         ?>
         <!DOCTYPE html>
         <html>
-        <head><meta charset="UTF-8"><title>Login Error</title></head>
+        <head>
+            <meta charset="UTF-8">
+            <title>Login Error</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
+        </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Login Failed</h1>
@@ -63,7 +72,11 @@ Class LoginView{
         ?>
         <!DOCTYPE html>
         <html>
-        <head><meta charset="UTF-8"><title>Logged In</title></head>
+        <head>
+            <meta charset="UTF-8">
+            <title>Logged In</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
+        </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
             <h1>Welcome, <?= htmlspecialchars($admin['login']) ?>!</h1>

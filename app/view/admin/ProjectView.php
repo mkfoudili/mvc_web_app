@@ -9,6 +9,7 @@ Class ProjectView{
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Admin - Projects</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -80,6 +81,7 @@ Class ProjectView{
         <head>
             <meta charset="UTF-8">
             <title><?= htmlspecialchars($project['title']) ?></title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -154,6 +156,7 @@ Class ProjectView{
         <head>
             <meta charset="UTF-8">
             <title>Add Project</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -267,6 +270,7 @@ Class ProjectView{
         <head>
             <meta charset="UTF-8">
             <title>Edit Project</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

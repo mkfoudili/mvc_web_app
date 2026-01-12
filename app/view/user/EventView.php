@@ -7,6 +7,7 @@ class EventView {
         <html>
         <head>
             <title>Events</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -62,6 +63,7 @@ class EventView {
         <head>
             <meta charset="UTF-8">
             <title>Join Event</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

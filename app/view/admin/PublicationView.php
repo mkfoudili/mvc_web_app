@@ -7,6 +7,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Admin - Publications</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -71,6 +72,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Add Publication (Admin)</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -188,6 +190,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Publication</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

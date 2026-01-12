@@ -10,6 +10,7 @@ class MemberView {
             <title>
                 <?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?>
             </title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -35,6 +36,7 @@ class MemberView {
         <head>
             <meta charset="UTF-8">
             <title>My Profile</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -164,6 +166,7 @@ class MemberView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Profile</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

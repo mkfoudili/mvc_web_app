@@ -8,6 +8,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Admin - Users</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -79,6 +80,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Add User</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -153,6 +155,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Edit User</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
             <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

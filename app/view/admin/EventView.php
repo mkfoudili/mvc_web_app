@@ -7,6 +7,7 @@ Class EventView {
         <html>
         <head>
             <title>Admin - Events</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -76,6 +77,7 @@ Class EventView {
         <html>
         <head>
             <title>Add Event</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -149,6 +151,7 @@ Class EventView {
         <html>
         <head>
             <title>Edit Event</title>
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

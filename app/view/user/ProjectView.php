@@ -8,6 +8,7 @@ class ProjectView {
         <html>
         <head>
             <title>Projects</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -69,6 +70,7 @@ class ProjectView {
         <head>
             <meta charset="UTF-8">
             <title><?= htmlspecialchars($project['title']) ?></title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -177,6 +179,7 @@ class ProjectView {
         <head>
             <meta charset="UTF-8">
             <title>Add Project</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>

@@ -9,6 +9,7 @@ Class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Publications</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
@@ -66,6 +67,7 @@ Class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Add Publication</title>
+             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
