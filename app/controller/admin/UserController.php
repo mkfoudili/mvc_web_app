@@ -60,20 +60,20 @@ Class UserController {
             }
 
             $this->model->create($data);
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
     }
     public function edit(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
         $user = $this->model->findById($id);
         if (!$user) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
@@ -88,32 +88,32 @@ Class UserController {
     public function delete(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
         $user = $this->model->findById($id);
         if (!$user) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
         $this->model->delete($id);
 
-        redirect("/admin/user/index");
+        redirect("admin/user/index");
         exit;
     }
 
     public function toggleStatus(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
         $user = $this->model->findById($id);
         if (!$user) {
-            redirect("/admin/user/index");
+            redirect("admin/user/index");
             exit;
         }
 
@@ -129,7 +129,7 @@ Class UserController {
             'status'        => $newStatus
         ]);
 
-        redirect("/admin/user/index");
+        redirect("admin/user/index");
         exit;
     }
 }

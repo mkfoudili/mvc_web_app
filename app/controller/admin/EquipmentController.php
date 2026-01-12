@@ -50,7 +50,7 @@ Class EquipmentController {
 
         $this->model->create($data);
 
-        redirect("/admin/equipment/index");
+        redirect("admin/equipment/index");
         exit;
     }
 
@@ -91,7 +91,7 @@ Class EquipmentController {
 
         $this->model->update($id, $data);
 
-        redirect("/admin/equipment/index");
+        redirect("admin/equipment/index");
         exit;
     }
 
@@ -131,7 +131,7 @@ Class EquipmentController {
         $maintenanceModel = new MaintenanceModel();
         $maintenanceModel->update($id, $data);
 
-        redirect("/admin/equipment/index");
+        redirect("admin/equipment/index");
         exit;
     }
 
@@ -173,7 +173,7 @@ Class EquipmentController {
         $maintenanceModel = new MaintenanceModel();
         $maintenanceModel->update($id, $data);
 
-        redirect("/admin/equipment/index");
+        redirect("admin/equipment/index");
         exit;
     }
 }

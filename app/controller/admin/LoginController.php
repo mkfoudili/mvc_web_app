@@ -43,7 +43,7 @@ Class LoginController{
     public function logout(): void {
         session_start();
         session_destroy();
-        redirect("/admin/login/index");
+        redirect("admin/login/index");
         exit;
     }
 }

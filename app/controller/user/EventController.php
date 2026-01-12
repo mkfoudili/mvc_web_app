@@ -32,13 +32,13 @@ Class EventController{
     {
         $eventId = $_GET['id'] ?? null;
         if (!$eventId) {
-            redirect("/event");
+            redirect("event");
             exit;
         }
 
         $event = $this->model->findById($eventId);
         if (!$event) {
-            redirect("/event");
+            redirect("event");
             exit;
         }
         

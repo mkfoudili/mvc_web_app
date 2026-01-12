@@ -54,7 +54,7 @@ Class TeamController{
             $this->model->addMemberToTeam((int)$teamId,(int)$memberId);
         }
 
-        redirect("/admin/team/index");
+        redirect("admin/team/index");
         exit;
     }
 
@@ -106,7 +106,7 @@ Class TeamController{
             $memberModel->assignToTeam($member,$id);
         }
         $this->model->resetMembers($id, array_unique(array_map('intval', $members)));
-        redirect("/admin/team/index");
+        redirect("admin/team/index");
         exit;
     }
 
@@ -127,7 +127,7 @@ Class TeamController{
 
         $this->model->delete((int)$id);
 
-        redirect("/admin/team/index");
+        redirect("admin/team/index");
         exit;
     }
 }

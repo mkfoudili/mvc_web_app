@@ -112,9 +112,9 @@ Class EquipmentController{
         $memberId = $reservation['member_id'] ?? null;
 
         if ($memberId) {
-            redirect("/member/index?id=" . $memberId);
+            redirect("member/index?id=" . $memberId);
         } else {
-            redirect("/member/index");
+            redirect("member/index");
         }
         exit;
     }

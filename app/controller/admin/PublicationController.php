@@ -62,13 +62,13 @@ class PublicationController {
     public function edit(): void {
         $id = $_GET['id'] ?? null;
         if (!$id) {
-            redirect("/admin/publication/index");
+            redirect("admin/publication/index");
             exit;
         }
 
         $publication = $this->model->findById($id);
         if (!$publication) {
-            redirect("/admin/publication/index");
+            redirect("admin/publication/index");
             exit;
         }
 
@@ -111,7 +111,7 @@ class PublicationController {
             $this->model->addAuthor($id, $a);
         }
 
-        redirect("/admin/publication/index");
+        redirect("admin/publication/index");
         exit;
     }
     public function delete(): void {
@@ -124,7 +124,7 @@ class PublicationController {
 
         $this->model->delete($id);
 
-        redirect("/admin/publication/index");
+        redirect("admin/publication/index");
         exit;
     }
 }
