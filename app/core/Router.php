@@ -4,7 +4,7 @@ class Router
 {
     public function dispatch(string $uri): void
     {
-        $uri = trim(parse_url($uri, PHP_URL_PATH), '/');
+        $uri = trim($uri, '/');
         $parts = $uri === '' ? [] : explode('/', $uri);
 
         $namespace = 'user';
@@ -18,7 +18,7 @@ class Router
         }
 
         $controllerClass = ucfirst($controllerName) . 'Controller';
-        $controllerFile  = __DIR__ . "/../controller/$namespace/" . $controllerClass . '.php';
+        $controllerFile  = __DIR__ . "/../controller/$namespace/$controllerClass.php";
 
         if (!file_exists($controllerFile)) {
             http_response_code(404);
