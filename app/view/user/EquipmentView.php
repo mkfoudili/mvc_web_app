@@ -8,6 +8,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Equipments</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -67,6 +68,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Add reservation</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -122,6 +124,7 @@ class EquipmentView{
         <html>
         <head>
             <title>Report Breakdown</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

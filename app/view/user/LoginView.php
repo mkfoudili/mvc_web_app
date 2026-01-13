@@ -9,6 +9,7 @@ Class LoginView{
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Login</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -36,6 +37,7 @@ Class LoginView{
         <head>
             <meta charset="UTF-8">
             <title>Login Success</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -57,6 +59,7 @@ Class LoginView{
         <head>
             <meta charset="UTF-8">
             <title>Login Error</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -76,6 +79,7 @@ Class LoginView{
         <head>
             <meta charset="UTF-8">
             <title>Logged In</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

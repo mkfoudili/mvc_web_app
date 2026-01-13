@@ -8,6 +8,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Admin - Users</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -80,6 +81,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Add User</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -155,6 +157,7 @@ Class UserView {
         <head>
             <meta charset="UTF-8">
             <title>Edit User</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

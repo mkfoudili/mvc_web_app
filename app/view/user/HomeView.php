@@ -16,6 +16,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
         <head>
             <meta charset="UTF-8">
             <title>Research Lab Home</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

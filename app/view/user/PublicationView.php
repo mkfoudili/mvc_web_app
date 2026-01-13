@@ -9,6 +9,7 @@ Class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Publications</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -67,6 +68,7 @@ Class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Add Publication</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

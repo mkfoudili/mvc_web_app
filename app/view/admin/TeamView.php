@@ -8,6 +8,7 @@ Class TeamView{
         <head>
             <meta charset="UTF-8">
             <title>Teams</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -69,6 +70,7 @@ Class TeamView{
         <head>
             <meta charset="UTF-8">
             <title>Add Team</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -163,6 +165,7 @@ Class TeamView{
         <head>
             <meta charset="UTF-8">
             <title>Edit Team</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

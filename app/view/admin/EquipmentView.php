@@ -7,6 +7,7 @@ Class EquipmentView {
         <html>
         <head>
             <title>Admin - Equipments</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -65,6 +66,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Add Equipment</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -109,6 +111,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Equipment</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -268,6 +271,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Maintenance</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -301,6 +305,7 @@ Class EquipmentView {
         <head>
             <meta charset="UTF-8">
             <title>Schedule Maintenance</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

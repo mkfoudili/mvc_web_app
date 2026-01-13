@@ -7,6 +7,7 @@ Class EventView {
         <html>
         <head>
             <title>Admin - Events</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -77,6 +78,7 @@ Class EventView {
         <html>
         <head>
             <title>Add Event</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -151,6 +153,7 @@ Class EventView {
         <html>
         <head>
             <title>Edit Event</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

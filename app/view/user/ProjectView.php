@@ -8,6 +8,7 @@ class ProjectView {
         <html>
         <head>
             <title>Projects</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -70,6 +71,7 @@ class ProjectView {
         <head>
             <meta charset="UTF-8">
             <title><?= htmlspecialchars($project['title']) ?></title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -179,6 +181,7 @@ class ProjectView {
         <head>
             <meta charset="UTF-8">
             <title>Add Project</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

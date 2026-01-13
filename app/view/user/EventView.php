@@ -7,6 +7,7 @@ class EventView {
         <html>
         <head>
             <title>Events</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -63,6 +64,7 @@ class EventView {
         <head>
             <meta charset="UTF-8">
             <title>Join Event</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

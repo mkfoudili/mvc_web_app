@@ -10,6 +10,7 @@ class MemberView {
             <title>
                 <?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?>
             </title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -36,6 +37,7 @@ class MemberView {
         <head>
             <meta charset="UTF-8">
             <title>My Profile</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -166,6 +168,7 @@ class MemberView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Profile</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

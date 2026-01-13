@@ -7,6 +7,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Admin - Publications</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -72,6 +73,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Add Publication (Admin)</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
@@ -190,6 +192,7 @@ class PublicationView {
         <head>
             <meta charset="UTF-8">
             <title>Edit Publication</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>

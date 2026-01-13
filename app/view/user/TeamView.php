@@ -9,6 +9,7 @@ public function renderIndex(array $teams): void {
         <head>
             <meta charset="UTF-8">
             <title>Teams</title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
              <link rel="stylesheet" href="<?= base('css/base.css') ?>">
         </head>
         <body>
