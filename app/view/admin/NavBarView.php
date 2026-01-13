@@ -2,7 +2,7 @@
 class NavbarView {
     public function renderIndex(): void {
         ?>
-        <img src="assets/logo/lab_logo.png" alt="Lab Logo">
+        <img src="<?= base('assets/logo/lab_logo.png') ?>" alt="Lab Logo">
         <?php $isLoggedIn = !empty($_SESSION['admin_id']);  ?>
         <?php if ($isLoggedIn): ?>
         <nav>

@@ -3,7 +3,7 @@ class NavbarView {
     public function renderIndex(): void {
         $isLoggedIn = !empty($_SESSION['user_id']);
         ?>
-        <img src="assets/logo/lab_logo.png" alt="Lab Logo">
+        <img src="<?= base('assets/logo/lab_logo.png') ?>" alt="Lab Logo">
         <nav>
             <a href="<?= base('home') ?>">Home</a>
             <a href="<?= base('project/index') ?>">Projects</a>
