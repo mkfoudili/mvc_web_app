@@ -53,7 +53,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
 
         <section>
             <h2>Organigramme</h2>
-            <img src="<?= base('assets/organigramme/default.png') ?>" alt="Lab Organigramme">
+            <img src="<?= base('assets/organigramme/organigramme.png') ?>" alt="Lab Organigramme">
         </section>
 
         <section>
@@ -77,9 +77,10 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
         <section>
             <h2>Partners</h2>
             <div style="display:flex; gap:20px;">
-                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 1" width="120">
-                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 2" width="120">
-                <img src="<?= base('assets/partners/default.png') ?>" alt="Partner 3" width="120">
+                <img src="<?= base('assets/partners/gamma.png') ?>" alt="Gamma" width="120">
+                <img src="<?= base('assets/partners/copilot.png') ?>" alt="Copilot" width="120">
+                <img src="<?= base('assets/partners/perplexity.png') ?>" alt="Perplexity" width="120">
+                <img src="<?= base('assets/partners/claude.png') ?>" alt="Claude" width="120">
             </div>
         </section>
 

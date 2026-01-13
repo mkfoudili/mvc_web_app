@@ -80,28 +80,33 @@ INSERT INTO equipment_reservations (equipment_id, member_id, reserved_from, rese
 (2, 5, '2026-01-20 10:00:00', '2026-01-20 18:00:00', 'Confirmed');
 
 -- 10. NEWS
-INSERT INTO news (title, description, published_at) VALUES 
+INSERT INTO news (photo_url, title, description, published_at) VALUES 
 (
+    'assets/news/news_1.png',
     'Breakthrough in Neural Network Efficiency', 
     'Our AI & Robotics team, led by Dr. John Doe, has published a landmark paper detailing a new method for reducing the computational overhead of Large Language Models (LLMs) by 40% without sacrificing accuracy. This research, conducted over the last 18 months, utilizes a novel pruning technique that identifies redundant synaptic weights in real-time. The implications for mobile computing and edge devices are significant, as it allows sophisticated AI models to run locally on hardware with limited power budgets. The team is currently looking for industry partners to pilot this technology in autonomous vehicle sensors.',
     '2025-11-15 10:30:00'
 ),
 (
+    'assets/news/news_2.png',
     'Cybersecurity Hub Awarded EU Research Grant', 
     'The European Research Council has officially announced a 3.5 million Euro grant to fund our laboratory’s "Quantum-Resistant Infrastructure" project. Over the next four years, the lab will expand its specialized facilities to include a dedicated cryptography testing suite. This project aims to develop new encryption standards that can withstand the processing power of future quantum computers. Alice Smith will lead the junior research cohort, focusing specifically on post-quantum lattice-based signatures. This funding will also support the recruitment of three new PhD candidates and two post-doctoral fellows starting next semester.',
     '2025-12-01 09:00:00'
 ),
 (
+    'assets/news/news_3.png',
     'Annual Lab Open House and Tech Demo', 
     'Join us next month for our annual Open House, where we open our doors to students, industry professionals, and the local community. This year’s event features live demonstrations of our new autonomous drone swarm and an interactive VR simulation of historical landmarks developed by the HCI group. Visitors will have the opportunity to speak directly with researchers, tour the server rooms, and see our state-of-the-art 3D printing facility in action. The event will conclude with a keynote address by Dr. Carol Lin on the ethics of AI in modern society. Refreshments will be provided, and registration is free but mandatory via the events portal.',
     '2026-01-05 14:15:00'
 ),
 (
+    'assets/news/news_4.png',
     'Strategic Partnership with TechCorp Systems', 
     'We are thrilled to announce a new five-year strategic partnership with TechCorp Systems, a global leader in cloud infrastructure. This collaboration will provide our members with exclusive access to proprietary datasets and high-performance computing clusters. In return, the lab will provide TechCorp with early access to our Software Engineering team’s research on automated bug detection and DevSecOps workflows. This bridge between academia and industry ensures that our research remains grounded in real-world challenges and provides our graduate students with excellent internship and career placement opportunities upon completion of their degrees.',
     '2026-01-10 11:00:00'
 ),
 (
+    'assets/news/news_5.png',
     'Recognition for Excellence in Software Engineering', 
     'The SoftDev Group has been honored with the "Innovation in Open Source" award at this year’s Global Software Summit. The award recognizes the lab’s contribution to the OpenLab Management project, an open-source tool now used by over 200 research facilities worldwide to track equipment and publication workflows. Lead developer Bob Wong accepted the award on behalf of the team, highlighting the importance of collaborative software in the scientific community. This recognition marks the third consecutive year our lab has received international acclaim for its commitment to open-science principles and reproducible research software.',
     '2026-01-12 16:45:00'
