@@ -21,27 +21,29 @@ Class NewsView {
         <?php
     }
 
-    public function renderNews(array $news):void
+    public function renderNews(array $news): void
     {
         ?>
+        <div class="container">
         <?php foreach($news as $newsItem):
             $photo = !empty($newsItem['photo_url']) ? $newsItem['photo_url'] : 'assets/news/default.png';
         ?>
-            <div>
+            <div class="news-item">
                 <img src="<?= base($photo) ?>" alt="News Image">
-                <h2><?= htmlspecialchars($newsItem['title']) ?></h2>
-                <p><?= htmlspecialchars($newsItem['description']) ?></p>
-                <p><?= htmlspecialchars($newsItem['published_at']) ?></p>
+                <div class="news-item-content">
+                    <h2><?= htmlspecialchars($newsItem['title']) ?></h2>
+                    <p><?= htmlspecialchars($newsItem['description']) ?></p>
+                    <p><small><?= htmlspecialchars($newsItem['published_at']) ?></small></p>
+                </div>
             </div>
         <?php endforeach; ?>
+        </div>
         <?php
     }
 
     public function renderDiaporama(array $news):void
     {
         ?>
-        <html>
-        <head>
             <style>
             .diaporama {
                 position: relative;
@@ -64,11 +66,13 @@ Class NewsView {
                 position: relative;
                 background-size: cover;
                 background-position: center;
+                background-repeat: no-repeat;
                 color: white;
                 display: flex;
                 align-items: flex-end;
                 padding: 20px;
                 box-sizing: border-box;
+                overflow: hidden;
             }
 
             .overlay {
@@ -82,8 +86,6 @@ Class NewsView {
                 margin: 5px 0;
             }
         </style>
-        </head>
-        <body>
 
         <div class="diaporama" id="diaporama">
             <div class="slides" id="slides">
@@ -139,8 +141,6 @@ Class NewsView {
             diaporama.addEventListener('mouseenter', () => clearInterval(interval));
             diaporama.addEventListener('mouseleave', () => interval = setInterval(nextSlide, 5000));
         </script>
-        </body>
-        </html>
         <?php
     }
 }
