@@ -24,9 +24,11 @@ Class NewsView {
     public function renderNews(array $news):void
     {
         ?>
-        <?php foreach($news as $newsItem): ?>
+        <?php foreach($news as $newsItem):
+            $photo = !empty($newsItem['photo_url']) ? $newsItem['photo_url'] : 'assets/news/default.png';
+        ?>
             <div>
-                <img src="<?= htmlspecialchars($newsItem['photo_url']) ?>" alt="News Image">
+                <img src="<?= base($photo) ?>" alt="News Image">
                 <h2><?= htmlspecialchars($newsItem['title']) ?></h2>
                 <p><?= htmlspecialchars($newsItem['description']) ?></p>
                 <p><?= htmlspecialchars($newsItem['published_at']) ?></p>
@@ -85,8 +87,12 @@ Class NewsView {
 
         <div class="diaporama" id="diaporama">
             <div class="slides" id="slides">
-                <?php foreach ($news as $newsItem): ?>
-                    <div class="slide" style="background-image: url('<?= htmlspecialchars($newsItem['photo_url']) ?>');">
+                <?php 
+                $defaultImage = '<?= base("assets/news/default.png") ?>';
+                foreach ($news as $newsItem): 
+                    $photo = !empty($newsItem['photo_url']) ? htmlspecialchars($newsItem['photo_url']) : 'assets/news/default.png';
+                ?>
+                    <div class="slide" style="background-image: url('<?= $photo ?>');">
                         <div class="overlay">
                             <h2><?= htmlspecialchars($newsItem['title']) ?></h2>
                             <p><?= htmlspecialchars($newsItem['description']) ?></p>
@@ -95,8 +101,10 @@ Class NewsView {
                     </div>
                 <?php endforeach; ?>
 
-                <?php if (!empty($news)): ?>
-                    <div class="slide" style="background-image: url('<?= htmlspecialchars($news[0]['photo_url']) ?>');">
+                <?php if (!empty($news)): 
+                    $firstPhoto = !empty($news[0]['photo_url']) ? htmlspecialchars($news[0]['photo_url']) : 'assets/news/default.png';
+                ?>
+                    <div class="slide" style="background-image: url('<?= $firstPhoto ?>');">
                         <div class="overlay">
                             <h2><?= htmlspecialchars($news[0]['title']) ?></h2>
                             <p><?= htmlspecialchars($news[0]['description']) ?></p>
@@ -124,7 +132,7 @@ Class NewsView {
                         slides.style.transition = 'none';
                         slides.style.transform = 'translateX(0%)';
                         index = 0;
-                    }, 1000); // match transition duration
+                    }, 1000);
                 }
             }
 
