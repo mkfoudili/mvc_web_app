@@ -146,13 +146,9 @@ class EventView {
     }
     public function renderCards(array $events, int $currentPage, int $totalPages, string $baseurl, string $anchor): void {
         ?>
-        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div class="card-grid">
             <?php foreach ($events as $event): ?>
-                <div style="
-                    border:1px solid #ccc;
-                    padding:16px;
-                    width:220px;
-                ">
+                <div class="card">
                     <h3><?= htmlspecialchars($event['name']) ?></h3>
 
                     <?php if (!empty($event['is_upcoming']) && $event['is_upcoming']): ?>

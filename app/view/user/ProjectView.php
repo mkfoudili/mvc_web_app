@@ -142,13 +142,9 @@ class ProjectView {
 
     public function renderCards(array $projects, int $currentPage, int $totalPages, string $baseurl, string $anchor): void{
         ?>
-        <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <div class="card-grid">            
             <?php foreach ($projects as $p): ?>
-                <div style="
-                    border:1px solid #ccc;
-                    padding:16px;
-                    width:220px;
-                ">
+                <div class="card">
                     <h3><?= htmlspecialchars($p['title']) ?></h3>
 
                     <a href="<?= base('project/show?id=' . (int)$p['id']) ?>">
