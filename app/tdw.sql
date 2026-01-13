@@ -213,8 +213,6 @@ CREATE TABLE events (
     event_date TIMESTAMP NULL,
     description TEXT,
     link TEXT,
-    /*participation_requests TEXT,
-    participation_requests_json JSON,*/
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (event_type_id) REFERENCES event_types(id) ON DELETE SET NULL
 );
@@ -313,3 +311,9 @@ INSERT IGNORE INTO equipment_states (name, description) VALUES
   ('Available', 'ready to reserve'),
   ('Occupies', 'reserved'),
   ('Out of service', 'to maintain');
+
+INSERT INTO admins (login, password_hash)
+VALUES (
+    'admin',
+    '$2y$10$.eXA4iABD/jB3d4AFiXdcOBP2JpMxfbmg2das7eE98l52Ayqq7Oy2'
+);
