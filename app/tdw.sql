@@ -305,7 +305,7 @@ CREATE INDEX idx_equipment_name ON equipment(name);
 -- DEFAULT DATA ------------------------------------------------------
 
 INSERT IGNORE INTO publication_types (name) VALUES ('Article'), ('Conference'), ('Report'), ('Poster');
-INSERT IGNORE INTO event_types (name) VALUES ('Séminaire'), ('Atelier'), ('Conférence'), ('Soutenance');
+INSERT IGNORE INTO event_types (name) VALUES ('Séminaire'), ('Atelier'), ('Conference'), ('Soutenance');
 INSERT IGNORE INTO funding_types (name) VALUES ('ANR'), ('UE'), ('Industriel'), ('Financement interne');
 INSERT IGNORE INTO equipment_states (name, description) VALUES
   ('Available', 'ready to reserve'),
