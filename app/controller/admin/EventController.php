@@ -125,4 +125,24 @@ Class EventController {
         redirect("admin/event/index");
         exit;
     }
+    public function cancel(): void {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            http_response_code(400);
+            echo "Event id required";
+            return;
+        }
+
+        $event = $this->model->findById((int)$id);
+        if (!$event) {
+            http_response_code(404);
+            echo "Event not found";
+            return;
+        }
+
+
+    $_SESSION['alert'] = "Cancellation requested";
+    redirect("admin/event/index");
+        exit;
+    }
 }

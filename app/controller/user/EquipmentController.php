@@ -56,7 +56,7 @@ Class EquipmentController{
 
             $this->model->addReservation($data);
 
-            header('Location: /equipment');
+            redirect('equipment');
             exit;
         }
 
@@ -86,7 +86,7 @@ Class EquipmentController{
             
             $this->model->setState($equipmentId, 3);
 
-            header('Location: /equipment');
+            redirect('equipment');
             exit;
         }
 

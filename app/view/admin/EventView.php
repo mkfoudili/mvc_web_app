@@ -65,6 +65,12 @@ Class EventView {
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>
+            <?php if (!empty($_SESSION['alert'])): ?>
+                <script>
+                    alert("<?= htmlspecialchars($_SESSION['alert'], ENT_QUOTES) ?>");
+                </script>
+                <?php unset($_SESSION['alert']); ?>
+            <?php endif; ?>
             </tbody>
         </table>
         </div>
@@ -92,9 +98,10 @@ Class EventView {
 
         <form method="POST" action="<?= base('admin/event/store') ?>">
             <div class="form-group">
-            <label for="name">Name:</label
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
 
+            <label for="event_type_id">Type:</label>
             <select id="event_type_id" name="event_type_id" required>
                 <option value="">-- Select Type --</option>
                 <?php foreach ($eventTypes as $type): ?>
@@ -201,7 +208,7 @@ Class EventView {
                 <?php foreach ($members as $m): ?>
                     <?php
                     $already = array_column($participants, 'member_id');
-                    if (in_array($m['id'], $already)) continue; // skip already selected
+                    if (in_array($m['id'], $already)) continue;
                     ?>
                     <option value="<?= $m['id'] ?>">
                         <?= htmlspecialchars($m['last_name'].' '.$m['first_name']) ?>
