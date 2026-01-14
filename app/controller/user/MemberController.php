@@ -158,4 +158,12 @@ Class MemberController{
         redirect('member/index', ['id' => $id]);
         exit;
     }
+
+    public function list(): void
+    {
+        $members = $this->model->getAll();
+
+        $view = new MemberView();
+        $view->renderSimpleList($members);
+    }
 }

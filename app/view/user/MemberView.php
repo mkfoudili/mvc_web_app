@@ -263,4 +263,39 @@ class MemberView {
         </html>
         <?php
     }
+    
+    public function renderSimpleList(array $members): void {
+    ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Members List</title>
+        <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
+        <link rel="stylesheet" href="<?= base('css/base.css') ?>">
+    </head>
+    <body>
+    <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
+    <div class="container stack">
+        <h1>Members</h1>
+        <?php if (empty($members)): ?>
+            <p>No members found.</p>
+        <?php else: ?>
+            <ul>
+                <?php foreach ($members as $member): ?>
+                    <li>
+                        <a href="<?= base('member/index?id=' . (int)$member['id']) ?>">
+                            <?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+    <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+    </body>
+    </html>
+    <?php
+}
+
 }
