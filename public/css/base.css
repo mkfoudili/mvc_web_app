@@ -217,6 +217,24 @@ tr:nth-child(even) {
 tr:hover td {
   background-color: var(--color-primary-light);
 }
+/* ==== SORTABLE TABLE HEADERS ==== */
+.sortable-table th {
+  position: relative;
+}
+
+.sortable-table th::after {
+  font-size: 0.8em;
+  color: var(--color-text);
+  margin-left: 4px;
+}
+
+.sortable-table th.asc::after {
+  content: "⬆";
+}
+
+.sortable-table th:not(.asc)::after {
+  content: "⬇";
+}
 
 /* ===== NEWS STYLES ===== */
 .news-item {
