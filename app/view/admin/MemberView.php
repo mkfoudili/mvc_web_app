@@ -294,7 +294,7 @@ Class MemberView{
 
             <div>
                 <label>Specialty:</label>
-                <select name="specialty_id">
+                <select name="specialty_id" required>
                     <option value="">-- Select Specialty --</option>
                     <?php foreach ($specialties as $s): ?>
                         <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['name']) ?></option>
@@ -307,7 +307,7 @@ Class MemberView{
 
             <div>
                 <label>Team:</label>
-                <select name="team_id">
+                <select name="team_id" required>
                     <option value="">-- Select Team --</option>
                     <?php foreach ($teams as $t): ?>
                         <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['name']) ?></option>
@@ -331,6 +331,17 @@ Class MemberView{
             </div>
         </form>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+        <script>
+                function validateSpecialty() {
+                    const select = document.getElementById('specialty_id');
+                    const input  = document.getElementById('new_specialty');
+                    if (!select.value && !input.value.trim()) {
+                        alert("Please select a specialty or enter a new one.");
+                        return false;
+                    }
+                    return true;
+                }
+            </script>
         </body>
         </html>
         <?php
