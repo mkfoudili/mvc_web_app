@@ -14,7 +14,7 @@ class EventView {
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Events</h1>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -52,6 +52,7 @@ class EventView {
         </table>
         </div>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+            <script src="<?= base('js/base.js') ?>"></script>
         </body>
         </html>
         <?php
