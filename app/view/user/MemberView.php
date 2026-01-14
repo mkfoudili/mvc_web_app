@@ -122,6 +122,7 @@ class MemberView {
 
     public function renderPublications(array $publications): void{
         ?>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -158,6 +159,7 @@ class MemberView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
 

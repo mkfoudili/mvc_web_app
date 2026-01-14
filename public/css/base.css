@@ -140,29 +140,46 @@ textarea:focus {
   outline: 2px solid var(--color-primary);
 }
 
-/* ===== TABLES ===== */
+/* ===== TABLE WRAPPER ===== */
+.table-wrapper {
+  max-width: 1000px;
+  margin: 32px auto;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ===== TABLE ===== */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
   background-color: #fff;
   border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
 }
 
 th,
 td {
-  padding: 0.75rem;
-  border: 1px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
   text-align: left;
+  transition: background-color 0.2s ease;
 }
 
 th {
   background-color: var(--color-primary-xlight);
   color: var(--color-text);
+  font-weight: 600;
 }
 
 tr:nth-child(even) {
-  background-color: var(--color-accent-xlight);
+  background-color: var(--color-border);
+}
+
+tr:hover td {
+  background-color: var(--color-primary-light);
 }
 
 /* ===== NEWS STYLES ===== */

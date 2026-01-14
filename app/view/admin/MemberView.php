@@ -27,6 +27,7 @@ Class MemberView{
 
     public function renderMembersList(array $members):void{
         ?>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -66,6 +67,7 @@ Class MemberView{
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
     public function renderEditForm(array $member, array $specialties, array $teams): void {

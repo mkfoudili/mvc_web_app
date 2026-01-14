@@ -16,6 +16,7 @@ Class EventView {
         <a href="<?= base('admin/event/add') ?>">
             <button>Add Event</button>
         </a>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -66,6 +67,7 @@ Class EventView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>

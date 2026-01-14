@@ -13,7 +13,7 @@ class EventView {
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
         <h1>Events</h1>
-
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -50,6 +50,7 @@ class EventView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
@@ -116,6 +117,7 @@ class EventView {
     public function renderMyEvents(array $events): void
     {
         ?>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -142,6 +144,7 @@ class EventView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
     public function renderCards(array $events, int $currentPage, int $totalPages, string $baseurl, string $anchor): void {

@@ -18,6 +18,7 @@ Class ProjectView{
         <a href="<?= base('admin/project/create') ?>">
             <button>Add Project</button>
         </a>
+        <div class="table-wrapper">
         <table border="1" cellpadding="6">
             <thead>
                 <tr>
@@ -68,6 +69,7 @@ Class ProjectView{
             <?php endforeach; ?>
             </tbody>
         </table>
+        <div class="table-wrapper">
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>

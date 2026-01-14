@@ -20,6 +20,7 @@ class PublicationView {
         <?php if (empty($publications)): ?>
             <p>No publications.</p>
         <?php else: ?>
+            <div class="table-wrapper">
             <table border="1" cellpadding="5" cellspacing="0">
                 <thead>
                     <tr>
@@ -59,6 +60,7 @@ class PublicationView {
                 <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         <?php endif; ?>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

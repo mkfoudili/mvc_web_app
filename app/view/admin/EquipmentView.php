@@ -16,6 +16,7 @@ Class EquipmentView {
         <a href="<?= base('admin/equipment/add') ?>">
             <button>Add Equipment</button>
         </a>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0">
             <thead>
                 <tr>
@@ -50,6 +51,7 @@ Class EquipmentView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
             <?php $this->renderReservationsTable($reservations); ?>
             <?php $this->renderReportsTable($reports); ?>
             <?php $this->renderMaintenancesTable($maintenances); ?>
@@ -155,6 +157,7 @@ Class EquipmentView {
     public function renderReservationsTable(array $reservations): void {
         ?>
         <h2>Reservations</h2>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -193,12 +196,14 @@ Class EquipmentView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
 
     public function renderReportsTable(array $reports): void {
         ?>
         <h2>Breakdown Reports</h2>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -227,12 +232,14 @@ Class EquipmentView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
 
     public function renderMaintenancesTable(array $maintenances): void {
         ?>
         <h2>Scheduled Maintenances</h2>
+        <div class="table-wrapper">
         <table border="1" cellpadding="5" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -261,6 +268,7 @@ Class EquipmentView {
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
         <?php
     }
 

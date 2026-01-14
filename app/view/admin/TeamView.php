@@ -17,7 +17,7 @@ Class TeamView{
         <a href="<?= base('admin/team/create') ?>">
             <button>Add Team</button>
         </a>
-
+        <div class="table-wrapper">
         <table border="1" cellpadding="6" cellspacing="0">
             <thead>
                 <tr>
@@ -57,6 +57,7 @@ Class TeamView{
             <?php endif; ?>
             </tbody>
         </table>
+        </div>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>

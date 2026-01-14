@@ -22,6 +22,7 @@ Class PublicationView {
             <?php if (empty($team['publications'])): ?>
                 <p>No publications.</p>
             <?php else: ?>
+                <div class="table-wrapper">
                 <table border="1" cellpadding="5" cellspacing="0">
                     <thead>
                         <tr>
@@ -52,6 +53,7 @@ Class PublicationView {
                     <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
             <?php endif; ?>
 
         <?php endforeach; ?>
