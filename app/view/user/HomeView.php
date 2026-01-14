@@ -21,6 +21,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
+        <div class="container home-centered">
         <h1>University Research Lab</h1>
         <p>
             <a href="https://www.uni-website.example" target="_blank">University Website</a>
@@ -88,6 +89,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
             <h2>Contact Us</h2>
             <a href="<?= base('contact/index') ?>"><button>Contact the Lab</button></a>
         </section>
+        </div>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
