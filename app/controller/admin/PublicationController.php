@@ -52,6 +52,7 @@ class PublicationController {
 
         $authors = $_POST['authors'] ?? [];
         foreach ($authors as $a) {
+            if (empty($a['member_id'])) { $a['member_id'] = null; }
             $this->model->addAuthor($publicationId, $a);
         }
 
