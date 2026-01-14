@@ -106,7 +106,7 @@ class ProjectView {
             <?php endif; ?>
         </p>
 
-        <p><strong>Description:</strong><br>
+        <p><strong>Description:</strong>
             <?= nl2br(htmlspecialchars($project['description'] ?? '-')) ?>
         </p>
         </div>
@@ -196,15 +196,16 @@ class ProjectView {
         <h1>Add Project</h1>
 
         <form method="post" action="<?= base('project/store') ?>">
+            <div class="form-group">
             <input type="hidden" name="current_member_id" value="<?= htmlspecialchars($currentMemberId) ?>">
 
             <div>
-                <label>Title:</label><br>
+                <label>Title:</label>
                 <input type="text" name="title" required>
             </div>
 
             <div>
-                <label>Leader:</label><br>
+                <label>Leader:</label>
                 <select name="leader_member_id" required>
                     <?php foreach ($members as $m): ?>
                         <option value="<?= $m['id'] ?>" <?= ($m['id'] == $currentMemberId) ? 'selected' : '' ?>>
@@ -215,12 +216,12 @@ class ProjectView {
             </div>
 
             <div>
-                <label>Theme:</label><br>
+                <label>Theme:</label>
                 <input type="text" name="theme">
             </div>
 
             <div>
-                <label>Funding Type:</label><br>
+                <label>Funding Type:</label>
                 <select name="funding_type_id" required>
                     <?php foreach ($fundingTypes as $ft): ?>
                         <option value="<?= $ft['id'] ?>"><?= htmlspecialchars($ft['name']) ?></option>
@@ -229,17 +230,17 @@ class ProjectView {
             </div>
 
             <div>
-                <label>Project Page URL:</label><br>
+                <label>Project Page URL:</label>
                 <input type="url" name="project_page_url">
             </div>
 
             <div>
-                <label>Poster URL:</label><br>
+                <label>Poster URL:</label>
                 <input type="url" name="poster_url">
             </div>
 
             <div>
-                <label>Description:</label><br>
+                <label>Description:</label>
                 <textarea name="description"></textarea>
             </div>
 
@@ -268,11 +269,12 @@ class ProjectView {
 
             <div id="projectPartners"></div>
 
-            <br>
+            
             <button type="submit">Save Project</button>
             <a href="<?= base('member/index?id=' . htmlspecialchars($currentMemberId)) ?>">
                 <button type="button">Cancel</button>
             </a>
+            </div>
         </form>
 
         <script>

@@ -15,23 +15,25 @@ class ContactView {
         <h1>Contact the Lab</h1>
 
         <form method="post" action="<?= base('contact/send') ?>">
+            <div class="form-group">
             <div>
-                <label>Your Email:</label><br>
+                <label>Your Email:</label>
                 <input type="email" name="email" required>
             </div>
 
             <div>
-                <label>Subject:</label><br>
+                <label>Subject:</label>
                 <input type="text" name="subject" required>
             </div>
 
             <div>
-                <label>Message:</label><br>
+                <label>Message:</label>
                 <textarea name="message" rows="6" cols="50" required></textarea>
             </div>
 
-            <br>
+            
             <button type="submit">Send</button>
+            </div>
         </form>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

@@ -91,8 +91,9 @@ Class EventView {
         <?php endif; ?>
 
         <form method="POST" action="<?= base('admin/event/store') ?>">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+            <div class="form-group">
+            <label for="name">Name:</label
+            <input type="text" id="name" name="name" required>
 
             <select id="event_type_id" name="event_type_id" required>
                 <option value="">-- Select Type --</option>
@@ -101,16 +102,16 @@ Class EventView {
                         <?= htmlspecialchars($type['name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label for="event_date">Date:</label><br>
-            <input type="datetime-local" id="event_date" name="event_date"><br><br>
+            <label for="event_date">Date:</label>
+            <input type="datetime-local" id="event_date" name="event_date">
 
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea>
 
-            <label for="link">Link:</label><br>
-            <input type="url" id="link" name="link"><br><br>
+            <label for="link">Link:</label>
+            <input type="url" id="link" name="link">
 
             <h3>Participants</h3>
             <select id="memberSelect">
@@ -126,6 +127,7 @@ Class EventView {
 
             <button type="submit">Save Event</button>
             <a href="<?= base('admin/event/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
         <script>
             function addParticipant() {
@@ -166,12 +168,13 @@ Class EventView {
         <?php endif; ?>
 
         <form method="POST" action="<?= base('admin/event/update') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$event['id'] ?>">
 
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" value="<?= htmlspecialchars($event['name']) ?>" required><br><br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?= htmlspecialchars($event['name']) ?>" required>
 
-            <label for="event_type_id">Type:</label><br>
+            <label for="event_type_id">Type:</label>
             <select id="event_type_id" name="event_type_id" required>
                 <option value="">-- Select Type --</option>
                 <?php foreach ($eventTypes as $type): ?>
@@ -179,17 +182,17 @@ Class EventView {
                         <?= htmlspecialchars($type['name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label for="event_date">Date:</label><br>
+            <label for="event_date">Date:</label>
             <input type="datetime-local" id="event_date" name="event_date"
-                value="<?= $event['event_date'] ? date('Y-m-d\TH:i', strtotime($event['event_date'])) : '' ?>"><br><br>
+                value="<?= $event['event_date'] ? date('Y-m-d\TH:i', strtotime($event['event_date'])) : '' ?>">
 
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"><?= htmlspecialchars($event['description'] ?? '') ?></textarea><br><br>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50"><?= htmlspecialchars($event['description'] ?? '') ?></textarea>
 
-            <label for="link">Link:</label><br>
-            <input type="url" id="link" name="link" value="<?= htmlspecialchars($event['link'] ?? '') ?>"><br><br>
+            <label for="link">Link:</label>
+            <input type="url" id="link" name="link" value="<?= htmlspecialchars($event['link'] ?? '') ?>">
 
             <hr>
             <h3>Participants</h3>
@@ -216,9 +219,10 @@ Class EventView {
                 <?php endforeach; ?>
             </div>
 
-            <br>
+            
             <button type="submit">Update Event</button>
             <a href="<?= base('admin/event/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
 
         <script>

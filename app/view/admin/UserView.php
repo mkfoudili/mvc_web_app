@@ -17,7 +17,7 @@ Class UserView {
             <a href="<?= base('admin/user/addForm') ?>">
                 <button>Add User</button>
             </a>
-            <br><br>
+            
             <?php $this->renderUserList($users); ?>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -93,23 +93,24 @@ Class UserView {
                 <div class="error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
             <form method="post" action="<?= base('admin/user/create') ?>">
+                <div class="form-group">
                 <label>
                     Login:
                     <input type="text" name="login" required>
                 </label>
-                <br><br>
+                
 
                 <label>
                     Email:
                     <input type="email" name="email" required>
                 </label>
-                <br><br>
+                
 
                 <label>
                     Password:
                     <input type="password" name="password" required>
                 </label>
-                <br><br>
+                
 
                 <input type="hidden" name="status" value="active">
 
@@ -126,7 +127,7 @@ Class UserView {
                     or add new:
                     <input type="text" name="new_role">
                 </label>
-                <br><br>
+                
 
                 <label>
                     Specialty:
@@ -141,10 +142,11 @@ Class UserView {
                     or add new:
                     <input type="text" name="new_specialty">
                 </label>
-                <br><br>
+                
 
                 <button type="submit">Create User</button>
                 <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
+                </div>
             </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -171,20 +173,21 @@ Class UserView {
             <?php endif; ?>
 
             <form method="post" action="<?= base('admin/user/update') ?>">
+                <div class="form-group">
                 <input type="hidden" name="id" value="<?= $user['id'] ?>">
                 <input type="hidden" name="status" value="active">
 
                 <label>Login:
                     <input type="text" name="login" value="<?= htmlspecialchars($user['login']) ?>" required>
-                </label><br><br>
+                </label>
 
                 <label>Email:
                     <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-                </label><br><br>
+                </label>
 
                 <label>Password (leave blank to keep current):
                     <input type="password" name="password">
-                </label><br><br>
+                </label>
 
                 <label>Role:
                     <select name="role_id">
@@ -196,7 +199,7 @@ Class UserView {
                         <?php endforeach; ?>
                     </select>
                     or add new: <input type="text" name="new_role">
-                </label><br><br>
+                </label>
 
                 <label>Specialty:
                     <select name="specialty_id">
@@ -208,10 +211,11 @@ Class UserView {
                         <?php endforeach; ?>
                     </select>
                     or add new: <input type="text" name="new_specialty">
-                </label><br><br>
+                </label>
 
                 <button type="submit">Update User</button>
                 <a href="<?= base('admin/user/index') ?>"><button type="button">Cancel</button></a>
+                </div>
             </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

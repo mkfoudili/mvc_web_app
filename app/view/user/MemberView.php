@@ -114,7 +114,7 @@ class MemberView {
         </div>
 
         <div class="block">
-            <span class="label">Bio:</span><br>
+            <span class="label">Bio:</span>
             <?= nl2br(htmlspecialchars($member['bio'] ?? '-')) ?>
         </div>
         <?php
@@ -178,41 +178,41 @@ class MemberView {
         <h1>Edit Profile</h1>
 
         <form method="post" action="<?= base('member/update') ?>" enctype="multipart/form-data">
-
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= htmlspecialchars($member['id']) ?>">
             <input type="hidden" name="login" value="<?= htmlspecialchars($member['login']) ?>">
 
             <div class="block">
-                <label>First Name:</label><br>
+                <label>First Name:</label>
                 <input type="text" name="first_name" 
                        value="<?= htmlspecialchars($member['first_name']) ?>" required>
             </div>
 
             <div class="block">
-                <label>Last Name:</label><br>
+                <label>Last Name:</label>
                 <input type="text" name="last_name" 
                        value="<?= htmlspecialchars($member['last_name']) ?>" required>
             </div>
 
             <div class="block">
-                <label>Profile Photo:</label><br>
+                <label>Profile Photo:</label>
                 <input type="file" name="photo" accept="image/*">
                 <?php if (!empty($member['photo_url'])): ?>
-                    <br>
+                    
                     <img src="<?= htmlspecialchars($member['photo_url']) ?>" alt="Current photo" width="120">
-                    <br>
+                    
                     <button type="submit" name="delete_photo" value="1">Delete Photo</button>
                 <?php endif; ?>
             </div>
 
             <div class="block">
-                <label>Role:</label><br>
+                <label>Role:</label>
                 <input type="text" name="role_in_lab" 
                        value="<?= htmlspecialchars($member['role_in_lab'] ?? '') ?>">
             </div>
 
             <div class="block">
-                <label>Specialty:</label><br>
+                <label>Specialty:</label>
                 <select name="specialty_id">
                     <option value="">-- Select Specialty --</option>
                     <?php foreach ($specialties as $s): ?>
@@ -222,13 +222,13 @@ class MemberView {
                         </option>
                     <?php endforeach; ?>
                 </select>
-                <br>
-                <label>Or add new specialty:</label><br>
+                
+                <label>Or add new specialty:</label>
                 <input type="text" name="new_specialty" placeholder="New specialty name">
             </div>
 
             <div class="block">
-                <label>Team:</label><br>
+                <label>Team:</label>
                 <select name="team_id">
                     <option value="">-- Select Team --</option>
                     <?php foreach ($teams as $t): ?>
@@ -241,22 +241,22 @@ class MemberView {
             </div>
 
             <div class="block">
-                <label>Website:</label><br>
+                <label>Website:</label>
                 <input type="url" name="website" 
                        value="<?= htmlspecialchars($member['website'] ?? '') ?>">
             </div>
 
             <div class="block">
-                <label>Bio:</label><br>
+                <label>Bio:</label>
                 <textarea name="bio" rows="5" cols="50"><?= htmlspecialchars($member['bio'] ?? '') ?></textarea>
             </div>
 
-            <br>
+            
             <button type="submit">Save Changes</button>
             <a href="<?= base('member/index?id=' . htmlspecialchars($member['id'])) ?>">
                 <button type="button">Cancel</button>
             </a>
-
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

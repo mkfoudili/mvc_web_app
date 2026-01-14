@@ -15,13 +15,15 @@ Class LoginView{
         <body>
             <h1>Login</h2>
             <form method="POST" action="<?= base('admin/login/login') ?>">
+                <div class="form-group">
                 <label for="username">Login:</label>
                 <input type="text" id="login" name="login" required>
-                <br>
+                
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
-                <br>
+                
                 <button type="submit">Log In</button>
+                </div>
             </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -86,7 +88,9 @@ Class LoginView{
             <h1>Welcome, <?= htmlspecialchars($admin['login']) ?>!</h1>
             <p>You are already logged in.</p>
             <form method="GET" action="<?= base('admin/login/logout') ?>">
+                <div class="form-group">
                 <button type="submit">Log Out</button>
+                </div>
             </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

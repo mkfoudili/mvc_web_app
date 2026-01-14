@@ -77,13 +77,14 @@ class EventView {
         <p><strong>Description:</strong> <?= htmlspecialchars($event['description'] ?? '-') ?></p>
 
         <form method="post" action="<?= base('event/joinEvent') ?>">
+            <div class="form-group">
             <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
             <input type="hidden" name="return_url" value="<?= htmlspecialchars($returnUrl) ?>">
             <?php if ($memberId): ?>
                 <input type="hidden" name="member_id" value="<?= (int)$memberId ?>">
                 <label>
                     Message:
-                    <br>
+                    
                     <textarea name="message" rows="4" cols="50" required></textarea>
                 </label>
                 <?php else: ?>
@@ -92,21 +93,22 @@ class EventView {
                         Your Name:
                         <input type="text" name="name" required>
                     </label>
-                    <br><br>
+                    
                     <label>
                         Your Email:
                         <input type="email" name="email" required>
                     </label>
-                    <br><br>
+                    
                     <label>
                         Message:
-                        <br>
+                        
                         <textarea name="message" rows="4" cols="50" required></textarea>
                     </label>
                 <?php endif; ?>
 
             <button type="submit">Submit Request</button>
             <a href="<?= base('event') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

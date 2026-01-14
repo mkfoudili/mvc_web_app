@@ -118,7 +118,7 @@ Class ProjectView{
                 <?php endif; ?>
             </p>
 
-            <p><strong>Description:</strong><br>
+            <p><strong>Description:</strong>
                 <?= nl2br(htmlspecialchars($project['description'] ?? '-')) ?>
             </p>
             </div>
@@ -178,11 +178,11 @@ Class ProjectView{
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/project/store') ?>">
+            <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" required>
 
-            <label>Title</label><br>
-            <input type="text" name="title" required><br><br>
-
-            <label>Leader</label><br>
+            <label>Leader</label>
             <select name="leader_member_id" required>
                 <option value="">-- Select Leader --</option>
                 <?php foreach ($members as $m): ?>
@@ -190,27 +190,27 @@ Class ProjectView{
                         <?= htmlspecialchars($m['first_name'].' '.$m['last_name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Theme</label><br>
-            <input type="text" name="theme"><br><br>
+            <label>Theme</label>
+            <input type="text" name="theme">
 
-            <label>Funding</label><br>
+            <label>Funding</label>
             <select name="funding_type_id">
                 <option value="">-- Select Funding --</option>
                 <?php foreach ($fundingTypes as $f): ?>
                     <option value="<?= $f['id'] ?>"><?= htmlspecialchars($f['name']) ?></option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Project Page URL</label><br>
-            <input type="url" name="project_page_url"><br><br>
+            <label>Project Page URL</label>
+            <input type="url" name="project_page_url">
 
-            <label>Poster URL</label><br>
-            <input type="url" name="poster_url"><br><br>
+            <label>Poster URL</label>
+            <input type="url" name="poster_url">
 
-            <label>Description</label><br>
-            <textarea name="description" rows="5" cols="50"></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="5" cols="50"></textarea>
 
             <hr>
             <h3>Members</h3>
@@ -229,9 +229,10 @@ Class ProjectView{
             <button type="button" onclick="addPartner()">Add</button>
             <div id="partners"></div>
 
-            <br>
+            
             <button type="submit">Save Project</button>
             <a href="<?= base('admin/project/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
 
         <script>
@@ -293,12 +294,13 @@ Class ProjectView{
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/project/update') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$project['id'] ?>">
 
-            <label>Title</label><br>
-            <input type="text" name="title" value="<?= htmlspecialchars($project['title']) ?>" required><br><br>
+            <label>Title</label>
+            <input type="text" name="title" value="<?= htmlspecialchars($project['title']) ?>" required>
 
-            <label>Leader</label><br>
+            <label>Leader</label>
             <select name="leader_member_id" required>
                 <option value="">-- Select Leader --</option>
                 <?php foreach ($members as $m): ?>
@@ -306,12 +308,12 @@ Class ProjectView{
                         <?= htmlspecialchars($m['first_name'].' '.$m['last_name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Theme</label><br>
-            <input type="text" name="theme" value="<?= htmlspecialchars($project['theme'] ?? '') ?>"><br><br>
+            <label>Theme</label>
+            <input type="text" name="theme" value="<?= htmlspecialchars($project['theme'] ?? '') ?>">
 
-            <label>Funding</label><br>
+            <label>Funding</label>
             <select name="funding_type_id">
                 <option value="">-- Select Funding --</option>
                 <?php foreach ($fundingTypes as $f): ?>
@@ -319,16 +321,16 @@ Class ProjectView{
                         <?= htmlspecialchars($f['name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Project Page URL</label><br>
-            <input type="url" name="project_page_url" value="<?= htmlspecialchars($project['project_page_url'] ?? '') ?>"><br><br>
+            <label>Project Page URL</label>
+            <input type="url" name="project_page_url" value="<?= htmlspecialchars($project['project_page_url'] ?? '') ?>">
 
-            <label>Poster URL</label><br>
-            <input type="url" name="poster_url" value="<?= htmlspecialchars($project['poster_url'] ?? '') ?>"><br><br>
+            <label>Poster URL</label>
+            <input type="url" name="poster_url" value="<?= htmlspecialchars($project['poster_url'] ?? '') ?>">
 
-            <label>Description</label><br>
-            <textarea name="description" rows="5" cols="50"><?= htmlspecialchars($project['description'] ?? '') ?></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="5" cols="50"><?= htmlspecialchars($project['description'] ?? '') ?></textarea>
 
             <hr>
             <h3>Members</h3>
@@ -349,9 +351,10 @@ Class ProjectView{
             <button type="button" onclick="addPartner()">Add</button>
             <div id="partners"></div>
 
-            <br>
+            
             <button type="submit">Update Project</button>
             <a href="<?= base('admin/project/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
 
         <script>

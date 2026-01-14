@@ -80,17 +80,17 @@ Class TeamView{
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/team/store') ?>">
+            <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" name="name" required>
 
-            <label>Team Name</label><br>
-            <input type="text" name="name" required><br><br>
+            <label>Domain</label>
+            <input type="text" name="domain">
 
-            <label>Domain</label><br>
-            <input type="text" name="domain"><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"></textarea>
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"></textarea><br><br>
-
-            <label>Leader</label><br>
+            <label>Leader</label>
             <select name="leader_member_id" id="leaderSelect" required>
                 <option value="">-- Select Leader --</option>
                 <?php foreach ($members as $m): ?>
@@ -98,7 +98,7 @@ Class TeamView{
                         <?= htmlspecialchars($m['last_name'].' '.$m['first_name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
             <hr>
             <h3>Members</h3>
@@ -113,9 +113,10 @@ Class TeamView{
             <button type="button" onclick="addMember()">Add</button>
             <div id="members"></div>
 
-            <br>
+            
             <button type="submit">Save Team</button>
             <a href="<?= base('admin/team/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
 
         <script>
@@ -175,18 +176,19 @@ Class TeamView{
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/team/update') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$team['id'] ?>">
 
-            <label>Team Name</label><br>
-            <input type="text" name="name" value="<?= htmlspecialchars($team['name']) ?>" required><br><br>
+            <label>Team Name</label>
+            <input type="text" name="name" value="<?= htmlspecialchars($team['name']) ?>" required>
 
-            <label>Domain</label><br>
-            <input type="text" name="domain" value="<?= htmlspecialchars($team['domain'] ?? '') ?>"><br><br>
+            <label>Domain</label>
+            <input type="text" name="domain" value="<?= htmlspecialchars($team['domain'] ?? '') ?>">
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($team['description'] ?? '') ?></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($team['description'] ?? '') ?></textarea>
 
-            <label>Leader</label><br>
+            <label>Leader</label>
             <select name="leader_member_id" id="leaderSelect" required>
                 <option value="">-- Select Leader --</option>
                 <?php foreach ($members as $m): ?>
@@ -194,7 +196,7 @@ Class TeamView{
                         <?= htmlspecialchars($m['last_name'].' '.$m['first_name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
             <hr>
             <h3>Members</h3>
@@ -219,9 +221,10 @@ Class TeamView{
                 <?php endforeach; ?>
             </div>
 
-            <br>
+            
             <button type="submit">Update Team</button>
             <a href="<?= base('admin/team/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
 
         <script>

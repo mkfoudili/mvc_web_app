@@ -81,6 +81,7 @@ class EquipmentView{
         </p>
 
         <form method="post">
+            <div class="form-group">
             <label>
                 From:
                 <input
@@ -90,7 +91,7 @@ class EquipmentView{
                     required
                 >
             </label>
-            <br><br>
+            
 
             <label>
                 To:
@@ -100,17 +101,18 @@ class EquipmentView{
                     required
                 >
             </label>
-            <br><br>
+            
 
             <label>
                 Purpose (optional):
-                <br>
+                
                 <textarea name="purpose" rows="3" cols="40"></textarea>
             </label>
-            <br><br>
+            
 
             <button type="submit">Save reservation</button>
             <a href="<?= base('equipment') ?>">Cancel</a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -137,15 +139,17 @@ class EquipmentView{
         </p>
 
         <form method="post">
+            <div class="form-group">
             <label>
                 Description of the breakdown:
-                <br>
+                
                 <textarea name="description" rows="4" cols="50" required></textarea>
             </label>
-            <br><br>
+            
 
             <button type="submit">Report</button>
             <a href="<?= base('equipment') ?>">Cancel</a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -190,8 +194,10 @@ class EquipmentView{
                         <td>
                         <?php if ($r['status'] === 'confirmed'): ?>
                             <form method="post" action="<?= base('equipment/cancel') ?>" style="display:inline;">
+                                <div class="form-group">
                                 <input type="hidden" name="id" value="<?= (int)$r['id'] ?>">
                                 <button type="submit">Cancel</button>
+                                </div>
                             </form>
                         <?php else: ?>
                             -

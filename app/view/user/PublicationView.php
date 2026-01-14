@@ -78,29 +78,29 @@ Class PublicationView {
         <h1>Add Publication</h1>
 
         <form method="post" action="<?= base('publication/store') ?>">
-
+            <div class="form-group">
             <input type="hidden" name="member_id" value="<?= $memberId ?>">
 
-            <label>Title</label><br>
-            <input type="text" name="title" required><br><br>
+            <label>Title</label>
+            <input type="text" name="title" required>
 
-            <label>Type</label><br>
+            <label>Type</label>
             <select name="publication_type_id" required>
                 <?php foreach ($publicationTypes as $type): ?>
                     <option value="<?= $type['id'] ?>">
                         <?= htmlspecialchars($type['name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Date</label><br>
-            <input type="date" name="date_published"><br><br>
+            <label>Date</label>
+            <input type="date" name="date_published">
 
-            <label>DOI</label><br>
-            <input type="text" name="doi"><br><br>
+            <label>DOI</label>
+            <input type="text" name="doi">
 
-            <label>Link</label><br>
-            <input type="url" name="url"><br><br>
+            <label>Link</label>
+            <input type="url" name="url">
 
             <hr>
 
@@ -119,7 +119,7 @@ Class PublicationView {
             </select>
             <button type="button" onclick="addMemberAuthor()">Add</button>
 
-            <br><br>
+            
 
             <!-- Add external author -->
             <input type="text" id="externalAuthor" placeholder="External author name">
@@ -127,9 +127,9 @@ Class PublicationView {
 
             <div class="author-list" id="authors"></div>
 
-            <br>
-            <button type="submit">Save Publication</button>
             
+            <button type="submit">Save Publication</button>
+            </div>
         </form>
 
         <script>

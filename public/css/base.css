@@ -123,22 +123,54 @@ button:hover {
 }
 
 /* ===== FORMS ===== */
+form {
+  max-width: 600px;
+  margin: 32px auto;
+  padding: 24px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--color-text);
+}
+
 input,
 select,
 textarea {
-  width: 100%;
-  padding: 0.6em;
+  padding: 0.6em 0.8em;
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background-color: #fff;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(137, 199, 231, 0.3);
+  outline: none;
 }
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+form button {
+  margin-top: 12px;
+}
+
 
 /* ===== TABLE WRAPPER ===== */
 .table-wrapper {

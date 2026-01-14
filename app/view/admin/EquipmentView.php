@@ -77,28 +77,30 @@ Class EquipmentView {
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/equipment/store') ?>">
+            <div class="form-group">
 
-            <label>Name</label><br>
-            <input type="text" name="name" required><br><br>
+            <label>Name</label>
+            <input type="text" name="name" required>
 
-            <label>Type</label><br>
-            <input type="text" name="type"><br><br>
+            <label>Type</label>
+            <input type="text" name="type">
 
-            <label>State</label><br>
+            <label>State</label>
             <select name="state_id">
                 <?php foreach ($states as $s): ?>
                     <option value="<?= $s['id'] ?>"><?= htmlspecialchars($s['name']) ?></option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"></textarea>
 
-            <label>Location</label><br>
-            <input type="text" name="location"><br><br>
+            <label>Location</label>
+            <input type="text" name="location">
 
             <button type="submit">Save Equipment</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -122,31 +124,33 @@ Class EquipmentView {
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/equipment/update') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$equipment['id'] ?>">
 
-            <label>Name</label><br>
-            <input type="text" name="name" value="<?= htmlspecialchars($equipment['name']) ?>" required><br><br>
+            <label>Name</label>
+            <input type="text" name="name" value="<?= htmlspecialchars($equipment['name']) ?>" required>
 
-            <label>Type</label><br>
-            <input type="text" name="type" value="<?= htmlspecialchars($equipment['type'] ?? '') ?>"><br><br>
+            <label>Type</label>
+            <input type="text" name="type" value="<?= htmlspecialchars($equipment['type'] ?? '') ?>">
 
-            <label>State</label><br>
+            <label>State</label>
             <select name="state_id">
                 <?php foreach ($states as $s): ?>
                     <option value="<?= $s['id'] ?>" <?= $s['id']==$equipment['state_id']?'selected':'' ?>>
                         <?= htmlspecialchars($s['name']) ?>
                     </option>
                 <?php endforeach; ?>
-            </select><br><br>
+            </select>
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($equipment['description'] ?? '') ?></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($equipment['description'] ?? '') ?></textarea>
 
-            <label>Location</label><br>
-            <input type="text" name="location" value="<?= htmlspecialchars($equipment['location'] ?? '') ?>"><br><br>
+            <label>Location</label>
+            <input type="text" name="location" value="<?= htmlspecialchars($equipment['location'] ?? '') ?>">
 
             <button type="submit">Update Equipment</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -288,17 +292,19 @@ Class EquipmentView {
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/equipment/updateMaintenance') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$maintenance['id'] ?>">
 
-            <label>Scheduled At</label><br>
+            <label>Scheduled At</label>
             <input type="datetime-local" name="scheduled_at"
-                value="<?= $maintenance['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($maintenance['scheduled_at'])) : '' ?>"><br><br>
+                value="<?= $maintenance['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($maintenance['scheduled_at'])) : '' ?>">
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($maintenance['description'] ?? '') ?></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"><?= htmlspecialchars($maintenance['description'] ?? '') ?></textarea>
 
             <button type="submit">Update Maintenance</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -322,17 +328,19 @@ Class EquipmentView {
         <?php if ($error): ?><div style="color:#b00;"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
         <form method="post" action="<?= base('admin/equipment/saveScheduledMaintenance') ?>">
+            <div class="form-group">
             <input type="hidden" name="id" value="<?= (int)$maintenance['id'] ?>">
 
-            <label>Scheduled At</label><br>
+            <label>Scheduled At</label>
             <input type="datetime-local" name="scheduled_at"
-                value="<?= $maintenance['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($maintenance['scheduled_at'])) : '' ?>"><br><br>
+                value="<?= $maintenance['scheduled_at'] ? date('Y-m-d\TH:i', strtotime($maintenance['scheduled_at'])) : '' ?>">
 
-            <label>Description</label><br>
-            <textarea name="description" rows="4" cols="50"></textarea><br><br>
+            <label>Description</label>
+            <textarea name="description" rows="4" cols="50"></textarea>
 
             <button type="submit">Save Maintenance</button>
             <a href="<?= base('admin/equipment/index') ?>"><button type="button">Cancel</button></a>
+            </div>
         </form>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
