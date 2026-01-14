@@ -158,7 +158,7 @@ class EventView {
                     <h3><?= htmlspecialchars($event['name']) ?></h3>
 
                     <?php if (!empty($event['is_upcoming']) && $event['is_upcoming']): ?>
-                        <a href="<?= base('event/joinForm?id=' . $event['id'] . '&return=/event/cards') ?>">
+                        <a href="<?= base('event/joinForm?id=' . $event['id'] . '&return=/event/index') ?>">
                         <button>Join</button>
                         </a>
                     <?php else: ?>

@@ -55,7 +55,7 @@ class PublicationController {
             $this->model->addAuthor($publicationId, $a);
         }
 
-        header('Location: /admin/publication/index');
+        redirect('admin/publication/index');
         exit;
     }
 

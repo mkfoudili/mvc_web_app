@@ -75,7 +75,7 @@ class PublicationController {
         foreach ($authors as &$a) {
             $this->model->addAuthor($publicationId,$a);
         }
-        header('Location: /member/index?id=' . (int)$_POST['member_id']);
+        redirect('member/index?id=' . (int)$_POST['member_id']);
         exit;
     }
 }
