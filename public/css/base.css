@@ -439,3 +439,13 @@ tr:hover td {
 .home-centered section {
   margin-bottom: 48px;
 }
+
+/* ===== IMAGE ZOOM ON HOVER ===== */
+.zoom-hover {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.zoom-hover:hover {
+  transform: scale(1.08);
+}

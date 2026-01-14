@@ -54,7 +54,7 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
 
         <section>
             <h2>Organigramme</h2>
-            <img src="<?= base('assets/organigramme/organigramme.png') ?>" alt="Lab Organigramme">
+            <img src="<?= base('assets/organigramme/organigramme.png') ?>" alt="Lab Organigramme" class="zoom-hover">
         </section>
 
         <section>
@@ -77,11 +77,11 @@ public function renderIndex(array $news,array $teams, array $eventsPage, int $pa
 
         <section>
             <h2>Partners</h2>
-            <div style="display:flex; gap:20px;">
-                <img src="<?= base('assets/partners/gamma.png') ?>" alt="Gamma" width="120">
-                <img src="<?= base('assets/partners/copilot.png') ?>" alt="Copilot" width="120">
-                <img src="<?= base('assets/partners/perplexity.png') ?>" alt="Perplexity" width="120">
-                <img src="<?= base('assets/partners/claude.png') ?>" alt="Claude" width="120">
+            <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap;">
+                <img src="<?= base('assets/partners/gamma.png') ?>" alt="Gamma" width="120" class="zoom-hover">
+                <img src="<?= base('assets/partners/copilot.png') ?>" alt="Copilot" width="120" class="zoom-hover">
+                <img src="<?= base('assets/partners/perplexity.png') ?>" alt="Perplexity" width="120" class="zoom-hover">
+                <img src="<?= base('assets/partners/claude.png') ?>" alt="Claude" width="120" class="zoom-hover">
             </div>
         </section>
 
