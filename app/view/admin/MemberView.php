@@ -20,6 +20,7 @@ Class MemberView{
             
             <?php $this->renderMembersList($members); ?>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+            <script src="<?= base('js/base.js') ?>"></script>
         </body>
         </html>
         <?php
@@ -28,11 +29,10 @@ Class MemberView{
     public function renderMembersList(array $members):void{
         ?>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
             <thead>
                 <tr>
-                    <th>Last Name</th>
-                    <th>First Name</th>
+                    <th>Name</th>
                     <th>Login</th>
                     <th>Specialty</th>
                     <th>Role</th>
@@ -45,8 +45,11 @@ Class MemberView{
             <?php else: ?>
                 <?php foreach ($members as $member): ?>
                     <tr>
-                        <td><?= htmlspecialchars($member['last_name']) ?></td>
-                        <td><?= htmlspecialchars($member['first_name']) ?></td>
+                        <td>
+                            <a href="<?= base('admin/member/show?id=' . $member['id']) ?>">
+                                <?= htmlspecialchars($member['last_name'] . ' ' . $member['first_name']) ?>
+                            </a>
+                        </td>
                         <td><?= htmlspecialchars($member['login']) ?></td>
                         <td>
                             <?php
@@ -70,6 +73,76 @@ Class MemberView{
         </div>
         <?php
     }
+    public function renderShow(array $member, array $publications, array $projects): void {
+        ?>
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></title>
+            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
+            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
+        </head>
+        <body>
+            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
+            <h1><?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?></h1>
+
+            <p>Email: <?= htmlspecialchars($member['email'] ?? '-') ?></p>
+            <p>Specialty: <?= htmlspecialchars($member['specialty_name'] ?? '-') ?></p>
+            <p>Team: <?= htmlspecialchars($member['team_name'] ?? '-') ?></p>
+
+            <h2>Publications</h2>
+            <?php $this->renderPublications($publications); ?>
+
+            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+        </body>
+        </html>
+        <?php
+    }
+
+    public function renderPublications(array $publications): void{
+        ?>
+        <div class="table-wrapper">
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Authors</th>
+                    <th>Date</th>
+                    <th>DOI</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($publications)): ?>
+                <tr>
+                    <td colspan="6">No publications</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($publications as $p): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($p['title']) ?></td>
+                        <td><?= htmlspecialchars($p['publication_type_id'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>
+                        <td>
+                            <?php if (!empty($p['url'])): ?>
+                                <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank">Link</a>
+                            <?php else: ?>
+                                -
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        </div>
+        <?php
+    }
+
     public function renderEditForm(array $member, array $specialties, array $teams): void {
         ?>
         <!DOCTYPE html>

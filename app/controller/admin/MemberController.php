@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/../../model/MemberModel.php';
+require_once __DIR__ . '/../../model/PublicationModel.php';
+require_once __DIR__ . '/../../model/ProjectModel.php';
 require_once __DIR__ . '/../../model/TeamModel.php';
 require_once __DIR__ . '/../../model/UserModel.php';
 require __DIR__ . '/../../view/admin/MemberView.php';
@@ -22,6 +24,42 @@ Class MemberController{
         }        
         $view = new MemberView();
         $view->renderIndex($members);
+    }
+    public function show(){
+        if (!isset($_GET['id'])) {
+            http_response_code(400);
+            echo "Missing member id";
+            return;
+        }
+
+        $id = (int) $_GET['id'];
+        $member = $this->model->findById($id);
+
+        if (!$member) {
+            http_response_code(404);
+            echo "Member not found";
+            return;
+        }
+
+        $teamModel = new TeamModel();
+        $team = $teamModel->getByMemberId($id);
+        if ($team) {
+            $member['team_name'] = $team['name'];
+        }
+
+        $speciality = $this->model->getSpecialtyById($id);
+        if ($speciality){
+            $member['specialty_name'] = $speciality['name'];
+        }
+
+        $publicationModel = new PublicationModel();
+        $publications = $this->model->getPublications($id);
+
+        $projectModel = new ProjectModel();
+        $projects = $projectModel->getByMember($id);
+
+        $view = new MemberView();
+        $view->renderShow($member, $publications, $projects);
     }
     public function delete(): void {
         $id = $_GET['id'] ?? null;

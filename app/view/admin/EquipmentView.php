@@ -17,7 +17,7 @@ Class EquipmentView {
             <button>Add Equipment</button>
         </a>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0">
+        <table border="1" cellpadding="5" cellspacing="0"  class="sortable-table">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -56,6 +56,7 @@ Class EquipmentView {
             <?php $this->renderReportsTable($reports); ?>
             <?php $this->renderMaintenancesTable($maintenances); ?>
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+            <script src="<?= base('js/base.js') ?>"></script>
         </body>
         </html>
         <?php
@@ -162,7 +163,7 @@ Class EquipmentView {
         ?>
         <h2>Reservations</h2>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <table border="1" cellpadding="5" cellspacing="0" width="100%"  class="sortable-table">
             <thead>
                 <tr>
                     <th>Equipment Name</th>
@@ -208,7 +209,7 @@ Class EquipmentView {
         ?>
         <h2>Breakdown Reports</h2>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <table border="1" cellpadding="5" cellspacing="0" width="100%"  class="sortable-table">
             <thead>
                 <tr>
                     <th>Equipment Name</th>
@@ -244,7 +245,7 @@ Class EquipmentView {
         ?>
         <h2>Scheduled Maintenances</h2>
         <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <table border="1" cellpadding="5" cellspacing="0" width="100%" class="sortable-table">
             <thead>
                 <tr>
                     <th>Equipment Name</th>

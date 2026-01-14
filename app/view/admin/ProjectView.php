@@ -19,7 +19,7 @@ Class ProjectView{
             <button>Add Project</button>
         </a>
         <div class="table-wrapper">
-        <table border="1" cellpadding="6">
+        <table border="1" cellpadding="6" class="sortable-table">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -71,6 +71,7 @@ Class ProjectView{
         </table>
         <div class="table-wrapper">
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
+        <script src="<?= base('js/base.js') ?>"></script>
         </body>
         </html>
         <?php
