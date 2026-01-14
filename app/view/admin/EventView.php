@@ -74,6 +74,7 @@ Class EventView {
             </tbody>
         </table>
         </div>
+        <?php $this->renderRequests($event['requests']); ?>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         <script src="<?= base('js/base.js') ?>"></script>
         </body>
@@ -252,6 +253,46 @@ Class EventView {
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
+        <?php
+    }
+
+    public function renderRequests(array $requests): void {
+        ?>
+        <h2>Participation Requests</h2>
+        <div class="table-wrapper">
+        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Submitted At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (empty($requests)): ?>
+                <tr>
+                    <td colspan="5">No participation requests</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($requests as $req): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($req['display_name']) ?></td>
+                        <td><?= htmlspecialchars($req['email'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($req['message'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($req['submitted_at']) ?></td>
+                        <td>
+                            <a href="<?= base('admin/event/acceptRequest?id=' . $req['id']) ?>">
+                                <button>Accept</button>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+        </div>
         <?php
     }
 }

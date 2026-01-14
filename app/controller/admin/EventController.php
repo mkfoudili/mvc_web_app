@@ -14,6 +14,12 @@ Class EventController {
         foreach ($events as &$event) {
             $event['participants'] = $this->model->getParticipants((int)$event['id']);
         }
+
+        foreach ($events as &$event) {
+            $event['participants'] = $this->model->getParticipants((int)$event['id']);
+            $event['requests']     = $this->model->getRequests((int)$event['id']);
+        }
+
         $view = new EventView();
         $view->renderIndex($events);
     }
@@ -145,4 +151,30 @@ Class EventController {
     redirect("admin/event/index");
         exit;
     }
+
+    public function acceptRequest(): void {
+        $requestId = $_GET['id'] ?? null;
+        if (!$requestId) {
+            http_response_code(400);
+            echo "Request id required";
+            return;
+        }
+
+        $request = $this->model->getRequestById((int)$requestId);
+        if (!$request) {
+            http_response_code(404);
+            echo "Request not found";
+            return;
+        }
+
+        if (!empty($request['member_id'])) {
+            $this->model->addParticipant((int)$request['event_id'], (int)$request['member_id']);
+        }
+
+        $this->model->deleteRequest((int)$requestId);
+
+        redirect("admin/event/index");
+        exit;
+    }
+
 }

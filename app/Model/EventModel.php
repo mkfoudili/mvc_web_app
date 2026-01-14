@@ -155,6 +155,19 @@ class EventModel {
         ]);
     }
 
+    
+    public function getRequestById($id) {
+        $sql = "SELECT * FROM event_requests WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteRequest($id) {
+        $stmt = $this->db->prepare("DELETE FROM event_requests WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+    }
+
     public function getUpcomingEventsByMember($memberId)
     {
         $sql = "
