@@ -289,7 +289,7 @@ CREATE TABLE equipment_history (
 CREATE TABLE equipment_maintenance (
     id INT AUTO_INCREMENT PRIMARY KEY,
     equipment_id INT NOT NULL,
-    scheduled_at TIMESTAMP,
+    scheduled_at TIMESTAMP NULL DEFAULT NULL,
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (equipment_id) REFERENCES equipment(id) ON DELETE CASCADE
