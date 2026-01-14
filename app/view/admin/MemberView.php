@@ -123,7 +123,7 @@ Class MemberView{
                 <?php foreach ($publications as $p): ?>
                     <tr>
                         <td><?= htmlspecialchars($p['title']) ?></td>
-                        <td><?= htmlspecialchars($p['publication_type_id'] ?? '-') ?></td>
+                        <td><?= htmlspecialchars($pub['publication_type_name'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
                         <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>

@@ -19,9 +19,11 @@ class PublicationModel {
     public function getAll()
     {
         $sql = "
-            SELECT *
-            FROM publications
-            ORDER BY date_published DESC, created_at DESC
+            SELECT p.*, 
+                   pt.name AS publication_type_name
+            FROM publications p
+            LEFT JOIN publication_types pt ON p.publication_type_id = pt.id
+            ORDER BY p.date_published DESC, p.created_at DESC
         ";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
