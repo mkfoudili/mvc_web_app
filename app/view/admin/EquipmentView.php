@@ -42,7 +42,7 @@ Class EquipmentView {
                         <td><?= htmlspecialchars($equipment['description'] ?? '-') ?></td>
                         <td><?= htmlspecialchars($equipment['location'] ?? '-') ?></td>
                         <td>
-                            <a href="<?= base('admin/equipment/edit?id=.' . $equipment['id'] . '') ?>">
+                            <a href="<?= base('admin/equipment/edit?id=' . $equipment['id'] . '') ?>">
                                 <button>Edit</button>
                             </a>
                         </td>
