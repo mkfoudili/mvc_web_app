@@ -45,7 +45,7 @@ Class ProjectView{
                         <?= htmlspecialchars($p['leader_last_name'] ?? '', ENT_QUOTES, 'UTF-8') ?>
                     </td>
                     <td><?= htmlspecialchars($p['theme'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= htmlspecialchars($p['funding_type_id'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
+                    <td><?= htmlspecialchars($p['funding_type_name'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
                         <?php if (!empty($p['project_page_url'])): ?>
                             <a href="<?= htmlspecialchars($p['project_page_url'], ENT_QUOTES, 'UTF-8') ?>" target="_blank">Link</a>

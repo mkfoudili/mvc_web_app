@@ -10,9 +10,13 @@ class ProjectModel {
     public function findById($id)
     {
         $sql = "
-            SELECT p.*, m.first_name AS leader_first_name, m.last_name AS leader_last_name
+            SELECT p.*, 
+                m.first_name AS leader_first_name, 
+                m.last_name AS leader_last_name,
+                f.name AS funding_type_name
             FROM projects p
             LEFT JOIN members m ON p.leader_member_id = m.id
+            LEFT JOIN funding_types f ON p.funding_type_id = f.id
             WHERE p.id = :id
         ";
         $stmt = $this->db->prepare($sql);
@@ -24,9 +28,13 @@ class ProjectModel {
     public function getAll()
     {
         $sql = "
-            SELECT p.*, m.first_name AS leader_first_name, m.last_name AS leader_last_name
+            SELECT p.*, 
+                m.first_name AS leader_first_name, 
+                m.last_name AS leader_last_name,
+                f.name AS funding_type_name
             FROM projects p
             LEFT JOIN members m ON p.leader_member_id = m.id
+            LEFT JOIN funding_types f ON p.funding_type_id = f.id
             ORDER BY p.created_at DESC
         ";
         return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
