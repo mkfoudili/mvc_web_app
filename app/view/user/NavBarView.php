@@ -18,6 +18,7 @@ class NavbarView {
                 <a href="<?= base('news/index') ?>">News</a>
                 <?php if ($isLoggedIn): ?>
                     <a href="<?= base('equipment/index') ?>">Equipment</a>
+                    <a href="<?= base('member?id=' . $_SESSION['member_id']) ?>">My Profile</a>
                 <?php else: ?>
                     <a href="<?= base('contact/index') ?>">Contact</a>
                 <?php endif; ?>

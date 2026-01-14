@@ -10,11 +10,12 @@ INSERT INTO roles (name, description) VALUES
 ('System Admin', 'IT infrastructure management');
 
 INSERT INTO users (login, email, password_hash, role_id, specialty_id, status) VALUES 
-('jdoe', 'john.doe@lab.edu', 'hash1', 1, 1, 'active'),
-('asmith', 'alice.smith@lab.edu', 'hash2', 2, 2, 'active'),
-('bwong', 'bob.wong@lab.edu', 'hash3', 3, 3, 'active'),
-('clin', 'carol.lin@lab.edu', 'hash4', 1, 1, 'active'),
-('mgarcia', 'marco.garcia@lab.edu', 'hash5', 2, 5, 'active');
+('jdoe', 'john.doe@lab.edu', '$2y$10$v7o8m2MSyiIp8tUshZLKTu/NNGxs1Pzc8f5ciuN7qyFiZqbuC2F.u', 1, 1, 'active'),
+('asmith', 'alice.smith@lab.edu', '$2y$10$v7o8m2MSyiIp8tUshZLKTu/NNGxs1Pzc8f5ciuN7qyFiZqbuC2F.u', 2, 2, 'active'),
+('bwong', 'bob.wong@lab.edu', '$2y$10$v7o8m2MSyiIp8tUshZLKTu/NNGxs1Pzc8f5ciuN7qyFiZqbuC2F.u', 3, 3, 'active'),
+('clin', 'carol.lin@lab.edu', '$2y$10$v7o8m2MSyiIp8tUshZLKTu/NNGxs1Pzc8f5ciuN7qyFiZqbuC2F.u', 1, 1, 'active'),
+('mgarcia', 'marco.garcia@lab.edu', '$2y$10$v7o8m2MSyiIp8tUshZLKTu/NNGxs1Pzc8f5ciuN7qyFiZqbuC2F.u', 2, 5, 'active');
+-- password_hash is a bcrypt hash for 'password'
 
 -- 3. MEMBERS (Initial Insert without team_id to avoid FK issues)
 INSERT INTO members (first_name, last_name, login, user_id, specialty_id, role_in_lab) VALUES 
