@@ -87,64 +87,73 @@ Class ProjectView{
         </head>
         <body>
         <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
+        <div class="container stack">
         <h1><?= htmlspecialchars($project['title']) ?></h1>
 
-        <p><strong>Leader:</strong>
-            <?= htmlspecialchars($project['leader_first_name'] ?? '') ?>
-            <?= htmlspecialchars($project['leader_last_name'] ?? '') ?>
-        </p>
+        <div class="section-block-list">
+            <div class="section-block">
+            <p><strong>Leader:</strong>
+                <?= htmlspecialchars($project['leader_first_name'] ?? '') ?>
+                <?= htmlspecialchars($project['leader_last_name'] ?? '') ?>
+            </p>
 
-        <p><strong>Theme:</strong> <?= htmlspecialchars($project['theme'] ?? '-') ?></p>
-        <p><strong>Funding:</strong> <?= htmlspecialchars($project['funding_type_id'] ?? '-') ?></p>
+            <p><strong>Theme:</strong> <?= htmlspecialchars($project['theme'] ?? '-') ?></p>
+            <p><strong>Funding:</strong> <?= htmlspecialchars($project['funding_type_id'] ?? '-') ?></p>
 
-        <p><strong>Project Page:</strong>
-            <?php if (!empty($project['project_page_url'])): ?>
+            <p><strong>Project Page:</strong>
+                <?php if (!empty($project['project_page_url'])): ?>
                 <a href="<?= htmlspecialchars($project['project_page_url']) ?>" target="_blank">Link</a>
-            <?php else: ?>
+                <?php else: ?>
                 -
-            <?php endif; ?>
-        </p>
+                <?php endif; ?>
+            </p>
 
-        <p><strong>Poster:</strong>
-            <?php if (!empty($project['poster_url'])): ?>
+            <p><strong>Poster:</strong>
+                <?php if (!empty($project['poster_url'])): ?>
                 <a href="<?= htmlspecialchars($project['poster_url']) ?>" target="_blank">Poster</a>
-            <?php else: ?>
+                <?php else: ?>
                 -
-            <?php endif; ?>
-        </p>
+                <?php endif; ?>
+            </p>
 
-        <p><strong>Description:</strong><br>
-            <?= nl2br(htmlspecialchars($project['description'] ?? '-')) ?>
-        </p>
+            <p><strong>Description:</strong><br>
+                <?= nl2br(htmlspecialchars($project['description'] ?? '-')) ?>
+            </p>
+            </div>
 
-        <hr>
-
-        <h3>Project Members</h3>
-        <?php if (empty($members)): ?>
-            <p>-</p>
-        <?php else: ?>
-            <ul>
+            <div class="section-block">
+            <h3>Project Members</h3>
+            <?php if (empty($members)): ?>
+                <p>-</p>
+            <?php else: ?>
+                <ul>
                 <?php foreach ($members as $m): ?>
                     <li>
-                        <?= htmlspecialchars($m['first_name'] . ' ' . $m['last_name']) ?>
-                        <?php if (!empty($m['role_in_project'])): ?>
-                            (<?= htmlspecialchars($m['role_in_project']) ?>)
-                        <?php endif; ?>
+                    <?= htmlspecialchars($m['first_name'] . ' ' . $m['last_name']) ?>
+                    <?php if (!empty($m['role_in_project'])): ?>
+                        (<?= htmlspecialchars($m['role_in_project']) ?>)
+                    <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+                </ul>
+            <?php endif; ?>
+            </div>
 
-        <h3>Project Partners</h3>
-        <?php if (empty($partners)): ?>
-            <p>-</p>
-        <?php else: ?>
-            <ul>
+            <div class="section-block">
+            <h3>Project Partners</h3>
+            <?php if (empty($partners)): ?>
+                <p>-</p>
+            <?php else: ?>
+                <ul>
                 <?php foreach ($partners as $p): ?>
                     <li><?= htmlspecialchars($p['name']) ?></li>
                 <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+                </ul>
+            <?php endif; ?>
+            </div>
+        </div>
+        </div>
+
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
         </html>
