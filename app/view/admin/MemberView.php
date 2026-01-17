@@ -1,29 +1,55 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 Class MemberView{
-    public function renderIndex(array $members):void{
-        ?>
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Admin - Members</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-            <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-            <h1>Members</h1>
-            <a href="<?= base('admin/member/addForm') ?>">
-                <button>Add Member</button>
-            </a>
-            
-            <?php $this->renderMembersList($members); ?>
-            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-            <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+    public function renderIndex(array $members): void
+    {
+        $pageTitle = '<h1>Members</h1>';
+        $membersTableHtml = $this->renderMembersTable($members);
+        $addMemberButton = '<a href="' . base('admin/member/addForm') . '">
+                            <button>Add Member</button>
+                            </a>';
+        $pageHtml = $pageTitle . $addMemberButton . $membersTableHtml;
+
+        layout('base', [
+            'title'   => 'Admin - Members',
+            'content' => $pageHtml
+        ]);
+    }
+    public function renderMembersTable(array $members): string {
+        $membersListHtml = '';
+        if (empty($members)) {
+            $membersListHtml = '<p>No members found.</p>';
+        } else {
+        $headers = ['Name', 'Login', 'Specialty', 'Role', 'Action'];
+
+        $rows = [];
+        foreach ($members as $member) {
+            $rows[] = [
+                [
+                    'type'  => 'link',
+                    'href'  => base('admin/member/show?id=' . $member['id']),
+                    'label' => $member['last_name'] . ' ' . $member['first_name']
+                ],
+                ['type' => 'text', 'value' => $member['login']],
+                ['type' => 'text', 'value' => $member['specialty_name'] ?? '-'],
+                ['type' => 'text', 'value' => $member['role_in_lab'] ?? '-'],
+                ['type' => 'raw','html' =>
+                '<a href="' . e(base('admin/member/edit?id=' . $member['id'])) . '">
+                    <button>Update</button>
+                 </a>
+                 <a href="' . e(base('admin/member/delete?id=' . $member['id'])) . '" 
+                    onclick="return confirm(\'Are you sure you want to delete this member?\');">
+                    <button>Delete</button>
+                 </a>']
+            ];
+        }
+
+        $membersListHtml = component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
+        }
+        return $membersListHtml;
     }
 
     public function renderMembersList(array $members):void{

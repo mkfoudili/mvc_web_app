@@ -31,6 +31,9 @@ class Table extends Component {
                                             case 'button':
                                                 ?><button type="button" <?= $this->renderAttributes($cell['attrs'] ?? []) ?>><?= e($cell['label']) ?></button><?php
                                                 break;
+                                            case 'raw':
+                                                echo $cell['html'] ?? '';
+                                                break;
                                             case 'text':
                                             default:
                                                 echo e($cell['value'] ?? '-');
