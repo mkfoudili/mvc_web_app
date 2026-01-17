@@ -15,6 +15,7 @@ Class NewsView {
 
     public function renderNewsList(array $news):string
     {
+        $newsListHtml = '';
         if (empty($news)){
             $newsListHtml = '<p>No news found.</p>';
         }

@@ -13,6 +13,7 @@ Class TeamView{
     }
 
     public function renderTeamsList(array $teams): string{
+        $teamListHtml = '';
         if (empty($teams)){
             $teamListHtml ='<p>No teams found.</p>';
         }else{

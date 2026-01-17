@@ -1,67 +1,49 @@
 <?php
+require_once __DIR__ . '/../../helpers/components.php';
 
 Class PublicationView {
     public function renderIndex(array $teams): void
     {
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Publications</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Publications</h1>
-
-        <?php foreach ($teams as $team): ?>
-            <h2><?= htmlspecialchars($team['team_name']) ?></h2>
-
-            <?php if (empty($team['publications'])): ?>
-                <p>No publications.</p>
-            <?php else: ?>
-                <div class="table-wrapper">
-                <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Type</th>
-                            <th>Authors</th>
-                            <th>Date</th>
-                            <th>DOI</th>
-                            <th>Link</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($team['publications'] as $p): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($p['title']) ?></td>
-                            <td><?= htmlspecialchars($p['publication_type_id'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
-                            <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>
-                            <td>
-                                <?php if (!empty($p['url'])): ?>
-                                    <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank">Link</a>
-                                <?php else: ?>
-                                    -
-                                <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-                </div>
-            <?php endif; ?>
-
-        <?php endforeach; ?>
-        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+        $pageTitle = '<h1>Publications</h1>';
+        $publicationsListHtml = $this->renderPublicationsList($teams);
+        $pageHtml = $pageTitle . $publicationsListHtml;
+        layout('base', [
+            'title'   => 'Publications',
+            'content' => $pageHtml
+        ]);
+    }
+    public function renderPublicationsList(array $teams): string
+    {
+        $publicationsListHtml = '';
+        if (empty($teams)){
+            $publicationsListHtml = '<p>No publications found.</p>';
+        }
+        else {
+            foreach ($teams as $team){
+                $publicationsListHtml .='<h2>'.e($team['team_name']).'</h2>';
+                if(empty($team['publications'])){
+                    $publicationsListHtml .='<p>No publications.</p>';
+                }else{
+                    $thead = ['Title','Type','Authors','Date','DOI','Link'];
+                    $rows = [];
+                    foreach ($team['publications'] as $p) {
+                        $rows[] = [ ['type' => 'text', 'value' => $p['title']],
+                        ['type' => 'text', 'value' => $p['publication_type_id'] ?? '-'],
+                        ['type' => 'text', 'value' => $p['authors'] ?? '-'],
+                        ['type' => 'text', 'value' => $p['date_published'] ?? '-'],
+                        ['type' => 'text', 'value' => $p['doi'] ?? '-'],
+                        !empty($p['url']) ? ['type' => 'link', 'href' => $p['url'], 'label' => 'Link'] : ['type' => 'text', 'value' => '-'] ];
+                    }
+                    $publicationsListHtml .= component('Table',
+                    [
+                        'headers' => $thead,
+                        'rows' => $rows
+                    ]
+                    );
+                }
+            }
+        }
+        return $publicationsListHtml;
     }
 
     public function addPublication(int $memberId, array $members, array $publicationTypes): void{   
