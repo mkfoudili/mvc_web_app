@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../helpers/components.php';
 
 abstract class Component {
     protected array $props = [];
@@ -39,9 +40,9 @@ abstract class Component {
         foreach ($attrs as $key => $value) {
             if ($value !== null && $value !== false) {
                 if ($value === true) {
-                    $html[] = $this->e($key);
+                    $html[] = e($key);
                 } else {
-                    $html[] = $this->e($key) . '="' . $this->e($value) . '"';
+                    $html[] = e($key) . '="' . e($value) . '"';
                 }
             }
         }

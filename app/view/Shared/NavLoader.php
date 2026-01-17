@@ -8,13 +8,13 @@ class NavLoader
         $basePath   = rtrim(dirname($scriptName), '/') === '/' ? '' : rtrim(dirname($scriptName), '/');
 
         $uri = $_SERVER['REQUEST_URI'];
-        if ($basePath && str_starts_with($uri, $basePath)) {
+        if ($basePath && strpos($uri, $basePath) === 0) {
             $uri = substr($uri, strlen($basePath));
         }
 
         $uri = '/' . trim($uri, '/');
 
-        $isAdmin = str_starts_with($uri, '/admin');
+        $isAdmin = strpos($uri, '/admin') === 0;
 
         if ($isAdmin) {
             require_once __DIR__ . '/../admin/NavBarView.php';

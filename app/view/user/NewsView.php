@@ -1,24 +1,26 @@
 <?php
-
+require __DIR__ . '/../../helpers/components.php';
 Class NewsView {
     public function renderIndex(array $news):void
     {
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Admin - Equipments</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>News</h1>
-        <?php $this->renderNews($news); ?>
-        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        </body>
-        </html>
-        <?php
+        $pageTitle = '<h1>News</h1>';
+        $newsListHtml = $this->renderNewsList($news);
+        $pageHtml = $pageTitle . $newsListHtml;
+
+        layout('base', [
+            'title'   => 'Admin - News',
+            'content' => $pageHtml
+        ]);
+    }
+
+    public function renderNewsList(array $news):string
+    {
+        $newsListHtml = '<div class="container">';
+        foreach ($news as $item) {
+            $newsListHtml .= component('NewsCard', $item);
+        }
+        $newsListHtml .= '</div>';
+        return $newsListHtml;
     }
 
     public function renderNews(array $news): void
