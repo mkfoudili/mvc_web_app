@@ -1,68 +1,56 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 class ProjectView {
+
     public function renderIndex(array $projects): void
     {
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Projects</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Projects</h1>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="6" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Leader</th>
-                    <th>Theme</th>
-                    <th>Funding</th>
-                    <th>Project Page</th>
-                    <th>Poster</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($projects as $p): ?>
-                <tr>
-                    <td>
-                        <a href="<?= base('project/show?id=' . (int)$p['id']) ?>">
-                            <?= htmlspecialchars($p['title']) ?>
-                        </a>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($p['leader_first_name'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                        <?= htmlspecialchars($p['leader_last_name'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                    </td>
-                    <td><?= htmlspecialchars($p['theme'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><?= htmlspecialchars($p['funding_type_id'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                    <td>
-                        <?php if (!empty($p['project_page_url'])): ?>
-                            <a href="<?= htmlspecialchars($p['project_page_url'], ENT_QUOTES, 'UTF-8') ?>" target="_blank">Link</a>
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if (!empty($p['poster_url'])): ?>
-                            <a href="<?= htmlspecialchars($p['poster_url'], ENT_QUOTES, 'UTF-8') ?>" target="_blank">Poster</a>
-                        <?php endif; ?>
-                    </td>
-                    <td><?= htmlspecialchars($p['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
+        $pageTitle = '<h1>Projects</h1>';
+        $projectsTableHtml = $this->renderProjectsTable($projects);
+        $pageHtml = $pageTitle . $projectsTableHtml;
 
-        <?php
+        layout('base', [
+            'title'   => 'Projects',
+            'content' => $pageHtml
+        ]);
+    }
+
+    private function renderProjectsTable(array $projects): string
+    {
+        $projectsTableHtml = '';
+        if (empty($projects)) {
+            $projectsTableHtml = '<p>No projects found.</p>';
+        }else {
+            $headers = ['Title','Leader','Theme','Funding','Project Page','Poster','Description'];
+
+            $rows = [];
+            foreach ($projects as $p) {
+                $rows[] = [
+                    [
+                        'type'  => 'link',
+                        'href'  => base('project/show?id=' . (int)$p['id']),
+                        'label' => $p['title']
+                    ],
+                    [
+                        'type'  => 'text',
+                        'value' => $p['leader_first_name'] ?? '' . ' ' . ($p['leader_last_name'] ?? '')
+                    ],
+                    ['type' => 'text', 'value' => $p['theme'] ?? '-'],
+                    ['type' => 'text', 'value' => $p['funding_type_id'] ?? '-'],
+                    !empty($p['project_page_url'])
+                        ? ['type' => 'link', 'href' => $p['project_page_url'], 'label' => 'Link']
+                        : ['type' => 'text', 'value' => '-'],
+                    !empty($p['poster_url'])
+                        ? ['type' => 'link', 'href' => $p['poster_url'], 'label' => 'Poster']
+                        : ['type' => 'text', 'value' => '-'],
+                    ['type' => 'text', 'value' => $p['description'] ?? '-']
+                ];
+            }
+            $projectsTableHtml = component('Table', [
+                'headers' => $headers,
+                'rows'    => $rows
+                ]);
+        }
+        return $projectsTableHtml;
     }
 
     public function renderShow(array $project, array $members, array $partners): void
