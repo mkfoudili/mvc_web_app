@@ -1,86 +1,107 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 Class EventView {
-    public function renderIndex(array $events):void{
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Admin - Events</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-            <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Events</h1>
-        <a href="<?= base('admin/event/add') ?>">
-            <button>Add Event</button>
-        </a>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Participants</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($events)): ?>
-                <tr>
-                    <td colspan="6">No events found</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($events as $event): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($event['name']) ?></td>
-                        <td><?= htmlspecialchars($event['event_type_name'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['event_date'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['description'] ?? '-') ?></td>
-                        <td>
-                            <?php if (!empty($event['participants'])): ?>
-                                <ul>
-                                    <?php foreach ($event['participants'] as $p): ?>
-                                        <li><?= htmlspecialchars($p['last_name'].' '.$p['first_name']) ?></li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php else: ?>
-                                No participants
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a href="<?= base('admin/event/edit?id=' . $event['id'] . '&return=/admin/event/index') ?>">
-                                <button>Edit</button>
-                            </a> 
-                            <a href="<?= base('admin/event/cancel?id=' . $event['id'] . '&return=/admin/event/index') ?>">
-                                <button>Request Cancellation</button>
-                            </a>
-                            <a href="<?= base('admin/event/delete?id=' . $event['id'] . '&return=/admin/event/index') ?>">
-                                <button>Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            <?php if (!empty($_SESSION['alert'])): ?>
-                <script>
-                    alert("<?= htmlspecialchars($_SESSION['alert'], ENT_QUOTES) ?>");
-                </script>
-                <?php unset($_SESSION['alert']); ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php $this->renderRequests($event['requests']); ?>
-        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+    public function renderIndex(array $events): void {
+        $pageTitle = '<h1>Events</h1>';
+        $eventsTableHtml = $this->renderEventsTable($events);
+        $requestsTableHtml = $this->renderRequests($events);
+
+        $pageHtml = $pageTitle . '
+            <a href="' . e(base('admin/event/add')) . '">
+                <button>Add Event</button>
+            </a>' . $eventsTableHtml .  $requestsTableHtml;
+
+        layout('base', [
+            'title'   => 'Admin - Events',
+            'content' => $pageHtml
+        ]);
+
+        if (!empty($_SESSION['alert'])) {
+            echo '<script>alert("' . e($_SESSION['alert']) . '");</script>';
+            unset($_SESSION['alert']);
+        }
     }
+
+    private function renderEventsTable(array $events): string {
+        if (empty($events)) {
+            return '<p>No events found.</p>';
+        }
+
+        $headers = ['Name', 'Type', 'Date', 'Description', 'Participants', 'Action'];
+
+        $rows = [];
+        foreach ($events as $event) {
+            $participantsHtml = '';
+            if (!empty($event['participants'])) {
+                $participantsHtml .= '<ul>';
+                foreach ($event['participants'] as $p) {
+                    $participantsHtml .= '<li>' . e($p['last_name'] . ' ' . $p['first_name']) . '</li>';
+                }
+                $participantsHtml .= '</ul>';
+            } else {
+                $participantsHtml = 'No participants';
+            }
+
+            $rows[] = [
+                ['type' => 'text', 'value' => $event['name']],
+                ['type' => 'text', 'value' => $event['event_type_name'] ?? '-'],
+                ['type' => 'text', 'value' => $event['event_date'] ?? '-'],
+                ['type' => 'text', 'value' => $event['description'] ?? '-'],
+                ['type' => 'raw',  'html'  => $participantsHtml],
+                [
+                    'type' => 'raw',
+                    'html' =>
+                        '<a href="' . e(base('admin/event/edit?id=' . $event['id'] . '&return=/admin/event/index')) . '">
+                            <button>Edit</button>
+                         </a>
+                         <a href="' . e(base('admin/event/cancel?id=' . $event['id'] . '&return=/admin/event/index')) . '">
+                            <button>Request Cancellation</button>
+                         </a>
+                         <a href="' . e(base('admin/event/delete?id=' . $event['id'] . '&return=/admin/event/index')) . '">
+                            <button>Delete</button>
+                         </a>'
+                ]
+            ];
+        }
+
+        return component('Table',
+        ['headers' => $headers,
+                'rows' => $rows
+                ]);
+    }
+
+    public function renderRequests(array $events): string {
+        $requestsTableHtml = '<h2>Participation Requests</h2>';
+        if (empty($events)) {
+            $requestsTableHtml .= '<p>No participation requests</p>';
+        }else{
+            $headers = ['Name', 'Email', 'Message', 'Submitted At', 'Action'];
+            $rows = [];
+            foreach ($events as $event) {
+                $requests = $event['requests'] ?? [];
+                foreach ($requests as $req) {
+                    $rows[] = [
+                        ['type' => 'text', 'value' => $req['display_name']],
+                        ['type' => 'text', 'value' => $req['email'] ?? '-'],
+                        ['type' => 'text', 'value' => $req['message'] ?? '-'],
+                        ['type' => 'text', 'value' => $req['submitted_at']],
+                        [
+                            'type' => 'raw',
+                            'html' =>
+                                '<a href="' . e(base('admin/event/acceptRequest?id=' . $req['id'])) . '">
+                                    <button>Accept</button>
+                                </a>'
+                        ]
+                    ];
+                }
+            }
+            $requestsTableHtml .= component('Table',
+                    ['headers' => $headers,
+                    'rows' => $rows]);
+        }
+        return $requestsTableHtml;
+    }
+
 
     public function renderAddForm(array $eventTypes,array $members,string $error = null): void {
         ?>
@@ -256,43 +277,4 @@ Class EventView {
         <?php
     }
 
-    public function renderRequests(array $requests): void {
-        ?>
-        <h2>Participation Requests</h2>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Message</th>
-                    <th>Submitted At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($requests)): ?>
-                <tr>
-                    <td colspan="5">No participation requests</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($requests as $req): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($req['display_name']) ?></td>
-                        <td><?= htmlspecialchars($req['email'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($req['message'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($req['submitted_at']) ?></td>
-                        <td>
-                            <a href="<?= base('admin/event/acceptRequest?id=' . $req['id']) ?>">
-                                <button>Accept</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php
-    }
 }
