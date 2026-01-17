@@ -1,63 +1,28 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 Class TeamView{
 
-public function renderIndex(array $teams): void {
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Teams</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <div class="container stack">
-        <h1>Teams</h1>
+    public function renderIndex(array $teams): void{
+        $pageTitle = '<h1>Teams</h1>';
+        $teamsListHtml = $this->renderTeamsList($teams);
+        $pageHtml = $pageTitle . $teamsListHtml;
+        layout('base', [
+            'title'   => 'Teams',
+            'content' => $pageHtml
+        ]);
+    }
 
-        <?php if (empty($teams)): ?>
-            <p>No teams found.</p>
-        <?php else: ?>
-            <div class="section-block-list">
-                <?php foreach ($teams as $team): ?>
-                    <div class="section-block">
-                        <h2><?= htmlspecialchars($team['name']) ?></h2>
-                        <p><strong>Leader:</strong>
-                            <?= htmlspecialchars($team['leader_first_name'] ?? '-') ?>
-                            <?= htmlspecialchars($team['leader_last_name'] ?? '-') ?>
-                        </p>
-                        <p><strong>Domain:</strong> <?= htmlspecialchars($team['domain'] ?? '-') ?></p>
-                        <p><strong>Description:</strong><br>
-                            <?= nl2br(htmlspecialchars($team['description'] ?? '-')) ?>
-                        </p>
-                        <h3>Members</h3>
-                        <?php if (empty($team['members'])): ?>
-                            <p>No members assigned.</p>
-                        <?php else: ?>
-                            <ul>
-                                <?php foreach ($team['members'] as $member): ?>
-                                    <li>
-                                        <a href="<?= base('member/index?id=' . (int)$member['id']) ?>">
-                                            <?= htmlspecialchars($member['first_name'] . ' ' . $member['last_name']) ?>
-                                        </a>
-                                        <?php if (!empty($member['role_in_team'])): ?>
-                                            (<?= htmlspecialchars($member['role_in_team']) ?>)
-                                        <?php endif; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
-        </div>
-        <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        </body>
-        </html>
-        <?php
+    public function renderTeamsList(array $teams): string{
+        if (empty($teams)){
+            $teamListHtml ='<p>No teams found.</p>';
+        }else{
+            $teamListHtml = '<div class="section-block-list">';
+            foreach ($teams as $team){
+                $teamListHtml .= component('TeamCard', $team);
+            }
+            $teamListHtml .= '</div>';
+        }
+        return $teamListHtml;
     }
     public function renderTeams(array $teams) : void{
         ?>

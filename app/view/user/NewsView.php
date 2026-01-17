@@ -15,11 +15,16 @@ Class NewsView {
 
     public function renderNewsList(array $news):string
     {
-        $newsListHtml = '<div class="container">';
-        foreach ($news as $item) {
-            $newsListHtml .= component('NewsCard', $item);
+        if (empty($news)){
+            $newsListHtml = '<p>No news found.</p>';
         }
-        $newsListHtml .= '</div>';
+        else {
+            $newsListHtml = '<div class="container">';
+            foreach ($news as $item) {
+                $newsListHtml .= component('NewsCard', $item);
+            }
+            $newsListHtml .= '</div>';
+        }
         return $newsListHtml;
     }
 
