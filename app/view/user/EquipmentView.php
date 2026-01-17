@@ -1,7 +1,61 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 class EquipmentView{
     public function renderIndex(array $equipments): void
+    {
+        $pageTitle = '<h1>Equipments</h1>';
+        $equipmentsTableHtml = $this->renderEquipmentsTable($equipments);
+        $pageHtml = $pageTitle . $equipmentsTableHtml;
+
+        layout('base', [
+            'title'   => 'Equipments',
+            'content' => $pageHtml
+        ]);
+    }
+    private function renderEquipmentsTable(array $equipments): string
+    {
+        $equipmentsTableHtml = '';
+        if (empty($equipments)) {
+            $equipmentsTableHtml = '<p>No equipment found.</p>';
+        } else {
+            $headers = ['Name','Type','State','Description','Location','Reservation','Breakdown'];
+
+            $rows = [];
+            foreach ($equipments as $equipment) {
+                $rows[] = [
+                    ['type' => 'text', 'value' => $equipment['name']],
+                    ['type' => 'text', 'value' => $equipment['type'] ?? '-'],
+                    ['type' => 'text', 'value' => $equipment['state_name'] ?? '-'],
+                    ['type' => 'text', 'value' => $equipment['description'] ?? '-'],
+                    ['type' => 'text', 'value' => $equipment['location'] ?? '-'],
+                    [
+                        'type'  => 'button',
+                        'label' => 'Add reservation',
+                        'attrs' => [
+                            'onclick' => "window.location='" 
+                                . e(base('equipment/addReservation?id=' . $equipment['id'])) 
+                                . "'"
+                        ]
+                    ],
+                    [
+                        'type'  => 'button',
+                        'label' => 'Report breakdown',
+                        'attrs' => [
+                            'onclick' => "window.location='" 
+                                . e(base('equipment/reportBreakdown?id=' . $equipment['id'])) 
+                                . "'"
+                        ]
+                    ]
+                ];
+            }
+            $equipmentsTableHtml = component('Table', [
+                'headers' => $headers,
+                'rows'    => $rows
+            ]);
+        }
+        return $equipmentsTableHtml;
+    }
+   /* public function renderIndex(array $equipments): void
     {
         ?>
         <!DOCTYPE html>
@@ -61,8 +115,7 @@ class EquipmentView{
         </body>
         </html>
         <?php
-    }
-
+    }*/
     public function renderAddReservation(array $equipment): void
     {
         ?>
