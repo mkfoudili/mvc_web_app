@@ -1,72 +1,56 @@
 <?php
+require_once __DIR__ . '/../../helpers/components.php';
 class PublicationView {
     public function renderIndex(array $publications): void {
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Admin - Publications</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Publications</h1>
-        <a href="<?= base('admin/publication/create') ?>">
-            <button>Add Publication</button>
-        </a>
+        $pageTitle = '<h1>Publications</h1>';
+        $publicationsTableHtml = $this->renderPublicationsTable($publications);
+        $pageHtml = $pageTitle . '
+            <a href="' . e(base('admin/publication/create')) . '">
+                <button>Add Publication</button>
+            </a>' . $publicationsTableHtml;
 
-        <?php if (empty($publications)): ?>
-            <p>No publications.</p>
-        <?php else: ?>
-            <div class="table-wrapper">
-            <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Type</th>
-                        <th>Authors</th>
-                        <th>Date</th>
-                        <th>DOI</th>
-                        <th>Link</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($publications as $p): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($p['title']) ?></td>
-                        <td><?= htmlspecialchars($pub['publication_type_name'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>
-                        <td>
-                            <?php if (!empty($p['url'])): ?>
-                                <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank">Link</a>
-                            <?php else: ?>
-                                -
-                            <?php endif; ?>
-                        </td>
-                        <td>
-                            <a href="<?= base('admin/publication/edit?id=' . $p['id']) ?>">
-                                <button>Update</button>
-                            </a>
-                            <a href="<?= base('admin/publication/delete?id=' . $p['id']) ?>" onclick="return confirm('Are you sure you want to delete this publication?');">
-                                <button>Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-            </div>
-        <?php endif; ?>
-            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+        layout('base', [
+            'title'   => 'Admin - Publications',
+            'content' => $pageHtml
+        ]);
+    }
+
+    private function renderPublicationsTable(array $publications): string {
+        if (empty($publications)) {
+            return '<p>No publications.</p>';
+        }
+
+        $headers = ['Title', 'Type', 'Authors', 'Date', 'DOI', 'Link', 'Action'];
+
+        $rows = [];
+        foreach ($publications as $p) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $p['title']],
+                ['type' => 'text', 'value' => $p['publication_type_name'] ?? '-'],
+                ['type' => 'text', 'value' => $p['authors'] ?? '-'],
+                ['type' => 'text', 'value' => $p['date_published'] ?? '-'],
+                ['type' => 'text', 'value' => $p['doi'] ?? '-'],
+                !empty($p['url'])
+                    ? ['type' => 'link', 'href' => $p['url'], 'label' => 'Link']
+                    : ['type' => 'text', 'value' => '-'],
+                [
+                    'type' => 'raw',
+                    'html' =>
+                        '<a href="' . e(base('admin/publication/edit?id=' . $p['id'])) . '">
+                            <button>Update</button>
+                         </a>
+                         <a href="' . e(base('admin/publication/delete?id=' . $p['id'])) . '" 
+                            onclick="return confirm(\'Are you sure you want to delete this publication?\');">
+                            <button>Delete</button>
+                         </a>'
+                ]
+            ];
+        }
+
+        return component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
     }
 
     public function addPublication(array $members, array $publicationTypes, string $error = null): void {
