@@ -52,53 +52,6 @@ Class MemberView{
         return $membersListHtml;
     }
 
-    public function renderMembersList(array $members):void{
-        ?>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Login</th>
-                    <th>Specialty</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($members)): ?>
-                <tr><td colspan="6">No members found</td></tr>
-            <?php else: ?>
-                <?php foreach ($members as $member): ?>
-                    <tr>
-                        <td>
-                            <a href="<?= base('admin/member/show?id=' . $member['id']) ?>">
-                                <?= htmlspecialchars($member['last_name'] . ' ' . $member['first_name']) ?>
-                            </a>
-                        </td>
-                        <td><?= htmlspecialchars($member['login']) ?></td>
-                        <td>
-                            <?php
-                            echo htmlspecialchars($member['specialty_name'] ?? '-');
-                            ?>
-                        </td>
-                        <td><?= htmlspecialchars($member['role_in_lab'] ?? '-') ?></td>
-                        <td>
-                            <a href="<?= base('admin/member/edit?id=' . $member['id']) ?>">
-                                <button>Update</button>
-                            </a>
-                            <a href="<?= base('admin/member/delete?id=' . $member['id']) ?>" onclick="return confirm('Are you sure you want to delete this member?');">
-                                <button>Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php
-    }
     public function renderShow(array $member, array $publications, array $projects): void {
         ?>
         <!DOCTYPE html>

@@ -52,56 +52,6 @@ Class UserView {
             'rows'    => $rows
         ]);
     }
-    public function renderUserList($users) {
-        ?>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Login</th>
-                    <th>Email</th>
-                    <th>Permissions</th>
-                    <th>Specialty ID</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($users)): ?>
-                <tr>
-                    <td colspan="6">No users found</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($users as $user): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($user['login']) ?></td>
-                        <td><?= htmlspecialchars($user['email']) ?></td>
-                        <td>
-                            <?= htmlspecialchars($user['permissions'] ?? '{}') ?>
-                        </td>
-                        <td><?= htmlspecialchars($user['specialty_id'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($user['status'] ?? '-') ?></td>
-                        <td>
-                            <a href="<?= base('admin/user/edit?id=' . $user['id']) ?>">
-                                <button>Update</button>
-                            </a>
-                            <a href="<?= base('admin/user/toggleStatus?id=' . $user['id']) ?>">
-                                <button>
-                                    <?= $user['status'] === 'active' ? 'Suspend' : 'Activate' ?>
-                                </button>
-                            </a>
-                            <a href="<?= base('admin/user/delete?id=' . $user['id']) ?>" onclick="return confirm('Are you sure you want to delete this user?');">
-                                <button>Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php
-    }
 
     public function renderAddForm(array $roles, array $specialties, string $error = null): void {
         ?>
