@@ -1,68 +1,51 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 Class TeamView{
-    public function renderIndex(array $teams):void{
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Teams</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Teams</h1>
-        <a href="<?= base('admin/team/create') ?>">
-            <button>Add Team</button>
-        </a>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="6" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Leader</th>
-                    <th>Domain</th>
-                    <th>Description</th>
-                    <th>Members</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($teams)): ?>
-                <tr><td colspan="6">No teams found</td></tr>
-            <?php else: ?>
-                <?php foreach ($teams as $team): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($team['name']) ?></td>
-                        <td>
-                            <?= htmlspecialchars($team['leader_last_name'] ?? '') ?>
-                            <?= htmlspecialchars($team['leader_first_name'] ?? '') ?>
-                        </td>
-                        <td><?= htmlspecialchars($team['domain'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($team['description'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($team['members_list'] ?? '-') ?></td>
-                        <td>
-                            <a href="<?= base('admin/team/edit?id=' . (int)$team['id']) ?>">
-                                <button>Edit</button>
-                            </a>
-                            <a href="<?= base('admin/team/delete?id=' . (int)$team['id']) ?>"
-                               onclick="return confirm('Are you sure you want to delete this team?');">
-                                <button>Delete</button>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-        <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+    public function renderIndex(array $teams): void
+    {
+        $pageTitle = '<h1>Teams</h1>';
+        $teamsTableHtml = $this->renderTeamsTable($teams);
+        $addTeamButton = '<a href="' . base('admin/team/create') . '">
+                            <button>Add Team</button>
+                            </a>';
+        $pageHtml = $pageTitle . $addTeamButton . $teamsTableHtml;
+
+        layout('base', [
+            'title'   => 'Admin - Members',
+            'content' => $pageHtml
+        ]);
+    }
+    public function renderTeamsTable(array $teams): string {
+        $teamsTableHtml = '';
+        if (empty($teams)) {
+            $teamsTableHtml = '<p>No teams found.</p>';
+        } else {
+        $headers = ['Name', 'Leader', 'Domain', 'Description', 'Members', 'Action'];
+
+        $rows = [];
+        foreach ($teams as $team) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $team['name']],
+                ['type' => 'text', 'value' => trim(($team['leader_last_name'] ?? '') . ' ' . ($team['leader_first_name'] ?? ''))],
+                ['type' => 'text', 'value' => $team['domain'] ?? '-'],
+                ['type' => 'text', 'value' => $team['description'] ?? '-'],
+                ['type' => 'text', 'value' => $team['members_list'] ?? '-'],
+                [ 'type' => 'raw', 'html' =>
+                '<a href="' . e(base('admin/team/edit?id=' . (int)$team['id'])) . '">
+                    <button>Edit</button>
+                </a>
+                <a href="' . e(base('admin/team/delete?id=' . (int)$team['id'])) . '" onclick="return confirm(\'Are you sure you want to delete this team?\');">
+                <button>Delete</button>
+                </a>' ]
+            ];
+        }
+
+        $teamsTableHtml = component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
+        }
+        return $teamsTableHtml;
     }
 
     public function renderAddForm(array $members, string $error = null): void {
