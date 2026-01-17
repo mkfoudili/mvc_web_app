@@ -1,63 +1,43 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 class EventView {
     public function renderIndex(array $events): void{
-        ?>
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Events</title>
-            <link rel="icon" type="image/png" href="<?= base('assets/favicon/favicon.ico') ?>">
-             <link rel="stylesheet" href="<?= base('css/base.css') ?>">
-        </head>
-        <body>
-        <?php require_once __DIR__ . '/../Shared/NavLoader.php'; NavLoader::render(); ?>
-        <h1>Events</h1>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0" class="sortable-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($events)): ?>
-                <tr>
-                    <td colspan="7">No events found</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($events as $event): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($event['name']) ?></td>
-                        <td><?= htmlspecialchars($event['event_type_name'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['event_date'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['description'] ?? '-') ?></td>
-                        <td>
-                            <?php if ($event['is_upcoming']): ?>
-                            <a href="<?= base('event/joinForm?id=' . $event['id'] . '&return=/event/index') ?>">
-                                <button>Join</button>
-                            </a> 
-                            <?php else: ?>
-                                -
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-            <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
-            <script src="<?= base('js/base.js') ?>"></script>
-        </body>
-        </html>
-        <?php
+        $pageTitle = '<h1>Events</h1>';
+        $eventsTableHtml = $this->renderEventsTable($events);
+        $pageHtml = $pageTitle . $eventsTableHtml;
+
+        layout('base', [
+            'title'   => 'Events',
+            'content' => $pageHtml
+        ]);
     }
 
+    public function renderEventsTable(array $events): string{
+        $eventsTableHtml = '';
+        if (empty($events)) {
+            $eventsTableHtml = '<p>No projects found.</p>';
+        }else {
+            $headers = ['Name', 'Type', 'Date', 'Description', 'Action'];
+
+            $rows = [];
+            foreach ($events as $event) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $event['name']],
+                ['type' => 'text', 'value' => $event['event_type_name'] ?? '-'],
+                ['type' => 'text', 'value' => $event['event_date'] ?? '-'],
+                ['type' => 'text', 'value' => $event['description'] ?? '-'],
+                $event['is_upcoming'] ?
+                [ 'type' => 'button', 'label' => 'Join',
+                'attrs' => [ 'onclick' => "window.location='" . e(base('event/joinForm?id=' . $event['id'] . '&return=/event/index')) . "'" ] ] : ['type' => 'text', 'value' => '-']
+            ];
+            }
+            $eventsTableHtml = component('Table', [
+                'headers' => $headers,
+                'rows'    => $rows
+                ]);
+        }
+        return $eventsTableHtml;
+    }
     public function renderJoinForm(array $event, string $returnUrl, int $memberId): void
     {
         ?>
