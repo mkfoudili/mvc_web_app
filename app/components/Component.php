@@ -2,8 +2,8 @@
 require_once __DIR__ . '/../helpers/components.php';
 
 abstract class Component {
-    protected array $props = [];
-    protected array $attributes = [];
+    protected $props = [];
+    protected $attributes = [];
     
     public function __construct(array $props = []) {
         $this->props = $props;

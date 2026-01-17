@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../../helpers/components.php';
+require_once __DIR__ . '/../../helpers/components.php';
 Class NewsView {
     public function renderIndex(array $news):void
     {

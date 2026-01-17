@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../model/PublicationModel.php';
 require_once __DIR__ . '/../../model/ProjectModel.php';
 require_once __DIR__ . '/../../model/TeamModel.php';
 require_once __DIR__ . '/../../model/UserModel.php';
-require __DIR__ . '/../../view/admin/MemberView.php';
+require_once __DIR__ . '/../../view/admin/MemberView.php';
 
 
 Class MemberController{
