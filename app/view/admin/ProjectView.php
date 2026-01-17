@@ -1,7 +1,78 @@
 <?php
-
+require_once __DIR__ . '/../../helpers/components.php';
 Class ProjectView{
-    public function renderIndex($projects){
+        public function renderIndex(array $projects): void {
+        $pageTitle = '<h1>Projects</h1>';
+        $projectsTableHtml = $this->renderProjectsTable($projects);
+        $pageHtml = $pageTitle . '
+            <a href="' . e(base('admin/project/create')) . '">
+                <button>Add Project</button>
+            </a>' . $projectsTableHtml;
+
+        layout('base', [
+            'title'   => 'Admin - Projects',
+            'content' => $pageHtml
+        ]);
+    }
+
+    private function renderProjectsTable(array $projects): string {
+        if (empty($projects)) {
+            return '<p>No projects found.</p>';
+        }
+
+        $headers = [
+            'Title',
+            'Leader',
+            'Theme',
+            'Funding',
+            'Project Page',
+            'Poster',
+            'Description',
+            'Action'
+        ];
+
+        $rows = [];
+        foreach ($projects as $p) {
+            $rows[] = [
+                [
+                    'type'  => 'link',
+                    'href'  => base('admin/project/show?id=' . (int)$p['id']),
+                    'label' => $p['title']
+                ],
+                [
+                    'type'  => 'text',
+                    'value' => $p['leader_first_name'] ?? '' . ' ' . $p['leader_last_name'] ?? ''
+                ],
+                ['type' => 'text', 'value' => $p['theme'] ?? '-'],
+                ['type' => 'text', 'value' => $p['funding_type_name'] ?? '-'],
+                !empty($p['project_page_url'])
+                    ? ['type' => 'link', 'href' => $p['project_page_url'], 'label' => 'Link']
+                    : ['type' => 'text', 'value' => '-'],
+                !empty($p['poster_url'])
+                    ? ['type' => 'link', 'href' => $p['poster_url'], 'label' => 'Poster']
+                    : ['type' => 'text', 'value' => '-'],
+                ['type' => 'text', 'value' => $p['description'] ?? '-'],
+                [
+                    'type' => 'raw',
+                    'html' =>
+                        '<a href="' . e(base('admin/project/edit?id=' . $p['id'])) . '">
+                            <button>Edit</button>
+                         </a>
+                         <a href="' . e(base('admin/project/delete?id=' . (int)$p['id'])) . '" 
+                            onclick="return confirm(\'Are you sure you want to delete this project?\');">
+                            <button>Delete</button>
+                         </a>'
+                ]
+            ];
+        }
+
+        return component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
+    }
+
+    /*public function renderIndex($projects){
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -75,7 +146,7 @@ Class ProjectView{
         </body>
         </html>
         <?php
-    }
+    }*/
 
     public function renderShow(array $project, array $members, array $partners): void
     {
