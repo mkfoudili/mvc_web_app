@@ -71,7 +71,7 @@ Class MemberView{
             <p>Team: <?= htmlspecialchars($member['team_name'] ?? '-') ?></p>
 
             <h2>Publications</h2>
-            <?php $this->renderPublications($publications); ?>
+            <?php echo $this->renderPublications($publications); ?>
 
             <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>
@@ -79,48 +79,33 @@ Class MemberView{
         <?php
     }
 
-    public function renderPublications(array $publications): void{
-        ?>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Authors</th>
-                    <th>Date</th>
-                    <th>DOI</th>
-                    <th>Link</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($publications)): ?>
-                <tr>
-                    <td colspan="6">No publications</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($publications as $p): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($p['title']) ?></td>
-                        <td><?= htmlspecialchars($pub['publication_type_name'] ?? '-', ENT_QUOTES, 'UTF-8') ?></td>
-                        <td><?= htmlspecialchars($p['authors'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($p['date_published'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($p['doi'] ?? '-') ?></td>
-                        <td>
-                            <?php if (!empty($p['url'])): ?>
-                                <a href="<?= htmlspecialchars($p['url']) ?>" target="_blank">Link</a>
-                            <?php else: ?>
-                                -
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php
-    }
+    public function renderPublications(array $publications): string {
+        if (empty($publications)) {
+            return '<p>No publications</p>';
+        }
+
+        $headers = ['Title', 'Type', 'Authors', 'Date', 'DOI', 'Link'];
+
+        $rows = [];
+        foreach ($publications as $p) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $p['title']],
+                ['type' => 'text', 'value' => $p['publication_type_name'] ?? '-'],
+                ['type' => 'text', 'value' => $p['authors'] ?? '-'],
+                ['type' => 'text', 'value' => $p['date_published'] ?? '-'],
+                ['type' => 'text', 'value' => $p['doi'] ?? '-'],
+                !empty($p['url'])
+                    ? ['type' => 'link', 'href' => $p['url'], 'label' => 'Link']
+                    : ['type' => 'text', 'value' => '-']
+            ];
+        }
+
+        return component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
+}
+
 
     public function renderEditForm(array $member, array $specialties, array $teams): void {
         ?>
