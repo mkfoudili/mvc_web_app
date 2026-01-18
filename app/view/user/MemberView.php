@@ -63,7 +63,7 @@ class MemberView {
         </a>
         <h2>My Events</h2>
         <?php
-            $eventView->renderMyEvents($events);
+            echo $eventView->renderMyEvents($events);
         ?>
         <h2>My Reservations</h2>
         <?php

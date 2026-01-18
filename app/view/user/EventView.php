@@ -97,38 +97,27 @@ class EventView {
         <?php
     }
     
-    public function renderMyEvents(array $events): void
-    {
-        ?>
-        <div class="table-wrapper">
-        <table border="1" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if (empty($events)): ?>
-                <tr>
-                    <td colspan="7">No events found</td>
-                </tr>
-            <?php else: ?>
-                <?php foreach ($events as $event): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($event['name']) ?></td>
-                        <td><?= htmlspecialchars($event['event_type_name'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['event_date'] ?? '-') ?></td>
-                        <td><?= htmlspecialchars($event['description'] ?? '-') ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-            </tbody>
-        </table>
-        </div>
-        <?php
+    public function renderMyEvents(array $events): string {
+        if (empty($events)) {
+            return '<p>No events found</p>';
+        }
+
+        $headers = ['Name', 'Type', 'Date', 'Description'];
+
+        $rows = [];
+        foreach ($events as $event) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $event['name']],
+                ['type' => 'text', 'value' => $event['event_type_name'] ?? '-'],
+                ['type' => 'text', 'value' => $event['event_date'] ?? '-'],
+                ['type' => 'text', 'value' => $event['description'] ?? '-']
+            ];
+        }
+
+        return component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
     }
     public function renderCards(array $events, int $currentPage, int $totalPages, string $baseurl, string $anchor): void {
         ?>
