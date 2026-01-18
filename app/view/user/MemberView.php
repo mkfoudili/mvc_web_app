@@ -67,7 +67,7 @@ class MemberView {
         ?>
         <h2>My Reservations</h2>
         <?php
-            $equipmentView->renderReservations($reservations);
+            echo $equipmentView->renderReservations($reservations);
         ?>
         <?php require_once __DIR__ . '/../Shared/FooterLoader.php'; FooterLoader::render(); ?>
         </body>

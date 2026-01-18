@@ -150,7 +150,57 @@ class EquipmentView{
         <?php
     }
 
-    public function renderReservations(array $reservations): void
+    public function renderReservations(array $reservations): string {
+        if (empty($reservations)) {
+            return '<p>No reservations found</p>';
+        }
+
+        $headers = [
+            'Equipment',
+            'Type',
+            'State',
+            'Location',
+            'Reserved From',
+            'Reserved To',
+            'Purpose',
+            'Status',
+            'Action'
+        ];
+
+        $rows = [];
+        foreach ($reservations as $r) {
+            $rows[] = [
+                ['type' => 'text', 'value' => $r['equipment_name']],
+                ['type' => 'text', 'value' => $r['equipment_type'] ?? '-'],
+                ['type' => 'text', 'value' => $r['equipment_state'] ?? '-'],
+                ['type' => 'text', 'value' => $r['equipment_location'] ?? '-'],
+                ['type' => 'text', 'value' => $r['reserved_from']],
+                ['type' => 'text', 'value' => $r['reserved_to']],
+                ['type' => 'text', 'value' => $r['purpose'] ?? '-'],
+                ['type' => 'text', 'value' => $r['status'] ?? '-'],
+                ($r['status'] === 'confirmed')
+                    ? [
+                        'type' => 'raw',
+                        'html' =>
+                            '<form method="post" action="' . e(base('equipment/cancel')) . '" style="display:inline;">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" value="' . (int)$r['id'] . '">
+                                    <button type="submit">Cancel</button>
+                                </div>
+                            </form>'
+                    ]
+                    : ['type' => 'text', 'value' => '-']
+            ];
+        }
+
+        return component('Table', [
+            'headers' => $headers,
+            'rows'    => $rows
+        ]);
+    }
+
+
+    /*public function renderReservations(array $reservations): void
     {
         ?>
         <div class="table-wrapper">
@@ -203,5 +253,5 @@ class EquipmentView{
         </table>
         </div>
         <?php
-    }
+    }*/
 }
