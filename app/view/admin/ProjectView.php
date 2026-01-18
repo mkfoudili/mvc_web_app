@@ -4,15 +4,18 @@ Class ProjectView{
         public function renderIndex(array $projects): void {
         $pageTitle = '<h1>Projects</h1>';
         $projectsTableHtml = $this->renderProjectsTable($projects);
-        $pageHtml = $pageTitle . '
-            <a href="' . e(base('admin/project/create')) . '">
-                <button>Add Project</button>
-            </a>' . $projectsTableHtml;
+        $addProjectButtonHtml = $this->renderAddProjectButton();
+        $pageHtml = $pageTitle . $addProjectButtonHtml. $projectsTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Projects',
             'content' => $pageHtml
         ]);
+    }
+    private function renderAddProjectButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Project',
+                                'href' => base('admin/project/create')]);
     }
 
     private function renderProjectsTable(array $projects): string {

@@ -3,13 +3,11 @@ require_once __DIR__ . '/../../helpers/components.php';
 Class EventView {
     public function renderIndex(array $events): void {
         $pageTitle = '<h1>Events</h1>';
+        $addEventButtonHtml = $this->renderAddEventButton();
         $eventsTableHtml = $this->renderEventsTable($events);
         $requestsTableHtml = $this->renderRequests($events);
 
-        $pageHtml = $pageTitle . '
-            <a href="' . e(base('admin/event/add')) . '">
-                <button>Add Event</button>
-            </a>' . $eventsTableHtml .  $requestsTableHtml;
+        $pageHtml = $pageTitle . $addEventButtonHtml . $eventsTableHtml .  $requestsTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Events',
@@ -20,6 +18,12 @@ Class EventView {
             echo '<script>alert("' . e($_SESSION['alert']) . '");</script>';
             unset($_SESSION['alert']);
         }
+    }
+
+    private function renderAddEventButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Event',
+                                'href' => base('admin/event/add')]);
     }
 
     private function renderEventsTable(array $events): string {

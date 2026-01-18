@@ -5,15 +5,18 @@ Class TeamView{
     {
         $pageTitle = '<h1>Teams</h1>';
         $teamsTableHtml = $this->renderTeamsTable($teams);
-        $addTeamButton = '<a href="' . base('admin/team/create') . '">
-                            <button>Add Team</button>
-                            </a>';
+        $addTeamButton = $this->renderAddTeamButton();
         $pageHtml = $pageTitle . $addTeamButton . $teamsTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Members',
             'content' => $pageHtml
         ]);
+    }
+    private function renderAddTeamButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Team',
+                                'href' => base('admin/team/create')]);
     }
     public function renderTeamsTable(array $teams): string {
         $teamsTableHtml = '';

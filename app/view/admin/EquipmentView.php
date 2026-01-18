@@ -3,15 +3,14 @@ require_once __DIR__ . '/../../helpers/components.php';
 Class EquipmentView {
     public function renderIndex(array $equipments, array $reservations, array $reports, array $maintenances): void {
         $pageTitle = '<h1>Equipments</h1>';
+        $addEquipmentButtonHtml = $this->renderAddEquipmentButton();
         $equipmentsTableHtml   = $this->renderEquipmentsTable($equipments);
         $reservationsTableHtml = $this->renderReservationsTable($reservations);
         $reportsTableHtml      = $this->renderReportsTable($reports);
         $maintenancesTableHtml = $this->renderMaintenancesTable($maintenances);
 
-        $pageHtml = $pageTitle . '
-            <a href="' . e(base('admin/equipment/add')) . '">
-                <button>Add Equipment</button>
-            </a>'
+        $pageHtml = $pageTitle
+            . $addEquipmentButtonHtml
             . $equipmentsTableHtml
             . $reservationsTableHtml
             . $reportsTableHtml
@@ -21,6 +20,12 @@ Class EquipmentView {
             'title'   => 'Admin - Equipments',
             'content' => $pageHtml
         ]);
+    }
+
+    private function renderAddEquipmentButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Equipment',
+                                'href' => base('admin/equipment/add')]);
     }
 
     private function renderEquipmentsTable(array $equipments): string {

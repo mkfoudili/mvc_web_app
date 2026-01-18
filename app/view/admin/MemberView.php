@@ -5,16 +5,21 @@ Class MemberView{
     {
         $pageTitle = '<h1>Members</h1>';
         $membersTableHtml = $this->renderMembersTable($members);
-        $addMemberButton = '<a href="' . base('admin/member/addForm') . '">
-                            <button>Add Member</button>
-                            </a>';
-        $pageHtml = $pageTitle . $addMemberButton . $membersTableHtml;
+        $addMemberButtonHtml = $this->renderAddMemberButton();
+        $pageHtml = $pageTitle . $addMemberButtonHtml . $membersTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Members',
             'content' => $pageHtml
         ]);
     }
+
+    private function renderAddMemberButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Member',
+                                'href' => base('admin/member/addForm')]);
+    }
+
     public function renderMembersTable(array $members): string {
         $membersListHtml = '';
         if (empty($members)) {

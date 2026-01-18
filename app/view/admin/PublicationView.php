@@ -4,15 +4,18 @@ class PublicationView {
     public function renderIndex(array $publications): void {
         $pageTitle = '<h1>Publications</h1>';
         $publicationsTableHtml = $this->renderPublicationsTable($publications);
-        $pageHtml = $pageTitle . '
-            <a href="' . e(base('admin/publication/create')) . '">
-                <button>Add Publication</button>
-            </a>' . $publicationsTableHtml;
+        $addPublicationButtonHtml = $this-> renderAddPublicationButton() ;
+        $pageHtml = $pageTitle . $addPublicationButtonHtml . $publicationsTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Publications',
             'content' => $pageHtml
         ]);
+    }
+    private function renderAddPublicationButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add Publication',
+                                'href' => base('admin/publication/create')]);
     }
 
     private function renderPublicationsTable(array $publications): string {

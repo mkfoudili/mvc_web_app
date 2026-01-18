@@ -4,15 +4,18 @@ Class UserView {
     public function renderIndex(array $users): void {
         $pageTitle = '<h1>Users</h1>';
         $usersTableHtml = $this->renderUserTable($users);
-        $pageHtml = $pageTitle . '
-            <a href="' . e(base('admin/user/addForm')) . '">
-                <button>Add User</button>
-            </a>' . $usersTableHtml;
+        $addUserButtonHtml = $this->renderAddUserButton();
+        $pageHtml = $pageTitle . $addUserButtonHtml . $usersTableHtml;
 
         layout('base', [
             'title'   => 'Admin - Users',
             'content' => $pageHtml
         ]);
+    }
+    private function renderAddUserButton():string{
+        return component('Button',['type' => 'link',
+                                'label' => 'Add User',
+                                'href' => base('admin/user/addForm')]);
     }
 
     private function renderUserTable(array $users): string {
